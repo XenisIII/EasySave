@@ -155,7 +155,7 @@ Remarque importante : si le logiciel donne satisfaction, la direction vous deman
 ## UML : 
 
 ### Diagramme des cas d'utilisation :
-<img width="992" alt="Diagramme use case" src="https://github.com/XenisIII/Programmation-Systeme/assets/62725768/7b98bc73-de00-46c5-8e1a-901e40ee96f7">
+<img width="992" alt="Diagramme use case" src="https://github.com/XenisIII/Programmation-Systeme/assets/62725768/7a4ff413-f6ab-4a15-b6ca-b33de2a571b7">
 
 ### Diagramme de classe :
 ![Diagramme_class drawio](https://github.com/XenisIII/Programmation-Systeme/assets/62725768/61eed5b1-1fac-48dc-9ee2-6f1d861df7f5)
