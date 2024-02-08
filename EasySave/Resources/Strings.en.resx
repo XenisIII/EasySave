@@ -139,7 +139,7 @@
     <value>Settings</value>
   </data>
   <data name="HomePressAKeyToReturnHome" xml:space="preserve">
-    <value>Press any key to return home...</value>
+    <value>Press any key to return to main menu</value>
   </data>
   <data name="LanguageSetTextMessage" xml:space="preserve">
     <value>English</value>
@@ -154,6 +154,36 @@
     <value>Return to Main Menu</value>
   </data>
   <data name="SettingsText" xml:space="preserve">
-    <value>Settings : </value>
+    <value>Settings :</value>
+  </data>
+  <data name="CreateBackupJobViewAskForBackupTypeChoice" xml:space="preserve">
+    <value>Choose backup type :</value>
+  </data>
+  <data name="CreateBackupJobViewAskForBackupTypeComplete" xml:space="preserve">
+    <value>1 - Complete</value>
+  </data>
+  <data name="CreateBackupJobViewAskForBackupTypeError" xml:space="preserve">
+    <value>Invalid Input, please retry.</value>
+  </data>
+  <data name="CreateBackupJobViewAskForBackupTypeExit" xml:space="preserve">
+    <value>(or enter 'exit' to return to main menu)</value>
+  </data>
+  <data name="CreateBackupJobViewAskForBackupTypeIncremential" xml:space="preserve">
+    <value>2 - Incremential</value>
+  </data>
+  <data name="CreateBackupJobViewAskForDirectorySource" xml:space="preserve">
+    <value>Enter source path (or enter 'exit' to return to main menu) :</value>
+  </data>
+  <data name="CreateBackupJobViewAskForDirectoryTarget" xml:space="preserve">
+    <value>Enter target path (or enter 'exit' to return to main menu) :</value>
+  </data>
+  <data name="CreateBackupJobViewAskForInputName" xml:space="preserve">
+    <value>Enter backup name (or enter 'exit' to return to main menu) :</value>
+  </data>
+  <data name="CreateBackupJobViewNoEntryPath" xml:space="preserve">
+    <value>No entry detected, please enter a valid path.</value>
+  </data>
+  <data name="CreateBackupViewPathNoExist" xml:space="preserve">
+    <value>The specified path doesn't exist. Please enter a valid path.</value>
   </data>
 </root>

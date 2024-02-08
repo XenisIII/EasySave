@@ -93,6 +93,6 @@ void ExecuteSelectedOption(int optionIndex)
             Environment.Exit(0);
             break;
     }
-    Console.WriteLine(LocalizationService.GetString("HomePressAKeyToReturnHome"));
-    Console.ReadKey();
+    //Console.WriteLine(LocalizationService.GetString("HomePressAKeyToReturnHome")); // Prompt user with a KeyPress (optional)
+    //Console.ReadKey();
 };

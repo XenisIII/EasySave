@@ -18,6 +18,9 @@ namespace EasySave.Views
             "Français"
         };
 
+        // Ajoutez un délégué pour notifier lorsque la vue est terminée.
+        public Action OnViewFinished;
+
         public void Display()
         {
             int selected = 0;
@@ -56,14 +59,14 @@ namespace EasySave.Views
                         break;
                     case ConsoleKey.Enter:
                         LocalizationService.SetCulture(_languages[selected]);
-                        done = true;
+                        done = true; // Sortie immédiate après le choix de la langue
+                        // Pas besoin d'afficher de message ou de demander une autre touche
                         break;
                 }
             }
 
-            Console.Clear(); // Clear the console for the updated settings to take effect.
-            Console.WriteLine(LocalizationService.GetString("LanguageSetTextMessage")); // "Language updated. Press any key to continue."
-            Console.ReadKey(true);
+            // Notification que la vue est terminée.
+            OnViewFinished?.Invoke();
         }
     }
 }

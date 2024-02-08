@@ -120,22 +120,70 @@
   <data name="ChooseLanguageText" xml:space="preserve">
     <value>Choisissez la langue : </value>
   </data>
-  <data name="HomeOption1CreateSave" xml:space="preserve">
-    <value>1-Créer un travail de sauvegarde</value>
+  <data name="CreateBackupJobViewAskForBackupTypeChoice" xml:space="preserve">
+    <value>Choisissez le type de sauvegarde :</value>
   </data>
-  <data name="HomeOption2Settings" xml:space="preserve">
-    <value>2-Paramètres</value>
+  <data name="CreateBackupJobViewAskForBackupTypeComplete" xml:space="preserve">
+    <value>1 - Complète</value>
   </data>
-  <data name="HomeOption3OpenLog" xml:space="preserve">
-    <value>3-Ouvrir le fichier de log</value>
+  <data name="CreateBackupJobViewAskForBackupTypeError" xml:space="preserve">
+    <value>Entrée invalide, veuillez réessayer.</value>
   </data>
-  <data name="HomeOption4Exit" xml:space="preserve">
-    <value>4-Quitter</value>
+  <data name="CreateBackupJobViewAskForBackupTypeExit" xml:space="preserve">
+    <value>(ou tapez 'exit' pour retourner au menu principal)</value>
+  </data>
+  <data name="CreateBackupJobViewAskForBackupTypeIncremential" xml:space="preserve">
+    <value>2 - Incrémentielle</value>
+  </data>
+  <data name="CreateBackupJobViewAskForDirectorySource" xml:space="preserve">
+    <value>Entrez le chemin du répertoire source (ou tapez 'exit' pour retourner au menu) :</value>
+  </data>
+  <data name="CreateBackupJobViewAskForDirectoryTarget" xml:space="preserve">
+    <value>Entrez le chemin du répertoire de destination (ou tapez 'exit' pour retourner au menu) :</value>
+  </data>
+  <data name="CreateBackupJobViewAskForInputName" xml:space="preserve">
+    <value>Entrez le nom de la sauvegarde (ou tapez 'exit' pour retourner au menu) :</value>
+  </data>
+  <data name="HomeChooseOptionMessage" xml:space="preserve">
+    <value>Veuillez choisir une des options : </value>
+  </data>
+  <data name="HomeOptionCreateSave" xml:space="preserve">
+    <value>Créer un travail de sauvegarde</value>
+  </data>
+  <data name="HomeOptionExit" xml:space="preserve">
+    <value>Quitter</value>
+  </data>
+  <data name="HomeOptionOpenLog" xml:space="preserve">
+    <value>Ouvrir le fichier de log</value>
+  </data>
+  <data name="HomeOptionSaveMenu" xml:space="preserve">
+    <value>Consulter les sauvegardes en place</value>
+  </data>
+  <data name="HomeOptionSettings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="HomePressAKeyToReturnHome" xml:space="preserve">
+    <value>Appuyez sur une touche pour retourner au menu principal</value>
   </data>
   <data name="LanguageSetTextMessage" xml:space="preserve">
     <value>Français</value>
   </data>
+  <data name="SaveMenuDeleteBackup" xml:space="preserve">
+    <value>Supprimer une sauvegarde</value>
+  </data>
+  <data name="SaveMenuInitiateBackup" xml:space="preserve">
+    <value>Lancer une ou plusieurs sauvegarde</value>
+  </data>
+  <data name="SaveMenuReturnHome" xml:space="preserve">
+    <value>Retour à l'écran d'accueil</value>
+  </data>
   <data name="SettingsText" xml:space="preserve">
     <value>Paramètres :</value>
+  </data>
+  <data name="CreateBackupJobViewNoEntryPath" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="CreateBackupViewPathNoExist" xml:space="preserve">
+    <value></value>
   </data>
 </root>
