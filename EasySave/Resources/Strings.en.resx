@@ -120,20 +120,38 @@
   <data name="ChooseLanguageText" xml:space="preserve">
     <value>Choose the language : </value>
   </data>
-  <data name="HomeOption1CreateSave" xml:space="preserve">
-    <value>1-Create a save</value>
+  <data name="HomeChooseOptionMessage" xml:space="preserve">
+    <value>Please choose between the options below : </value>
   </data>
-  <data name="HomeOption2Settings" xml:space="preserve">
-    <value>2-Settings</value>
+  <data name="HomeOptionCreateSave" xml:space="preserve">
+    <value>Create a save</value>
   </data>
-  <data name="HomeOption3OpenLog" xml:space="preserve">
-    <value>3-Open log file</value>
+  <data name="HomeOptionExit" xml:space="preserve">
+    <value>Exit</value>
   </data>
-  <data name="HomeOption4Exit" xml:space="preserve">
-    <value>4-Exit</value>
+  <data name="HomeOptionOpenLog" xml:space="preserve">
+    <value>Open log file</value>
+  </data>
+  <data name="HomeOptionSaveMenu" xml:space="preserve">
+    <value>Consult already configured saves</value>
+  </data>
+  <data name="HomeOptionSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="HomePressAKeyToReturnHome" xml:space="preserve">
+    <value>Press any key to return home...</value>
   </data>
   <data name="LanguageSetTextMessage" xml:space="preserve">
     <value>English</value>
+  </data>
+  <data name="SaveMenuDeleteBackup" xml:space="preserve">
+    <value>Backup Settings</value>
+  </data>
+  <data name="SaveMenuInitiateBackup" xml:space="preserve">
+    <value>Backup Now</value>
+  </data>
+  <data name="SaveMenuReturnHome" xml:space="preserve">
+    <value>Return to Main Menu</value>
   </data>
   <data name="SettingsText" xml:space="preserve">
     <value>Settings : </value>

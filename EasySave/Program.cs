@@ -3,64 +3,74 @@ using EasySave.Services;
 using System;
 using System.Globalization;
 
-Console.WriteLine("-------------------------------------");
-Console.WriteLine("-------------Easy Backup-------------");
-Console.WriteLine("-------------------------------------");
-
-string[] options = new string[]
+while (true) // Boucle infinie pour le menu principal
 {
-    LocalizationService.GetString("HomeOption1CreateSave"),
-    LocalizationService.GetString("HomeOption2Settings"),
-    LocalizationService.GetString("HomeOption3OpenLog"),
-    LocalizationService.GetString("HomeOption4Exit"),
-};
 
-int selected = 0;
-bool done = false;
+    Console.Clear();
+    Console.WriteLine("-------------------------------------");
+    Console.WriteLine("\r\n\r\n ____   __   ____  _  _    ____   __   _  _  ____ \r\n(  __) / _\\ / ___)( \\/ )  / ___) / _\\ / )( \\(  __)\r\n ) _) /    \\\\___ \\ )  /   \\___ \\/    \\\\ \\/ / ) _) \r\n(____)\\_/\\_/(____/(__/    (____/\\_/\\_/ \\__/ (____)\r\n\r\n");
+    Console.WriteLine("-------------------------------------");
 
-while (!done)
-{
-    Console.WriteLine("\nVeuillez choisir une des options : ");
-
-    for (int i = 0; i < options.Length; i++)
+    // Rechargez les options localisées à chaque itération pour refléter la langue actuelle
+    string[] options = new string[]
     {
-        if (selected == i)
-        {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("> ");
-        }
-        else
-        {
-            Console.Write("  ");
-        }
+        "1-"+LocalizationService.GetString("HomeOptionCreateSave"),
+        "2-"+LocalizationService.GetString("HomeOptionSaveMenu"),
+        "3-"+LocalizationService.GetString("HomeOptionSettings"),
+        "4-"+LocalizationService.GetString("HomeOptionOpenLog"),
+        "5-"+LocalizationService.GetString("HomeOptionExit"),
+    };
 
-        Console.WriteLine(options[i]);
+    Console.WriteLine("\n" + LocalizationService.GetString("HomeChooseOptionMessage")); // Message pour choisir une option
+
+    int selected = 0;
+    bool done = false;
+
+    while (!done)
+    {
+        for (int i = 0; i < options.Length; i++)
+        {
+            if (selected == i)
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("> ");
+            }
+            else
+            {
+                Console.ResetColor();
+                Console.Write("  ");
+            }
+
+            Console.WriteLine(options[i]);
+        };
+
         Console.ResetColor();
+        var key = Console.ReadKey(true).Key;
+
+        switch (key)
+        {
+            case ConsoleKey.UpArrow:
+                selected = Math.Max(0, selected - 1);
+                break;
+            case ConsoleKey.DownArrow:
+                selected = Math.Min(options.Length - 1, selected + 1);
+                break;
+            case ConsoleKey.Enter:
+                done = true; // Marquez que vous avez terminé avec le menu actuel
+                break;
+        }
+
+        // Réinitialisez la position du curseur pour empêcher le défilement
+        Console.SetCursorPosition(0, Console.CursorTop - options.Length);
     }
 
-    switch (Console.ReadKey(true).Key)
-    {
-        case ConsoleKey.UpArrow:
-            selected = Math.Max(0, selected - 1);
-            break;
-        case ConsoleKey.DownArrow:
-            selected = Math.Min(options.Length - 1, selected + 1);
-            break;
-        case ConsoleKey.Enter:
-            Console.Clear();
-            ExecuteSelectedOption(selected);
-            break;
-    }
-
-    if (!done)
-    {
-        int newCursorTop = Console.CursorTop - options.Length - 2;
-        Console.CursorTop = Math.Max(0, newCursorTop);
-    }
+    // Exécutez l'option sélectionnée et revenez au menu principal
+    ExecuteSelectedOption(selected);
 }
 
-    void ExecuteSelectedOption(int optionIndex)
+void ExecuteSelectedOption(int optionIndex)
 {
+    Console.Clear();
     switch (optionIndex)
     {
         case 0:
@@ -68,18 +78,21 @@ while (!done)
             backupJobView.Display();
             break;
         case 1:
+            var saveMenuView = new SaveMenuView();
+            saveMenuView.Display();
+            break;
+        case 2:
             var settingsView = new SettingsView();
             settingsView.Display();
             break;
-        case 2:
+        case 3:
             var logView = new LogView();
             logView.Display();
             break;
-        case 3:
+        case 4:
             Environment.Exit(0);
             break;
     }
-    Console.WriteLine("Appuyez sur une touche pour retourner au menu principal...");
+    Console.WriteLine(LocalizationService.GetString("HomePressAKeyToReturnHome"));
     Console.ReadKey();
-    Console.Clear();
-}
+};
