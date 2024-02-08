@@ -155,9 +155,14 @@ Remarque importante : si le logiciel donne satisfaction, la direction vous deman
 ## UML : 
 
 ### Diagramme des cas d'utilisation :
+<img width="992" alt="Diagramme use case" src="https://github.com/XenisIII/Programmation-Systeme/assets/62725768/7b98bc73-de00-46c5-8e1a-901e40ee96f7">
 
 ### Diagramme de classe :
+![Diagramme_class drawio](https://github.com/XenisIII/Programmation-Systeme/assets/62725768/61eed5b1-1fac-48dc-9ee2-6f1d861df7f5)
 
 ### Diagramme de séquence :
+![Diagramme_Sequence drawio](https://github.com/XenisIII/Programmation-Systeme/assets/62725768/02ebc36d-e288-4a81-95d7-666dc56022b3)
 
 ### Diagramme d'activité : 
+![UML Activite progsys drawio(1)](https://github.com/XenisIII/Programmation-Systeme/assets/62725768/8739a4e4-7c97-4890-94e2-ca3fb5bab522)
+
