@@ -13,3 +13,11 @@ C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave
 C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave-Projet\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.pdb
 C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave-Projet\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.genruntimeconfig.cache
 C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave-Projet\Programmation-Systeme\EasySave\obj\Debug\net8.0\ref\EasySave.dll
+C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave-Projet\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.Resources.Strings.en.resources
+C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave-Projet\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.csproj.GenerateResource.cache
+C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave-Projet\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.Resources.Strings.fr.resources
+C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave-Projet\Programmation-Systeme\EasySave\bin\Debug\net8.0\en\EasySave.resources.dll
+C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave-Projet\Programmation-Systeme\EasySave\bin\Debug\net8.0\fr\EasySave.resources.dll
+C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave-Projet\Programmation-Systeme\EasySave\obj\Debug\net8.0\en\EasySave.resources.dll
+C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave-Projet\Programmation-Systeme\EasySave\obj\Debug\net8.0\fr\EasySave.resources.dll
+C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave-Projet\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.Resources.Strings.resources
