@@ -7,7 +7,7 @@ namespace EasySave.Views
 {
     public class CreateBackupJobView
     {
-        public Action OnReturnToMainMenu; // Action pour retourner au menu principal
+        public Action OnReturnToMainMenu;
 
         public void Display()
         {
@@ -15,31 +15,29 @@ namespace EasySave.Views
             if (string.IsNullOrWhiteSpace(backupName) || backupName.ToLower() == "exit")
             {
                 OnReturnToMainMenu?.Invoke();
-                return; // Retour immédiat au menu principal si 'exit' ou vide
+                return;
             }
 
             string sourceDirectory = AskForDirectory(LocalizationService.GetString("CreateBackupJobViewAskForDirectorySource"));
             if (string.IsNullOrWhiteSpace(sourceDirectory) || sourceDirectory.ToLower() == "exit")
             {
                 OnReturnToMainMenu?.Invoke();
-                return; // Retour immédiat au menu principal si 'exit' ou vide
+                return;
             }
 
             string targetDirectory = AskForDirectory(LocalizationService.GetString("CreateBackupJobViewAskForDirectoryTarget"));
             if (string.IsNullOrWhiteSpace(targetDirectory) || targetDirectory.ToLower() == "exit")
             {
                 OnReturnToMainMenu?.Invoke();
-                return; // Retour immédiat au menu principal si 'exit' ou vide
+                return; 
             }
 
             string backupType = AskForBackupType();
             if (backupType.ToLower() == "exit")
             {
                 OnReturnToMainMenu?.Invoke();
-                return; // Retour immédiat au menu principal si 'exit'
+                return; 
             }
-
-            // Continuez avec la logique de création de la sauvegarde ici...
         }
 
         private string AskForInput(string prompt)
@@ -82,7 +80,6 @@ namespace EasySave.Views
 
             return path;
         }
-
 
         private string AskForBackupType()
         {
