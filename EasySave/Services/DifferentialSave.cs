@@ -20,7 +20,7 @@ public class DifferentialSave
         foreach (string sourceFile in sourceFiles)
         {
             // Récupérer le chemin du fichier
-            string relativePath = sourceFile.Substring(Source.Length + 1);
+            string relativePath = sourceFile.Substring(SourceFilePath.Length + 1);
 
             // Construction du chemin cible 
             string targetFile = Path.Combine(TargetFilePath, relativePath);
