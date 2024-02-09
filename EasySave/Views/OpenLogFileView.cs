@@ -32,6 +32,7 @@ namespace EasySave.Views
     {
         public async Task Display()
         {
+            ConsoleHeader.Display();
             RealTimeStats realTimeStats = new RealTimeStats
             {
                 Name = "Save1",

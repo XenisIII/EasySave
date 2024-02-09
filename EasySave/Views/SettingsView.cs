@@ -29,6 +29,7 @@ namespace EasySave.Views
             while (!done)
             {
                 Console.Clear();
+                ConsoleHeader.Display();
                 Console.WriteLine(LocalizationService.GetString("ChooseLanguageText")); // "Choisissez la langue :"
 
                 for (int i = 0; i < _languages.Length; i++)
