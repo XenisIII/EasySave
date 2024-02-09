@@ -10,15 +10,22 @@ using EasySave.Services;
 using EasySave.Services.CreateSaveNameSpace;
 using EasySave.Models.SavesListNameSpace;
 using EasySave.Services.CompleteSaveNameSpace;
+using EasySave.Models.StatsRTModelNameSpace;
+using EasySave.ViewModels.LogStatsRTViewModelNameSpace;
 
 namespace EasySave.ViewModels.SaveProcess
 {
     public class SaveProcess
     {
+        private LogStatsRTViewModel _LogStatsRTViewModel;
         private SavesModel _SavesList = new SavesModel();
         public SavesModel SavesList
         {
             get => _SavesList;
+        }
+        public SaveProcess(LogStatsRTViewModel logStatsRTViewModel)
+        {
+            this._LogStatsRTViewModel = logStatsRTViewModel;
         }
         public void ExecuteSaveProcess(List<int> WhichSaveToExecute)
         {
@@ -33,6 +40,8 @@ namespace EasySave.ViewModels.SaveProcess
                 {
                     case "Complete":
                         CompleteSave save1 = new CompleteSave(SaveToExecute);
+                        StatsRTModel _statsRTModel = save1.statsRTModel;
+                        this._LogStatsRTViewModel.NewWork(_statsRTModel);
                         save1.Execute(SaveToExecute);
                         break;
                     case "Differential":

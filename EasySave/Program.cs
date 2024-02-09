@@ -3,11 +3,15 @@ using EasySave.Services;
 using System;
 using System.Globalization;
 using EasySave.ViewModels.SaveProcess;
+using EasySave.Services.Common;
+using EasySave.ViewModels.LogStatsRTViewModelNameSpace;
 
-SaveProcess _SaveProcess = new SaveProcess();
+LogStatsRTViewModel _LogStatsRTViewModel = new LogStatsRTViewModel();
+SaveProcess _SaveProcess = new SaveProcess(_LogStatsRTViewModel);
+
 //_SaveProcess.CreateSaveFunc("Save1", @"C:\Users\ProSoft\Downloads\save\test", @"C:\Users\ProSoft\Downloads\save\save", "Complete");
 //_SaveProcess.CreateSaveFunc("Save1", @"C:\Users\ProSoft\Downloads\save\test1", @"C:\Users\ProSoft\Downloads\save\Save1", "Complete");
-//_SaveProcess.ExecuteSaveProcess([0,1]);
+//_SaveProcess.ExecuteSaveProcess([0]);
 
 while (true) // Boucle infinie pour le menu principal
 {

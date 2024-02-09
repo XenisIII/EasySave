@@ -5,21 +5,9 @@ using System.IO;
 
 namespace EasySave.Services
 {
-    public class RealTimeStats
-    {
-        public string Name { get; set; } = string.Empty;
-        public string SourceFilePath { get; set; } = string.Empty;
-        public string TargetFilePath { get; set; } = string.Empty;
-        public string State { get; set; } = "START";
-        public int TotalFilesToCopy { get; set; } = 0;
-        public long TotalFilesSize { get; set; } = 0;
-        public int NbFilesLeftToDo { get; set; } = 0;
-        public double Progression { get; set; } = 0;
-    }
-
     public static class WriteStatsRT
     {
-        public static async Task WriteRealTimeStatsAsync(RealTimeStats stats, string statsDirectory)
+        public static async Task WriteRealTimeStatsAsync(StatsRTModel stats, string statsDirectory)
         {
             // Ensure the stats directory exists
             Directory.CreateDirectory(statsDirectory);

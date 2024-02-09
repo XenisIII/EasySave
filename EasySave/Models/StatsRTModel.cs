@@ -1,8 +1,9 @@
 ﻿using System;
+using EasySave.Services.Common;
 
 namespace EasySave.Models.StatsRTModelNameSpace
 {
-    public class StatsRTModel
+    public class StatsRTModel : ObservableObject
     {
         private string _SaveName;
         private string _SourceFilePath;
@@ -31,7 +32,7 @@ namespace EasySave.Models.StatsRTModelNameSpace
         public string State
         {
             get => _State;
-            set => _State = value;
+            set => SetProperty(ref _State, value);
         }
         public int TotalFilesToCopy
         {
