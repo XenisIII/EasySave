@@ -12,6 +12,7 @@ namespace EasySave.Views
         public void Display()
         {
             ConsoleHeader.Display();
+            Console.WriteLine(LocalizationService.GetString("CreateBackupJobViewTitle"));
             string backupName = AskForInput(LocalizationService.GetString("CreateBackupJobViewAskForInputName"));
             if (string.IsNullOrWhiteSpace(backupName) || backupName.ToLower() == "exit")
             {

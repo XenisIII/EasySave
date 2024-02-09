@@ -189,4 +189,7 @@
   <data name="SaveMenuViewSelectBackupMessageOption" xml:space="preserve">
     <value>Sélectionnez les sauvegardes à exécuter (appuyez sur ESPACE pour sélectionner, ENTER pour confirmer, A pour sélectionner toutes) :</value>
   </data>
+  <data name="CreateBackupJobViewTitle" xml:space="preserve">
+    <value>Création d'une sauvegarde : </value>
+  </data>
 </root>

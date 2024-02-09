@@ -19,7 +19,7 @@ while (true) // Boucle infinie pour le menu principal
         "5-"+LocalizationService.GetString("HomeOptionExit"),
     };
 
-    Console.WriteLine("\n" + LocalizationService.GetString("HomeChooseOptionMessage")); // Message pour choisir une option
+    Console.WriteLine(LocalizationService.GetString("HomeChooseOptionMessage")); // Message pour choisir une option
 
     int selected = 0;
     bool done = false;
