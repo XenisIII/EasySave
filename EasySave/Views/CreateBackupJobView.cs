@@ -2,14 +2,20 @@ using EasySave.Services;
 using System;
 using System.Globalization;
 using System.IO;
+using EasySave.ViewModels.SaveProcess;
 
 namespace EasySave.Views
 {
     public class CreateBackupJobView
     {
+//       public SaveProcess _saveProcess;
+//        public CreateBackupJobView(SaveProcess _SaveProcess) 
+//        {
+//            this._saveProcess = _SaveProcess;
+//        }
         public Action OnReturnToMainMenu;
-
-        public void Display()
+        
+        public (string backupName, string @sourceDirectory, string @targetDirectory, string backupType) Display()
         {
             ConsoleHeader.Display();
             Console.WriteLine(LocalizationService.GetString("CreateBackupJobViewTitle"));
@@ -17,29 +23,30 @@ namespace EasySave.Views
             if (string.IsNullOrWhiteSpace(backupName) || backupName.ToLower() == "exit")
             {
                 OnReturnToMainMenu?.Invoke();
-                return;
+                return (null, null, null, null);
             }
 
             string sourceDirectory = AskForDirectory(LocalizationService.GetString("CreateBackupJobViewAskForDirectorySource"));
             if (string.IsNullOrWhiteSpace(sourceDirectory) || sourceDirectory.ToLower() == "exit")
             {
                 OnReturnToMainMenu?.Invoke();
-                return;
+                return (null, null, null, null);
             }
 
             string targetDirectory = AskForDirectory(LocalizationService.GetString("CreateBackupJobViewAskForDirectoryTarget"));
             if (string.IsNullOrWhiteSpace(targetDirectory) || targetDirectory.ToLower() == "exit")
             {
                 OnReturnToMainMenu?.Invoke();
-                return; 
+                return (null, null, null, null); 
             }
 
             string backupType = AskForBackupType();
             if (backupType.ToLower() == "exit")
             {
                 OnReturnToMainMenu?.Invoke();
-                return; 
+                return (null, null, null, null); 
             }
+            return (backupName, @sourceDirectory, @targetDirectory, backupType);
         }
 
         private string AskForInput(string prompt)
@@ -101,7 +108,7 @@ namespace EasySave.Views
             }
             while (true);
 
-            return input == "1" ? "Complete" : input == "2" ? "Incremental" : input;
+            return input == "1" ? "Complete" : input == "2" ? "Differential" : input;
         }
     }
 }

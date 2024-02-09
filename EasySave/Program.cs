@@ -2,6 +2,9 @@
 using EasySave.Services;
 using System;
 using System.Globalization;
+using EasySave.ViewModels.SaveProcess;
+
+SaveProcess _SaveProcess = new SaveProcess();
 
 while (true) // Boucle infinie pour le menu principal
 {
@@ -73,7 +76,8 @@ void ExecuteSelectedOption(int optionIndex)
     {
         case 0:
             var backupJobView = new CreateBackupJobView();
-            backupJobView.Display();
+            var(backupName, @sourceDirectory, @targetDirectory, backupType) = backupJobView.Display();
+            _SaveProcess.CreateSaveFunc(backupName, @sourceDirectory, @targetDirectory, backupType);
             break;
         case 1:
             var saveMenuView = new SaveMenuView();

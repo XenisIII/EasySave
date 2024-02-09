@@ -18,6 +18,9 @@ namespace EasySave.Services.CompleteSaveNameSpace
         public CompleteSave(CreateSave save) 
         {
             init(save);
+        }
+        public void Execute(CreateSave save)
+        {
             SetTree(save.SourcePath, save.TargetPath);
             foreach (string element in SourcePathAllFiles)
             {

@@ -21,3 +21,26 @@ C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave
 C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave-Projet\Programmation-Systeme\EasySave\obj\Debug\net8.0\en\EasySave.resources.dll
 C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave-Projet\Programmation-Systeme\EasySave\obj\Debug\net8.0\fr\EasySave.resources.dll
 C:\Users\Arenz\Documents\CESI\A3\Informatique\2- Programmation système\EasySave-Projet\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.Resources.Strings.resources
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.Resources.Strings.resources
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.Resources.Strings.en.resources
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.Resources.Strings.fr.resources
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.csproj.GenerateResource.cache
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.AssemblyInfoInputs.cache
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.AssemblyInfo.cs
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.csproj.CoreCompileInputs.cache
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.sourcelink.json
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.dll
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\refint\EasySave.dll
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.pdb
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\bin\Debug\net8.0\EasySave.exe
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\bin\Debug\net8.0\EasySave.deps.json
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\bin\Debug\net8.0\EasySave.runtimeconfig.json
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\bin\Debug\net8.0\EasySave.dll
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\bin\Debug\net8.0\EasySave.pdb
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\bin\Debug\net8.0\en\EasySave.resources.dll
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\bin\Debug\net8.0\fr\EasySave.resources.dll
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\en\EasySave.resources.dll
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\fr\EasySave.resources.dll
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.genruntimeconfig.cache
+C:\Users\ProSoft\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\ref\EasySave.dll

@@ -17,7 +17,7 @@ namespace EasySave.Services.CommonSaveCommandNameSpace
         }
         public void init(CreateSave save)
         {
-            VerifyFilesToCopy(save.SourcePath)
+            VerifyFilesToCopy(save.SourcePath);
         }
         public void SetInfosInStatsRTModel(CreateSave save, string fileName)
         {
@@ -49,7 +49,7 @@ namespace EasySave.Services.CommonSaveCommandNameSpace
 
         public string GetPathFile(string name)
         {
-            foreach(string path in this.SourcePathAllFiles)
+            foreach (string path in this.SourcePathAllFiles)
             {
                 if (path.EndsWith(name))
                 {
@@ -105,4 +105,5 @@ namespace EasySave.Services.CommonSaveCommandNameSpace
                 SetTree(subDir.FullName, destSubDirPath);
             }
         }
+    }
 }
