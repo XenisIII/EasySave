@@ -186,4 +186,7 @@
   <data name="CreateBackupViewPathNoExist" xml:space="preserve">
     <value>The specified path doesn't exist. Please enter a valid path.</value>
   </data>
+  <data name="SaveMenuViewSelectBackupMessageOption" xml:space="preserve">
+    <value>Select the backups to initiate (press SPACE to select, ENTER to confirm, A to select all):</value>
+  </data>
 </root>

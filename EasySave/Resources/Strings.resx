@@ -136,7 +136,7 @@
     <value>2 - Incrémentielle</value>
   </data>
   <data name="CreateBackupJobViewAskForDirectorySource" xml:space="preserve">
-    <value>Entrez le chemin du répertoire source (ou tapez 'exit' pour retourner au menu) :</value>
+    <value>Entrez le chemin du répertoire source (ou tapez 'exit' pour au menu) :</value>
   </data>
   <data name="CreateBackupJobViewAskForDirectoryTarget" xml:space="preserve">
     <value>Entrez le chemin du répertoire de destination (ou tapez 'exit' pour retourner au menu) :</value>
@@ -181,9 +181,15 @@
     <value>Paramètres :</value>
   </data>
   <data name="CreateBackupJobViewNoEntryPath" xml:space="preserve">
-    <value></value>
+    <value>Aucune entrée détectée, veuillez fournir un chemin valide.</value>
   </data>
   <data name="CreateBackupViewPathNoExist" xml:space="preserve">
-    <value></value>
+    <value>Le chemin spécifié n'existe pas. Veuillez entrer un chemin valide.</value>
+  </data>
+  <data name="SaveMenuViewSelectBackupMessageOption" xml:space="preserve">
+    <value>Sélectionnez les sauvegardes à exécuter (appuyez sur ESPACE pour sélectionner, ENTER pour confirmer, A pour sélectionner toutes) :</value>
+  </data>
+  <data name="CreateBackupJobViewTitle" xml:space="preserve">
+    <value>Création d'une sauvegarde : </value>
   </data>
 </root>

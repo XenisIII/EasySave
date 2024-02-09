@@ -186,4 +186,10 @@
   <data name="CreateBackupViewPathNoExist" xml:space="preserve">
     <value>Le chemin spécifié n'existe pas. Veuillez entrer un chemin valide.</value>
   </data>
+  <data name="SaveMenuViewSelectBackupMessageOption" xml:space="preserve">
+    <value>Sélectionnez les sauvegardes à exécuter (appuyez sur ESPACE pour sélectionner, ENTER pour confirmer, A pour sélectionner toutes) :</value>
+  </data>
+  <data name="CreateBackupJobViewTitle" xml:space="preserve">
+    <value>Création d'une sauvegarde : </value>
+  </data>
 </root>

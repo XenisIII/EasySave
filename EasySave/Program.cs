@@ -7,9 +7,7 @@ while (true) // Boucle infinie pour le menu principal
 {
 
     Console.Clear();
-    Console.WriteLine("-------------------------------------");
-    Console.WriteLine("\r\n\r\n ____   __   ____  _  _    ____   __   _  _  ____ \r\n(  __) / _\\ / ___)( \\/ )  / ___) / _\\ / )( \\(  __)\r\n ) _) /    \\\\___ \\ )  /   \\___ \\/    \\\\ \\/ / ) _) \r\n(____)\\_/\\_/(____/(__/    (____/\\_/\\_/ \\__/ (____)\r\n\r\n");
-    Console.WriteLine("-------------------------------------");
+    ConsoleHeader.Display();
 
     // Rechargez les options localisées à chaque itération pour refléter la langue actuelle
     string[] options = new string[]
@@ -21,7 +19,7 @@ while (true) // Boucle infinie pour le menu principal
         "5-"+LocalizationService.GetString("HomeOptionExit"),
     };
 
-    Console.WriteLine("\n" + LocalizationService.GetString("HomeChooseOptionMessage")); // Message pour choisir une option
+    Console.WriteLine(LocalizationService.GetString("HomeChooseOptionMessage")); // Message pour choisir une option
 
     int selected = 0;
     bool done = false;
