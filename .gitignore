@@ -3,3 +3,10 @@
 ################################################################################
 
 /.vs
+# Ignore all bin and obj folders
+**/bin/
+**/obj/
+# Ignore other files that are generated during builds
+*.dll
+*.exe
+*.pdb
