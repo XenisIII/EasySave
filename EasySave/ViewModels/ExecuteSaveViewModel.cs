@@ -20,12 +20,15 @@ namespace EasySave.ViewModels.SaveProcess
         {
             get => _SavesList;
         }
-        public void ExecuteSaveProcess(string Input)
+        public void ExecuteSaveProcess(List<int> WhichSaveToExecute)
         {
-            string[] WhichSaveToExecute = Input.Split(';');
-            foreach (string save in WhichSaveToExecute)
+//            List<int> WhichSaveToExecute = new List<int>();
+//            WhichSaveToExecute.Add(Input);
+//            string[] WhichSaveToExecute = Input.Split(';');
+            foreach (int save in WhichSaveToExecute)
             {
-                CreateSave SaveToExecute = _SavesList.SavesList[int.Parse(save)];
+//                CreateSave SaveToExecute = _SavesList.SavesList[int.Parse(save)];
+                CreateSave SaveToExecute = _SavesList.SavesList[save];
                 switch (SaveToExecute.type)
                 {
                     case "Complete":

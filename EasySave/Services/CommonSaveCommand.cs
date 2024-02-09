@@ -17,13 +17,15 @@ namespace EasySave.Services.CommonSaveCommandNameSpace
         }
         public void init(CreateSave save)
         {
+            SourcePathAllFiles = new List<string>();
             VerifyFilesToCopy(save.SourcePath);
         }
         public void SetInfosInStatsRTModel(CreateSave save, string fileName)
         {
             _StatsRTModel = new StatsRTModel();
             _StatsRTModel.SaveName = save.name;
-            _StatsRTModel.TotalFilesToCopy = VerifyFilesToCopy(save.SourcePath);
+//            _StatsRTModel.TotalFilesToCopy = VerifyFilesToCopy(save.SourcePath);
+            _StatsRTModel.TotalFilesToCopy = this.SourcePathAllFiles.Count;
             _StatsRTModel.SourceFilePath = GetPathFile(fileName);
             _StatsRTModel.TargetFilePath = GetPathFile(fileName).Replace(save.SourcePath, save.TargetPath);
             _StatsRTModel.State = "Activated";

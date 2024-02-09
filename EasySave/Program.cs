@@ -5,6 +5,9 @@ using System.Globalization;
 using EasySave.ViewModels.SaveProcess;
 
 SaveProcess _SaveProcess = new SaveProcess();
+//_SaveProcess.CreateSaveFunc("Save1", @"C:\Users\ProSoft\Downloads\save\test", @"C:\Users\ProSoft\Downloads\save\save", "Complete");
+//_SaveProcess.CreateSaveFunc("Save1", @"C:\Users\ProSoft\Downloads\save\test1", @"C:\Users\ProSoft\Downloads\save\Save1", "Complete");
+//_SaveProcess.ExecuteSaveProcess([0,1]);
 
 while (true) // Boucle infinie pour le menu principal
 {
