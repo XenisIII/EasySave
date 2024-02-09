@@ -9,6 +9,14 @@
       "EasySave/1.0.0": {
         "runtime": {
           "EasySave.dll": {}
+        },
+        "resources": {
+          "en/EasySave.resources.dll": {
+            "locale": "en"
+          },
+          "fr/EasySave.resources.dll": {
+            "locale": "fr"
+          }
         }
       }
     }
