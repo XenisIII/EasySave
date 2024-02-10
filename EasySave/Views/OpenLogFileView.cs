@@ -33,27 +33,27 @@ namespace EasySave.Views
         public async Task Display()
         {
             ConsoleHeader.Display();
-            RealTimeStats realTimeStats = new RealTimeStats
+//            RealTimeStats realTimeStats = new RealTimeStats
             {
-                Name = "Save1",
+//                Name = "Save1";
                 // Initialize other properties as needed
             };
 
             string statsDirectory = @"C:\Users\Arenz\Desktop\log"; // Replace with your actual stats directory path
 
             // Simulate a backup process
-            for (int i = 0; i < 100; i++)
-            {
-                realTimeStats.Progression = i;
-                realTimeStats.State = i < 99 ? "IN PROGRESS" : "END";
-                realTimeStats.NbFilesLeftToDo = 100 - i;
+//            for (int i = 0; i < 100; i++)
+//            {
+//                realTimeStats.Progression = i;
+//                realTimeStats.State = i < 99 ? "IN PROGRESS" : "END";
+//                realTimeStats.NbFilesLeftToDo = 100 - i;
 
                 // Update the stats in real-time
-                await WriteStatsRT.WriteRealTimeStatsAsync(realTimeStats, statsDirectory);
+//                await WriteStatsRT.WriteRealTimeStatsAsync(realTimeStats, statsDirectory);
 
                 // Wait for a while to simulate time passing
-                Thread.Sleep(1000);
-            }
+//                Thread.Sleep(1000);
+//            }
         }
     }
 }

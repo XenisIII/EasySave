@@ -11,11 +11,11 @@ namespace EasySave.ViewModels.LogStatsRTViewModelNameSpace
     public class LogStatsRTViewModel
     {
         private StatsRTModel _currentStatsRTModel;
-        private WriteStatsRT _writeJson = new WriteStatsRT();
-        public WriteStatsRT WriteJson
-        {
-            get => _writeJson;
-        }
+        //private WriteStatsRT _writeJson = new WriteStatsRT();
+        //public WriteStatsRT WriteJson
+        //{
+        //    get => _writeJson;
+        //}
 
         public void NewWork(StatsRTModel _StatsRTModel)
         {
@@ -40,7 +40,8 @@ namespace EasySave.ViewModels.LogStatsRTViewModelNameSpace
         private void HandleStateChange(StatsRTModel state)
         {
             string JsonPath = @"C:\Users\ProSoft\Downloads\save\Json";
-            _writeJson.WriteRealTimeStatsAsync(state, JsonPath);
+//            WriteStatsRT.QueueStatsForWriting(state);
+            WriteStatsRT.WriteRealTimeStatsAsync(state, JsonPath);
         }
     }
 }

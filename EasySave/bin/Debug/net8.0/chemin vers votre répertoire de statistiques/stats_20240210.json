@@ -1,0 +1,122 @@
+[
+  {
+    "SaveName": "Save1",
+    "SourceFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\test\\test.txt",
+    "TargetFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\save\\test.txt",
+    "State": "Activated",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 0,
+    "NbFilesLeftToDo": 0,
+    "Progress": 0
+  },
+  {
+    "SaveName": "Save1",
+    "SourceFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\test\\test1\\Test1\\test.txt",
+    "TargetFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\save\\test1\\Test1\\test.txt",
+    "State": "Finished",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 0,
+    "NbFilesLeftToDo": 1,
+    "Progress": 67
+  },
+  {
+    "SaveName": "Save1",
+    "SourceFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\test\\test1\\Test1\\test.txt",
+    "TargetFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\save\\test1\\Test1\\test.txt",
+    "State": "Finished",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 0,
+    "NbFilesLeftToDo": 1,
+    "Progress": 67
+  },
+  {
+    "SaveName": "Save1",
+    "SourceFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\test\\test1\\Test1\\test.txt",
+    "TargetFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\save\\test1\\Test1\\test.txt",
+    "State": "Finished",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 0,
+    "NbFilesLeftToDo": 1,
+    "Progress": 67
+  },
+  {
+    "SaveName": "Save1",
+    "SourceFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\test\\test1\\Test1\\test.txt",
+    "TargetFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\save\\test1\\Test1\\test.txt",
+    "State": "Finished",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 0,
+    "NbFilesLeftToDo": 1,
+    "Progress": 67
+  },
+  {
+    "SaveName": "Save1",
+    "SourceFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\test\\test1\\Test1\\test.txt",
+    "TargetFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\save\\test1\\Test1\\test.txt",
+    "State": "Finished",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 0,
+    "NbFilesLeftToDo": 1,
+    "Progress": 67
+  },
+  {
+    "SaveName": "Save1",
+    "SourceFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\test\\test1\\Test1\\test.txt",
+    "TargetFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\save\\test1\\Test1\\test.txt",
+    "State": "Finished",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 0,
+    "NbFilesLeftToDo": 1,
+    "Progress": 67
+  },
+  {
+    "SaveName": "Save1",
+    "SourceFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\test\\test1\\Test1\\test.txt",
+    "TargetFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\save\\test1\\Test1\\test.txt",
+    "State": "Finished",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 0,
+    "NbFilesLeftToDo": 1,
+    "Progress": 67
+  },
+  {
+    "SaveName": "Save1",
+    "SourceFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\test\\test1\\Test1\\test.txt",
+    "TargetFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\save\\test1\\Test1\\test.txt",
+    "State": "Finished",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 0,
+    "NbFilesLeftToDo": 1,
+    "Progress": 67
+  },
+  {
+    "SaveName": "Save1",
+    "SourceFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\test\\test1\\Test1\\test.txt",
+    "TargetFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\save\\test1\\Test1\\test.txt",
+    "State": "Finished",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 0,
+    "NbFilesLeftToDo": 1,
+    "Progress": 67
+  },
+  {
+    "SaveName": "Save1",
+    "SourceFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\test\\test1\\Test1\\test.txt",
+    "TargetFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\save\\test1\\Test1\\test.txt",
+    "State": "Finished",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 0,
+    "NbFilesLeftToDo": 1,
+    "Progress": 67
+  },
+  {
+    "SaveName": "Save1",
+    "SourceFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\test\\test1\\Test1\\test.txt",
+    "TargetFilePath": "C:\\Users\\ProSoft\\Downloads\\save\\save\\test1\\Test1\\test.txt",
+    "State": "Finished",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 0,
+    "NbFilesLeftToDo": 1,
+    "Progress": 67
+  }
+]
