@@ -133,7 +133,7 @@
     <value>(ou tapez 'exit' pour retourner au menu principal)</value>
   </data>
   <data name="CreateBackupJobViewAskForBackupTypeIncremential" xml:space="preserve">
-    <value>2 - Incrémentielle</value>
+    <value>2 - Différentielle</value>
   </data>
   <data name="CreateBackupJobViewAskForDirectorySource" xml:space="preserve">
     <value>Entrez le chemin du répertoire source (ou tapez 'exit' pour au menu) :</value>

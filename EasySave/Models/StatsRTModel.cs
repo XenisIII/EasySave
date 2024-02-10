@@ -1,7 +1,7 @@
 ﻿using System;
 using EasySave.Services.Common;
 
-namespace EasySave.Models.StatsRTModelNameSpace
+namespace EasySave.Models
 {
     public class StatsRTModel : ObservableObject
     {

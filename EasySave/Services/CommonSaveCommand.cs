@@ -1,10 +1,9 @@
 ﻿using System;
 using System.IO;
 using EasySave.Services;
-using EasySave.Models.StatsRTModelNameSpace;
-using EasySave.Services.CreateSaveNameSpace;
+using EasySave.Models;
 
-namespace EasySave.Services.CommonSaveCommandNameSpace
+namespace EasySave.Services
 {
     public class CommonSaveCommand
     {
@@ -24,7 +23,6 @@ namespace EasySave.Services.CommonSaveCommandNameSpace
         public void SetInfosInStatsRTModel(CreateSave save, string fileName)
         {
             _StatsRTModel.SaveName = save.name;
-//            _StatsRTModel.TotalFilesToCopy = VerifyFilesToCopy(save.SourcePath);
             _StatsRTModel.TotalFilesToCopy = this.SourcePathAllFiles.Count;
             _StatsRTModel.SourceFilePath = GetPathFile(fileName);
             _StatsRTModel.TargetFilePath = GetPathFile(fileName).Replace(save.SourcePath, save.TargetPath);

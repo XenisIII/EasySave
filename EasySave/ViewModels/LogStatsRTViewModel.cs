@@ -1,12 +1,11 @@
 using System;
 using System.IO;
 using System.ComponentModel;
-using EasySave.Services.Common;
-using EasySave.ViewModels.SaveProcess;
-using EasySave.Models.StatsRTModelNameSpace;
+using EasySave.ViewModels;
+using EasySave.Models;
 using EasySave.Services;
 
-namespace EasySave.ViewModels.LogStatsRTViewModelNameSpace
+namespace EasySave.ViewModels
 {
     public class LogStatsRTViewModel
     {
@@ -42,6 +41,11 @@ namespace EasySave.ViewModels.LogStatsRTViewModelNameSpace
             string JsonPath = @"C:\Users\ProSoft\Downloads\save\Json";
 //            WriteStatsRT.QueueStatsForWriting(state);
             WriteStatsRT.WriteRealTimeStatsAsync(state, JsonPath);
+        }
+        public void WriteLog(LogModel log)
+        {
+            string JsonPath = @"C:\Users\ProSoft\Downloads\save\Json";
+            WriteStatsRT.WriteLogsAsync(log, JsonPath);
         }
     }
 }

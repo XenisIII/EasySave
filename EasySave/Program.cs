@@ -2,16 +2,13 @@
 using EasySave.Services;
 using System;
 using System.Globalization;
-using EasySave.ViewModels.SaveProcess;
+using EasySave.ViewModels;
 using EasySave.Services.Common;
-using EasySave.ViewModels.LogStatsRTViewModelNameSpace;
 
 LogStatsRTViewModel _LogStatsRTViewModel = new LogStatsRTViewModel();
 SaveProcess _SaveProcess = new SaveProcess(_LogStatsRTViewModel);
-
-_SaveProcess.CreateSaveFunc("Save1", @"C:\Users\ProSoft\Downloads\save\test", @"C:\Users\ProSoft\Downloads\save\save", "Complete");
-_SaveProcess.CreateSaveFunc("Save2", @"C:\Users\ProSoft\Downloads\save\test1", @"C:\Users\ProSoft\Downloads\save\Save1", "Complete");
-_SaveProcess.ExecuteSaveProcess([0,1]);
+int NbMaxSave = 5;
+int NbSave = 0;
 
 while (true) // Boucle infinie pour le menu principal
 {
@@ -82,13 +79,28 @@ void ExecuteSelectedOption(int optionIndex)
     switch (optionIndex)
     {
         case 0:
-            var backupJobView = new CreateBackupJobView();
-            var(backupName, @sourceDirectory, @targetDirectory, backupType) = backupJobView.Display();
-            _SaveProcess.CreateSaveFunc(backupName, @sourceDirectory, @targetDirectory, backupType);
+            if(NbSave == NbMaxSave)
+            {
+                Console.WriteLine("Vous avez atteint le nombre maximum de sauvegardes (5)");
+            }
+            else
+            {
+                var backupJobView = new CreateBackupJobView();
+                var (backupName, @sourceDirectory, @targetDirectory, backupType) = backupJobView.Display();
+                if(backupName !=null && sourceDirectory !=null && @targetDirectory !=null && backupType !=null)
+                {
+                    _SaveProcess.CreateSaveFunc(backupName, @sourceDirectory, @targetDirectory, backupType);
+                    NbSave += 1;
+                }
+            }
             break;
         case 1:
             var saveMenuView = new SaveMenuView();
-            saveMenuView.Display();
+            saveMenuView.Display(_SaveProcess.SavesList.SavesList);
+            List<int> SaveToExecute = new List<int>();
+            List<int> SaveToDelete = new List<int>();
+            _SaveProcess.DeleteSaveFunc(saveMenuView.SaveToDelete);
+            _SaveProcess.ExecuteSaveProcess(saveMenuView.SaveToExecute);
             break;
         case 2:
             var settingsView = new SettingsView();

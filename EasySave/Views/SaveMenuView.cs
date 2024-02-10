@@ -2,8 +2,8 @@ using EasySave.Services;
 using System;
 using System.Globalization;
 using System.Collections.Generic;
-using EasySave.ViewModels.SaveProcess;
-//using EasySave.ViewModels;
+using EasySave.ViewModels;
+using EasySave.Models;
 
 namespace EasySave.Views
 {
@@ -16,20 +16,19 @@ namespace EasySave.Views
             "3-"+LocalizationService.GetString("SaveMenuReturnHome"),
         };
 
-        private List<string> _configuredBackups = new List<string>()
-        {
-            "Backup 1",
-            "Backup 2",
-            "Backup 3",
-            "Backup 4",
-            "Backup 5"
-        };
+        private List<string> _configuredBackups = new List<string>();
+        public List<int> SaveToExecute = new List<int>();
+        public List<int> SaveToDelete = new List<int>();
 
-        private bool[] _selectedBackups = new bool[5];
+        private List<bool> _selectedBackups = new List<bool>();
         private int _backupSelectionIndex = 0; // Index for navigating the backup list
 
-        public void Display()
+        public void Display(List<CreateSave> SaveList)
         {
+            foreach(CreateSave save in SaveList)
+            {
+                _configuredBackups.Add(save.name);
+            }
             int selected = 0;
             bool backToMain = false;
 
@@ -55,7 +54,7 @@ namespace EasySave.Views
                         }
                         else
                         {
-                            PerformAction(selected); // Perform the selected action
+                            backToMain = PerformAction(selected); // Perform the selected action
                         }
                         break;
                 }
@@ -82,24 +81,28 @@ namespace EasySave.Views
             Console.ResetColor();
         }
 
-        private void PerformAction(int optionIndex)
+        private bool PerformAction(int optionIndex)
         {
             switch (optionIndex)
             {
                 case 0:
-                    SelectBackups();
-                    break;
+                    SelectBackups("Execute");
+                    return true;
                 case 1:
-                    // Delete backup logic
-                    break;
+                    SelectBackups("Remove");
+                    return true;
                 case 2:
                     // Return to main menu
-                    break;
+                    return true;
             }
+            return false;
         }
 
-        private void SelectBackups()
+        private void SelectBackups(string Action)
         {
+            // Initialise la liste pour s'assurer qu'elle a la même taille que _configuredBackups
+            _selectedBackups = new List<bool>(new bool[_configuredBackups.Count]);
+
             bool done = false;
             while (!done)
             {
@@ -112,6 +115,7 @@ namespace EasySave.Views
                     {
                         Console.ForegroundColor = ConsoleColor.Cyan;
                     }
+                    // Utilisez Indexer pour accéder à l'élément de la liste
                     Console.Write(_selectedBackups[i] ? "[x] " : "[ ] ");
                     Console.WriteLine(_configuredBackups[i]);
                     Console.ResetColor();
@@ -127,29 +131,38 @@ namespace EasySave.Views
                         _backupSelectionIndex = (_backupSelectionIndex + 1) % _configuredBackups.Count;
                         break;
                     case ConsoleKey.Spacebar:
+                        // Inverse la valeur à l'index sélectionné dans la liste
                         _selectedBackups[_backupSelectionIndex] = !_selectedBackups[_backupSelectionIndex];
                         break;
                     case ConsoleKey.A:
-                        Array.Fill(_selectedBackups, true);
+                        // Définit tous les éléments de la liste sur true
+                        _selectedBackups = Enumerable.Repeat(true, _configuredBackups.Count).ToList();
                         break;
                     case ConsoleKey.Enter:
+                        PerformSelectedBackups(Action);
                         done = true;
                         break;
                 }
             }
-
-            PerformSelectedBackups();
         }
 
-        private void PerformSelectedBackups()
+        private void PerformSelectedBackups(string Action)
         {
             // Assume this method initiates the backups
-            for (int i = 0; i < _selectedBackups.Length; i++)
+            for (int i = 0; i < _selectedBackups.Count; i++)
             {
                 if (_selectedBackups[i])
                 {
                     Console.WriteLine($"Initiating backup: {_configuredBackups[i]}");
-                    // Here you would call the backup logic for _configuredBackups[i]
+                    if(Action == "Remove")
+                    {
+                        SaveToDelete.Add(i);
+                        _selectedBackups[i] = false;
+                    }
+                    else if(Action == "Execute")
+                    {
+                        SaveToExecute.Add(i);
+                    }
                 }
             }
 

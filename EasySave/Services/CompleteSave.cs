@@ -8,10 +8,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using EasySave.ViewModels;
 using EasySave.Services;
-using EasySave.Services.CommonSaveCommandNameSpace;
-using EasySave.Services.CreateSaveNameSpace;
 
-namespace EasySave.Services.CompleteSaveNameSpace
+namespace EasySave.Services
 {
     public class CompleteSave : CommonSaveCommand
     {

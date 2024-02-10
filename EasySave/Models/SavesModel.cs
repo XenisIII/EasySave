@@ -7,9 +7,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using EasySave.ViewModels;
 using EasySave.Services;
-using EasySave.Services.CreateSaveNameSpace;
 
-namespace EasySave.Models.SavesListNameSpace
+namespace EasySave.Models
 {
     public class SavesModel
     {

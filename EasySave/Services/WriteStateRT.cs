@@ -5,82 +5,71 @@ using System.IO;
 using System.ComponentModel;
 using System.Threading;
 using System.Collections.Concurrent;
+using EasySave.Models;
 
 
-using EasySave.Models.StatsRTModelNameSpace;
+using EasySave.Models;
 
 namespace EasySave.Services
 {
     public static class WriteStatsRT
     {
-        private static readonly ConcurrentQueue<StatsRTModel> StatsQueue = new ConcurrentQueue<StatsRTModel>();
-        private static readonly SemaphoreSlim WriteSemaphore = new SemaphoreSlim(1, 1);
-        private static bool isWriting = false;
-
-        // Méthode appelée pour ajouter des statistiques à la file d'attente
-        public static void QueueStatsForWriting(StatsRTModel stats)
+        public static async Task WriteLogsAsync(LogModel logModel, string LogDirectory)
         {
-            StatsQueue.Enqueue(stats);
-            if (!isWriting)
+            Directory.CreateDirectory(LogDirectory);
+            string LogFileName = $"Log_{DateTime.Now:yyyyMMdd}.json";
+            string LogFilePath = Path.Combine(LogDirectory, LogFileName);
+            List<LogModel> LogList;
+            if (File.Exists(LogFilePath))
             {
-                isWriting = true;
-                _ = WriteStatsFromQueueAsync(); // Lancez la tâche d'écriture sans attendre
+                string existingJson = await File.ReadAllTextAsync(LogFilePath);
+                LogList = JsonSerializer.Deserialize<List<LogModel>>(existingJson) ?? new List<LogModel>();
             }
+            else
+            {
+                LogList = new List<LogModel>();
+            }
+            LogList.Add(logModel);
+            await WriteToJsonFileAsync(LogList, LogFilePath);
         }
 
-        // Méthode d'arrière-plan pour l'écriture des statistiques
-        private static async Task WriteStatsFromQueueAsync()
-        {
-            while (StatsQueue.TryDequeue(out var stats))
-            {
-                await WriteSemaphore.WaitAsync(); // Assurez-vous qu'une seule écriture a lieu à la fois
-                try
-                {
-                    await WriteRealTimeStatsAsync(stats, "chemin vers votre répertoire de statistiques");
-                }
-                finally
-                {
-                    WriteSemaphore.Release(); // Permettre la prochaine écriture
-                }
-            }
-            isWriting = false;
-        }
         public static async Task WriteRealTimeStatsAsync(StatsRTModel stats, string statsDirectory)
         {
-            // Ensure the stats directory exists
             Directory.CreateDirectory(statsDirectory);
 
-            // Generate a stats file name based on the current date
+            // Générez un nom de fichier de statistiques basé sur la date actuelle
             string statsFileName = $"stats_{DateTime.Now:yyyyMMdd}.json";
             string statsFilePath = Path.Combine(statsDirectory, statsFileName);
 
             List<StatsRTModel> statsList;
 
-            // Check if the stats file already exists
+            // Vérifiez si le fichier de statistiques existe déjà
             if (File.Exists(statsFilePath))
             {
-                // Read the existing file and deserialize it into a list of stats
+                // Lisez le fichier existant et désérialisez-le en une liste de statistiques
                 string existingJson = await File.ReadAllTextAsync(statsFilePath);
                 statsList = JsonSerializer.Deserialize<List<StatsRTModel>>(existingJson) ?? new List<StatsRTModel>();
             }
             else
             {
-                // If the file doesn't exist, start with an empty list
+                // Si le fichier n'existe pas, commencez par une liste vide
                 statsList = new List<StatsRTModel>();
             }
 
-            // Add the new stats to the list
+            // Ajoutez les nouvelles statistiques à la liste
             statsList.Add(stats);
 
-            // Serialize the updated list to JSON
-            string updatedJson = JsonSerializer.Serialize(statsList, new JsonSerializerOptions { WriteIndented = true });
-
-            // Asynchronously write the updated stats to the file
-            await File.WriteAllTextAsync(statsFilePath, updatedJson);
-
-            // Display real-time stats on the console
-            Console.Clear();
-            Console.WriteLine(updatedJson);
+            // Utilisez la fonction générique pour écrire dans le fichier JSON
+            await WriteToJsonFileAsync(statsList, statsFilePath);
         }
+        public static async Task WriteToJsonFileAsync<T>(List<T> items, string filePath)
+        {
+            // Sérialisez la liste d'objets en JSON
+            string json = JsonSerializer.Serialize(items, new JsonSerializerOptions { WriteIndented = true });
+
+            // Écrivez de manière asynchrone le JSON dans le fichier
+            await File.WriteAllTextAsync(filePath, json);
+        }
+
     }
 }

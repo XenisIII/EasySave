@@ -169,7 +169,7 @@
     <value>(or enter 'exit' to return to main menu)</value>
   </data>
   <data name="CreateBackupJobViewAskForBackupTypeIncremential" xml:space="preserve">
-    <value>2 - Incremential</value>
+    <value>2 - Differential</value>
   </data>
   <data name="CreateBackupJobViewAskForDirectorySource" xml:space="preserve">
     <value>Enter source path (or enter 'exit' to return to main menu) :</value>
