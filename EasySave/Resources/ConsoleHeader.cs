@@ -2,13 +2,13 @@ public static class ConsoleHeader
 {
     public static void Display()
     {
-        // Add one or two spaces at the top
-        Console.WriteLine();
-        Console.WriteLine();
+        // Adds an empty line at the top for better spacing.
+        Console.WriteLine(Environment.NewLine);
 
-        // Separator before the ASCII art
+        // Draws a separator line before displaying the ASCII art.
         WriteSeparator();
 
+        // ASCII art lines representing the header.
         string[] artLines = new string[]
         {
             @"$$$$$$$$\                                     $$$$$$\                                ",
@@ -24,32 +24,28 @@ public static class ConsoleHeader
             @"                              \______/                                               "
         };
 
+        // Iterates over each line of the ASCII art and writes it to the console, centered.
         foreach (var line in artLines)
         {
             WriteCenteredLine(line);
         }
 
-        // Separator after the ASCII art
+        // Draws a separator line after displaying the ASCII art.
         WriteSeparator();
 
-        // Add one or two spaces at the bottom
+        // Adds empty lines at the bottom for better spacing.
         Console.WriteLine();
         Console.WriteLine();
     }
 
+    // Centers the provided text within the console window.
     private static void WriteCenteredLine(string text)
     {
-        int consoleWidth = Console.WindowWidth;
-        int stringWidth = text.Length;
-        int spaces = (consoleWidth - stringWidth) / 2;
-        string paddedString = new string(' ', spaces) + text;
-        Console.WriteLine(paddedString);
+        var spaces = (Console.WindowWidth - text.Length) / 2;
+        Console.WriteLine(new string(' ', spaces < 0 ? 0 : spaces) + text);
     }
 
-    private static void WriteSeparator()
-    {
-        // Create a separator line of dashes that spans the width of the console
-        string separator = new string('=', Console.WindowWidth);
-        Console.WriteLine(separator);
-    }
+    // Draws a separator line across the width of the console window.
+    private static void WriteSeparator() =>
+        Console.WriteLine(new string('=', Console.WindowWidth));
 }

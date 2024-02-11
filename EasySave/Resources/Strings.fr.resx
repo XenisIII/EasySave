@@ -133,7 +133,7 @@
     <value>(ou tapez 'exit' pour retourner au menu principal)</value>
   </data>
   <data name="CreateBackupJobViewAskForBackupTypeIncremential" xml:space="preserve">
-    <value>2 - Incrémentielle</value>
+    <value>2 - Différentielle</value>
   </data>
   <data name="CreateBackupJobViewAskForDirectorySource" xml:space="preserve">
     <value>Entrez le chemin du répertoire source (ou tapez 'exit' pour au menu) :</value>
@@ -187,9 +187,21 @@
     <value>Le chemin spécifié n'existe pas. Veuillez entrer un chemin valide.</value>
   </data>
   <data name="SaveMenuViewSelectBackupMessageOption" xml:space="preserve">
-    <value>Sélectionnez les sauvegardes à exécuter (appuyez sur ESPACE pour sélectionner, ENTER pour confirmer, A pour sélectionner toutes) :</value>
+    <value>Sélectionnez les sauvegardes à exécuter (appuyez sur ESPACE pour sélectionner, ENTER pour confirmer, A pour sélectionner toutes, E pour quitter) :</value>
   </data>
   <data name="CreateBackupJobViewTitle" xml:space="preserve">
     <value>Création d'une sauvegarde : </value>
+  </data>
+  <data name="CreateBackupJobViewPressEnter" xml:space="preserve">
+    <value>Appuyez sur Enter pour revenir au menu principal.</value>
+  </data>
+  <data name="CreateBackupJobViewSuccessMessage" xml:space="preserve">
+    <value>La sauvegarde a été créée avec succès !</value>
+  </data>
+  <data name="SaveMenuViewBackupInitMsg" xml:space="preserve">
+    <value>Sauvegarde(s) effectuées. Appuyez sur n'importe quelle touche pour revenir...</value>
+  </data>
+  <data name="SaveMenuViewInitiaeBackupPre" xml:space="preserve">
+    <value>Début des sauvegardes :</value>
   </data>
 </root>

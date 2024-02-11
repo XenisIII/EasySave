@@ -133,7 +133,7 @@
     <value>Open log file</value>
   </data>
   <data name="HomeOptionSaveMenu" xml:space="preserve">
-    <value>Consult already configured saves</value>
+    <value>Consult all backups</value>
   </data>
   <data name="HomeOptionSettings" xml:space="preserve">
     <value>Settings</value>
@@ -169,7 +169,7 @@
     <value>(or enter 'exit' to return to main menu)</value>
   </data>
   <data name="CreateBackupJobViewAskForBackupTypeIncremential" xml:space="preserve">
-    <value>2 - Incremential</value>
+    <value>2 - Differential</value>
   </data>
   <data name="CreateBackupJobViewAskForDirectorySource" xml:space="preserve">
     <value>Enter source path (or enter 'exit' to return to main menu) :</value>
@@ -187,6 +187,21 @@
     <value>The specified path doesn't exist. Please enter a valid path.</value>
   </data>
   <data name="SaveMenuViewSelectBackupMessageOption" xml:space="preserve">
-    <value>Select the backups to initiate (press SPACE to select, ENTER to confirm, A to select all):</value>
+    <value>Select the backups to initiate (press SPACE to select, ENTER to confirm, A to select all, E to exit to main menu):</value>
+  </data>
+  <data name="CreateBackupJobViewPressEnter" xml:space="preserve">
+    <value>Press Enter to return to the main menu.</value>
+  </data>
+  <data name="CreateBackupJobViewSuccessMessage" xml:space="preserve">
+    <value>The backup was created successfully!</value>
+  </data>
+  <data name="SaveMenuViewBackupInitMsg" xml:space="preserve">
+    <value>Backups initiated. Press any key to return...</value>
+  </data>
+  <data name="CreateBackupJobViewTitle" xml:space="preserve">
+    <value>Backup creation :</value>
+  </data>
+  <data name="SaveMenuViewInitiaeBackupPre" xml:space="preserve">
+    <value>Starting backup :</value>
   </data>
 </root>
