@@ -5,6 +5,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <ApplicationIcon>Thiago-Silva-Palm-Settings-Backup-Sync.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Thiago-Silva-Palm-Settings-Backup-Sync.ico" />
+  </ItemGroup>
 
 </Project>

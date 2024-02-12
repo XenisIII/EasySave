@@ -1,42 +1,83 @@
-using System;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.IO;
+using System.Collections.Generic;
+using EasySave.Models;
 
-namespace EasySave.Services
+namespace EasySave.Services;
+
+public static class WriteStatsRT
 {
-    public class RealTimeStats
+    /// <summary>
+    /// Writes log entries synchronously to a JSON file.
+    /// </summary>
+    /// <param name="logModel">The log entry to write.</param>
+    /// <param name="logDirPath">The directory path to store the log file.</param>
+    public static void WriteLogsSync(LogModel logModel, string logDirPath)
     {
-        public string Name { get; set; } = string.Empty;
-        public string SourceFilePath { get; set; } = string.Empty;
-        public string TargetFilePath { get; set; } = string.Empty;
-        public string State { get; set; } = "START";
-        public int TotalFilesToCopy { get; set; } = 0;
-        public long TotalFilesSize { get; set; } = 0;
-        public int NbFilesLeftToDo { get; set; } = 0;
-        public double Progression { get; set; } = 0;
+        // Ensure the directory exists
+        Directory.CreateDirectory(logDirPath);
+
+        // Determine the log file path
+        var logFilePath = Path.Combine(logDirPath, $"Log_{DateTime.Now:yyyyMMdd}.json");
+        List<LogModel> list;
+
+        // Deserialize existing log entries if the file exists
+        if (File.Exists(logFilePath))
+        {
+            using var stream = File.OpenRead(logFilePath);
+            list = JsonSerializer.Deserialize<List<LogModel>>(stream) ?? new List<LogModel>();
+        }
+        else
+        {
+            list = new List<LogModel>();
+        }
+
+        // Add new log entry and write to file
+        list.Add(logModel);
+        WriteToJsonFileAsync(list, logFilePath); // This method should ideally be asynchronous
     }
 
-    public static class WriteStatsRT
+    /// <summary>
+    /// Writes real-time backup stats to a JSON file asynchronously.
+    /// </summary>
+    /// <param name="backup">The backup model to log.</param>
+    /// <param name="statsDirectory">The directory path to store the stats file.</param>
+    public static async Task WriteRealTimeStatsAsync(BackupModel backup, string statsDirectory)
     {
-        public static async Task WriteRealTimeStatsAsync(RealTimeStats stats, string statsDirectory)
+        // Ensure the directory exists
+        Directory.CreateDirectory(statsDirectory);
+
+        // Determine the stats file path
+        var statsFileName = $"stats_{DateTime.Now:yyyyMMdd}.json";
+        var statsFilePath = Path.Combine(statsDirectory, statsFileName);
+
+        List<BackupModel> statsList;
+
+        // Deserialize existing stats if the file exists
+        if (File.Exists(statsFilePath))
         {
-            // Ensure the stats directory exists
-            Directory.CreateDirectory(statsDirectory);
-
-            // Generate a stats file name based on the current date
-            string statsFileName = $"stats_{DateTime.Now:yyyyMMdd}.json";
-            string statsFilePath = Path.Combine(statsDirectory, statsFileName);
-
-            // Serialize the stats to JSON
-            string jsonStats = JsonSerializer.Serialize(stats, new JsonSerializerOptions { WriteIndented = true });
-
-            // Asynchronously write the stats to the file
-            await File.WriteAllTextAsync(statsFilePath, jsonStats);
-
-            // Display real-time stats on the console
-            Console.Clear();
-            Console.WriteLine(jsonStats);
+            using var stream = File.OpenRead(statsFilePath);
+            statsList = JsonSerializer.Deserialize<List<BackupModel>>(stream) ?? new List<BackupModel>();
         }
+        else
+        {
+            statsList = new List<BackupModel>();
+        }
+
+        // Add new stats and write to file
+        statsList.Add(backup);
+        await WriteToJsonFileAsync(statsList, statsFilePath);
+    }
+
+    /// <summary>
+    /// Generic method to write a collection of items to a JSON file asynchronously.
+    /// </summary>
+    /// <param name="items">The collection of items to write.</param>
+    /// <param name="filePath">The file path to write the items to.</param>
+    public static async Task WriteToJsonFileAsync<T>(IEnumerable<T> items, string filePath)
+    {
+        // Overwrite the file with the updated collection
+        await using var stream = File.Create(filePath);
+        await JsonSerializer.SerializeAsync(stream, items, new JsonSerializerOptions { WriteIndented = true });
     }
 }

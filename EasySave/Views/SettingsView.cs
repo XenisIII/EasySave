@@ -1,26 +1,25 @@
 using EasySave.Services;
 using System;
-using System.Globalization;
 
 namespace EasySave.Views
 {
+    /// <summary>
+    /// Allows users to select the application's language.
+    /// </summary>
     public class SettingsView
     {
-        private string[] _languages = new string[]
-        {
-            "en", // English
-            "fr"  // Français
-        };
+        // Supported languages and their display names.
+        private string[] _languages = new string[] { "en", "fr" };
+        private string[] _languageDisplay = new string[] { "English", "Français" };
 
-        private string[] _languageDisplay = new string[]
-        {
-            "English",
-            "Français"
-        };
-
-        // Ajoutez un délégué pour notifier lorsque la vue est terminée.
+        /// <summary>
+        /// Delegate for notifying when the view process is finished.
+        /// </summary>
         public Action OnViewFinished;
 
+        /// <summary>
+        /// Displays language selection options and handles user input.
+        /// </summary>
         public void Display()
         {
             int selected = 0;
@@ -30,44 +29,34 @@ namespace EasySave.Views
             {
                 Console.Clear();
                 ConsoleHeader.Display();
-                Console.WriteLine(LocalizationService.GetString("ChooseLanguageText")); // "Choisissez la langue :"
+                Console.WriteLine(LocalizationService.GetString("ChooseLanguageText"));
 
+                // Display language options.
                 for (int i = 0; i < _languages.Length; i++)
                 {
-                    if (i == selected)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.Write("> ");
-                    }
-                    else
-                    {
-                        Console.ResetColor();
-                        Console.Write("  ");
-                    }
+                    Console.Write(i == selected ? "> " : "  "); // Highlight selected language.
                     Console.WriteLine(_languageDisplay[i]);
                 }
 
-                Console.ResetColor();
+                // Handle keyboard input for navigation and selection.
                 var key = Console.ReadKey(true).Key;
-
                 switch (key)
                 {
                     case ConsoleKey.UpArrow:
-                        selected = (selected + _languages.Length - 1) % _languages.Length;
+                        selected = Math.Max(0, selected - 1);
                         break;
                     case ConsoleKey.DownArrow:
-                        selected = (selected + 1) % _languages.Length;
+                        selected = Math.Min(_languages.Length - 1, selected + 1);
                         break;
                     case ConsoleKey.Enter:
-                        LocalizationService.SetCulture(_languages[selected]);
-                        done = true; // Sortie immédiate après le choix de la langue
-                        // Pas besoin d'afficher de message ou de demander une autre touche
+                        LocalizationService.SetCulture(_languages[selected]); // Apply the selected language.
+                        done = true;
                         break;
                 }
             }
 
-            // Notification que la vue est terminée.
-            OnViewFinished?.Invoke();
+            // Notify that the view process is finished.
+            OnViewFinished?.Invoke(); 
         }
     }
 }
