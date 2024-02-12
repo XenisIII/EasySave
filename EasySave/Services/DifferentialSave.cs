@@ -49,6 +49,7 @@ namespace EasySave.Services
         /// </summary>
         private string CalculateFileHash(string filePath)
         {
+            // JB: C'était une exigence le hash? Pourquoi ne pas vérifier la date de modification du fichier?
             using (var md5 = MD5.Create())
             using (var stream = File.OpenRead(filePath))
             {

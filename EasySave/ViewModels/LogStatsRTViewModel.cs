@@ -48,6 +48,8 @@ namespace EasySave.ViewModels
         private void HandleStateChange(BackupModel state) =>
             WriteStatsRT.WriteRealTimeStatsAsync(state, LogDirPath);
 
+        // JB: ici on un méthode synchrone qui appelle une méthode asynchrone?
+
         /// <summary>
         /// Writes log information synchronously.
         /// </summary>

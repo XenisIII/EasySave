@@ -15,6 +15,7 @@ public static class WriteStatsRT
     public static void WriteLogsSync(LogModel logModel, string logDirPath)
     {
         // Ensure the directory exists
+        // JB: Que se passe-t-il si le dossier existe déjà?
         Directory.CreateDirectory(logDirPath);
 
         // Determine the log file path
@@ -34,6 +35,8 @@ public static class WriteStatsRT
 
         // Add new log entry and write to file
         list.Add(logModel);
+        // JB: Ici on a potentiellement un problème, si on veut executer une méthode asynchrone de manière synchrone
+        // on peut faire WriteToJsonFileAsync(list, logFilePath).Wait();
         WriteToJsonFileAsync(list, logFilePath); // This method should ideally be asynchronous
     }
 

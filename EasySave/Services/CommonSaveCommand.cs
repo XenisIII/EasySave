@@ -11,7 +11,7 @@ namespace EasySave.Services;
 public class CommonSaveCommand
 {
     // Tracks all files from the source directory.
-    public List<string> SourcePathAllFiles;
+    public List<string> SourcePathAllFiles; // JB: On peut avoir une propriété "protected" ici
 
     // Total size of files to be copied.
     private long Sizes;

@@ -20,6 +20,7 @@ namespace EasySave.Views
         /// <returns>A tuple containing backup name, source directory, target directory, and backup type.</returns>
         public (string backupName, string sourceDirectory, string targetDirectory, string backupType) Display()
         {
+            // JB: on a pas mal de paramètre ici, est-ce qu'on ferait pas une classe pour englober le tout?
             ConsoleHeader.Display(); // Displays the console header.
             Console.WriteLine(LocalizationService.GetString("CreateBackupJobViewTitle")); // Displays the title.
 
@@ -28,7 +29,7 @@ namespace EasySave.Views
             if (string.IsNullOrWhiteSpace(backupName) || backupName.ToLower() == "exit")
             {
                 OnReturnToMainMenu?.Invoke();
-                return (null, null, null, null);
+                return (null, null, null, null); // JB: null, null, null, null ? Pourquoi retourner null?
             }
 
             // Asks for and validates the source directory.
@@ -92,7 +93,10 @@ namespace EasySave.Views
                 Console.WriteLine(prompt);
                 path = Console.ReadLine();
 
-                if (path?.ToLower() == "exit")
+                // JB: il vaut mieux faire un ToUpper() en terme de performance
+                // Même mieux on peut faire une comparaison qui ignore la casse
+                // Mais c'est du détail car il n'y aura plus cette partie en WPF
+                if (path?.ToLower() == "exit") 
                 {
                     return path;
                 }

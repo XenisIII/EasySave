@@ -5,6 +5,7 @@ namespace EasySave.Models;
 /// </summary>
 public class LogModel
 {
+    // JB: le nom du fichier ne correspond pas au nom de la classe?
     // Name of the backup operation.
     public required string Name { get; set; }
 

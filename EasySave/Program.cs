@@ -77,6 +77,8 @@ while (true) // Boucle infinie pour le menu principal
 void ExecuteSelectedOption(int optionIndex)
 {
   Console.Clear();
+   // JB: Ici le code est un peu difficile à lire
+   // On peut faire des petites méthodes pour faciliter la lecture
   switch (optionIndex)
   {
     case 0:

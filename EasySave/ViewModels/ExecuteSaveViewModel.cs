@@ -30,7 +30,9 @@ public class SaveProcess(LogStatsRTViewModel logStatsRTViewModel)
       Thread.Sleep(100);
       var stopwatch = new Stopwatch();
       var save = this.SaveList.SaveList[saveIndex];
-      switch (save.Type)
+      // JB: Ici on a un peu de mal à lire le code, il ne faut surtout pas hésiter à ajouter des lignes vides
+      // voir créer des méthodes pour faciliter la compréhension du code
+      switch (save.Type) // Ici on pourrait avoir un type enum à la place du type string mais c'est du détail
       {
         case "Complete":
           var save1 = new CompleteSave(save);
@@ -66,6 +68,7 @@ public class SaveProcess(LogStatsRTViewModel logStatsRTViewModel)
     /// </summary>
     public void SetLogModel(string name, string sourcePath, string targetPath, long filesSize, string fileTransferTime)
   {
+     // JB: on a pas mal de paramètre ici, est-ce qu'on ferait pas une classe pour englober le tout?
     var model = new LogModel()
     {
       Name = name,

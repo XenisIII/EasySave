@@ -4,6 +4,7 @@ namespace EasySave.Models;
 
 public class BackupModel : ObservableObject
 {
+  // JB: si on initialise pas le champs c'est mieux d'avoir "string?"
   private string _state;
   
   public string SaveName { get; set; }
