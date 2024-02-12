@@ -145,7 +145,7 @@
     <value>English</value>
   </data>
   <data name="SaveMenuDeleteBackup" xml:space="preserve">
-    <value>Backup Settings</value>
+    <value>Delete backup</value>
   </data>
   <data name="SaveMenuInitiateBackup" xml:space="preserve">
     <value>Backup Now</value>
