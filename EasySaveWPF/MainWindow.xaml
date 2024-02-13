@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EasySaveWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="EasySave" Height="450" Width="800">
+    <Grid x:Name="MainGrid">
+        <!-- Barre de menu en haut -->
+        <Menu VerticalAlignment="Top">
+            <MenuItem Header="Fichier">
+                <MenuItem Header="Menu Principal" Click="MenuPrincipal_Click"/>
+                <!-- Ajoutez d'autres options de menu ici -->
+            </MenuItem>
+            <MenuItem Header="Paramètres">
+                <MenuItem Header="Langues" Click="LanguageSettingsPage"/>
+                <MenuItem Header="Logs" Click="MenuPrincipal_Click"/>
+                <!-- Ajoutez d'autres options de menu ici -->
+            </MenuItem>
+            <!-- Ajoutez d'autres menus principaux ici -->
+        </Menu>
 
+        <!-- Zone de contenu pour afficher les différentes vues -->
+        <Frame x:Name="ContentFrame" Margin="0,30,0,0" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
