@@ -204,4 +204,7 @@
   <data name="SaveMenuViewInitiaeBackupPre" xml:space="preserve">
     <value>Début des sauvegardes :</value>
   </data>
+  <data name="ChooseLogType" xml:space="preserve">
+    <value>Choisissez le type de fichier de log : </value>
+  </data>
 </root>

@@ -3,60 +3,101 @@ using System;
 
 namespace EasySave.Views
 {
-    /// <summary>
-    /// Allows users to select the application's language.
-    /// </summary>
     public class SettingsView
     {
         // Supported languages and their display names.
         private string[] _languages = new string[] { "en", "fr" };
         private string[] _languageDisplay = new string[] { "English", "Français" };
 
-        /// <summary>
-        /// Delegate for notifying when the view process is finished.
-        /// </summary>
+        // Supported log file types and their display names.
+        private string[] _logTypes = new string[] { "xml", "json" };
+        private string[] _logTypeDisplay = new string[] { "XML", "JSON" };
+
+        // Current selection indexes for language and log type.
+        private int _languageSelected = 0;
+        private int _logTypeSelected = 0;
+
+        // Indicates which setting is currently being selected.
+        private bool _isSelectingLanguage = true;
+
         public Action OnViewFinished;
 
-        /// <summary>
-        /// Displays language selection options and handles user input.
-        /// </summary>
         public void Display()
         {
-            int selected = 0;
             bool done = false;
 
             while (!done)
             {
                 Console.Clear();
                 ConsoleHeader.Display();
-                Console.WriteLine(LocalizationService.GetString("ChooseLanguageText"));
 
-                // Display language options.
-                for (int i = 0; i < _languages.Length; i++)
+                // Toggle between selecting language and log type.
+                Console.WriteLine(_isSelectingLanguage ? LocalizationService.GetString("ChooseLanguageText") : LocalizationService.GetString("ChooseLogType"));
+
+                if (_isSelectingLanguage)
                 {
-                    Console.Write(i == selected ? "> " : "  "); // Highlight selected language.
-                    Console.WriteLine(_languageDisplay[i]);
+                    DisplayOptions(_languageDisplay, _languageSelected);
+                }
+                else
+                {
+                    DisplayOptions(_logTypeDisplay, _logTypeSelected);
                 }
 
-                // Handle keyboard input for navigation and selection.
                 var key = Console.ReadKey(true).Key;
                 switch (key)
                 {
                     case ConsoleKey.UpArrow:
-                        selected = Math.Max(0, selected - 1);
+                        if (_isSelectingLanguage)
+                        {
+                            _languageSelected = Math.Max(0, _languageSelected - 1);
+                        }
+                        else
+                        {
+                            _logTypeSelected = Math.Max(0, _logTypeSelected - 1);
+                        }
                         break;
                     case ConsoleKey.DownArrow:
-                        selected = Math.Min(_languages.Length - 1, selected + 1);
+                        if (_isSelectingLanguage)
+                        {
+                            _languageSelected = Math.Min(_languages.Length - 1, _languageSelected + 1);
+                        }
+                        else
+                        {
+                            _logTypeSelected = Math.Min(_logTypes.Length - 1, _logTypeSelected + 1);
+                        }
                         break;
                     case ConsoleKey.Enter:
-                        LocalizationService.SetCulture(_languages[selected]); // Apply the selected language.
-                        done = true;
+                        if (_isSelectingLanguage)
+                        {
+                            LocalizationService.SetCulture(_languages[_languageSelected]); // Apply the selected language.
+                            _isSelectingLanguage = false; // Move to selecting log type.
+                        }
+                        else
+                        {
+                            //LogService.SetLogType(_logTypes[_logTypeSelected]); // Apply the selected log type.
+                            /////
+                            ////// A CHANGER ICI
+                            /////
+                            done = true;
+                        }
+                        break;
+                    case ConsoleKey.Spacebar:
+                        // Toggle between selecting language and log type without making a final selection.
+                        _isSelectingLanguage = !_isSelectingLanguage;
                         break;
                 }
             }
 
-            // Notify that the view process is finished.
-            OnViewFinished?.Invoke(); 
+            OnViewFinished?.Invoke();
+        }
+
+        private void DisplayOptions(string[] options, int selected)
+        {
+            for (int i = 0; i < options.Length; i++)
+            {
+                Console.Write(i == selected ? "> " : "  "); // Highlight selected option.
+                Console.WriteLine(options[i]);
+            }
         }
     }
 }
