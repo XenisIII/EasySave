@@ -202,6 +202,6 @@
     <value>Sauvegarde(s) effectuées. Appuyez sur n'importe quelle touche pour revenir...</value>
   </data>
   <data name="SaveMenuViewInitiaeBackupPre" xml:space="preserve">
-    <value></value>
+    <value>Début des sauvegardes :</value>
   </data>
 </root>
