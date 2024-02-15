@@ -154,7 +154,7 @@
     <value>Quitter</value>
   </data>
   <data name="HomeOptionOpenLog" xml:space="preserve">
-    <value>Ouvrir le fichier de log</value>
+    <value>Ouvrir le dossier de log</value>
   </data>
   <data name="HomeOptionSaveMenu" xml:space="preserve">
     <value>Consulter les sauvegardes en place</value>
