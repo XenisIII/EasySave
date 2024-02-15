@@ -3,7 +3,7 @@ namespace EasySave.Models;
 /// <summary>
 /// Represents a single log entry for a backup operation, capturing essential details about the operation.
 /// </summary>
-public class LogModel
+public class LogVarModel
 {
     // Name of the backup operation.
     public required string Name { get; set; }
