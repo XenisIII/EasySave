@@ -25,7 +25,7 @@ namespace EasySave.Views
         public string Display()
         {
             bool done = false;
-            string logFileType = "xml"; // Default to json
+            string logFileType = "";
 
             while (!done)
             {
