@@ -12,24 +12,24 @@ public static class WriteStatsRT
     /// </summary>
     /// <param name="logModel">The log entry to write.</param>
     /// <param name="logDirPath">The directory path to store the log file.</param>
-    public static void WriteLogsSync(LogModel logModel, string logDirPath)
+    public static void WriteLogsSync(LogVarModel logModel, string logDirPath)
     {
-        // Ensure the directory exists
+        // Ensure the directory exists (if not, it will be created. If yes, it will continue)
         Directory.CreateDirectory(logDirPath);
 
         // Determine the log file path
         var logFilePath = Path.Combine(logDirPath, $"Log_{DateTime.Now:yyyyMMdd}.json");
-        List<LogModel> list;
+        List<LogVarModel> list;
 
         // Deserialize existing log entries if the file exists
         if (File.Exists(logFilePath))
         {
             using var stream = File.OpenRead(logFilePath);
-            list = JsonSerializer.Deserialize<List<LogModel>>(stream) ?? new List<LogModel>();
+            list = JsonSerializer.Deserialize<List<LogVarModel>>(stream) ?? new List<LogVarModel>();
         }
         else
         {
-            list = new List<LogModel>();
+            list = new List<LogVarModel>();
         }
 
         // Add new log entry and write to file
@@ -42,7 +42,7 @@ public static class WriteStatsRT
     /// </summary>
     /// <param name="backup">The backup model to log.</param>
     /// <param name="statsDirectory">The directory path to store the stats file.</param>
-    public static async Task WriteRealTimeStatsAsync(BackupModel backup, string statsDirectory)
+    public static async Task WriteRealTimeStatsAsync(StatsRTModel backup, string statsDirectory)
     {
         // Ensure the directory exists
         Directory.CreateDirectory(statsDirectory);
@@ -51,17 +51,17 @@ public static class WriteStatsRT
         var statsFileName = $"stats_{DateTime.Now:yyyyMMdd}.json";
         var statsFilePath = Path.Combine(statsDirectory, statsFileName);
 
-        List<BackupModel> statsList;
+        List<StatsRTModel> statsList;
 
         // Deserialize existing stats if the file exists
         if (File.Exists(statsFilePath))
         {
             using var stream = File.OpenRead(statsFilePath);
-            statsList = JsonSerializer.Deserialize<List<BackupModel>>(stream) ?? new List<BackupModel>();
+            statsList = JsonSerializer.Deserialize<List<StatsRTModel>>(stream) ?? new List<StatsRTModel>();
         }
         else
         {
-            statsList = new List<BackupModel>();
+            statsList = new List<StatsRTModel>();
         }
 
         // Add new stats and write to file

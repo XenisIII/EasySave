@@ -11,16 +11,16 @@ namespace EasySave.Services;
 public class CommonSaveCommand
 {
     // Tracks all files from the source directory.
-    public List<string> SourcePathAllFiles;
+    protected List<string> SourcePathAllFiles;
 
     // Total size of files to be copied.
     private long Sizes;
 
     // Represents the current backup operation.
-    private BackupModel _backupModel;
+    private StatsRTModel _statsRTModel;
 
     // Exposes backup model details.
-    public BackupModel BackupModel => this._backupModel;
+    public StatsRTModel StatsRTModel => this._statsRTModel;
 
     /// <summary>
     /// Initializes backup preparation.
@@ -29,7 +29,7 @@ public class CommonSaveCommand
     {
         this.SourcePathAllFiles = new List<string>();
         VerifyFilesToCopy(save.SourcePath);
-        this._backupModel = new BackupModel();
+        this._statsRTModel = new StatsRTModel();
     }
 
     /// <summary>
@@ -37,14 +37,14 @@ public class CommonSaveCommand
     /// </summary>
     public void SetInfosInStatsRTModel(CreateSave save, string fileName)
     {
-        _backupModel.SaveName = save.Name;
-        _backupModel.TotalFilesToCopy = SourcePathAllFiles.Count;
-        _backupModel.SourceFilePath = GetPathFile(fileName);
-        _backupModel.TargetFilePath = GetPathFile(fileName).Replace(save.SourcePath, save.TargetPath);
-        _backupModel.State = "Activated";
-        _backupModel.TotalFilesSize = Sizes;
-        _backupModel.NbFilesLeftToDo = SourcePathAllFiles.Count - SourcePathAllFiles.IndexOf(GetPathFile(fileName));
-        _backupModel.Progress = (int)((_backupModel.TotalFilesToCopy - _backupModel.NbFilesLeftToDo) / (double)_backupModel.TotalFilesToCopy * 100);
+        _statsRTModel.SaveName = save.Name;
+        _statsRTModel.TotalFilesToCopy = SourcePathAllFiles.Count;
+        _statsRTModel.SourceFilePath = GetPathFile(fileName);
+        _statsRTModel.TargetFilePath = GetPathFile(fileName).Replace(save.SourcePath, save.TargetPath);
+        _statsRTModel.State = "Activated";
+        _statsRTModel.TotalFilesSize = Sizes;
+        _statsRTModel.NbFilesLeftToDo = SourcePathAllFiles.Count - SourcePathAllFiles.IndexOf(GetPathFile(fileName));
+        _statsRTModel.Progress = (int)((_statsRTModel.TotalFilesToCopy - _statsRTModel.NbFilesLeftToDo) / (double)_statsRTModel.TotalFilesToCopy * 100);
     }
 
     /// <summary>
@@ -52,7 +52,7 @@ public class CommonSaveCommand
     /// </summary>
     public void UpdateFinishedFileSave()
     {
-        _backupModel.State = "Finished";
+        _statsRTModel.State = "Finished";
     }
 
     /// <summary>
