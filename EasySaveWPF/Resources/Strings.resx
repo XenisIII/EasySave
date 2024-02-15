@@ -117,91 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChooseLanguageText" xml:space="preserve">
-    <value>Choisissez la langue : </value>
+  <data name="SettingsLabel" xml:space="preserve">
+    <value></value>
   </data>
-  <data name="CreateBackupJobViewAskForBackupTypeChoice" xml:space="preserve">
-    <value>Choisissez le type de sauvegarde :</value>
+  <data name="SettingsViewApply" xml:space="preserve">
+    <value></value>
   </data>
-  <data name="CreateBackupJobViewAskForBackupTypeComplete" xml:space="preserve">
-    <value>1 - Complète</value>
+  <data name="SettingsViewLogType" xml:space="preserve">
+    <value></value>
   </data>
-  <data name="CreateBackupJobViewAskForBackupTypeError" xml:space="preserve">
-    <value>Entrée invalide, veuillez réessayer.</value>
-  </data>
-  <data name="CreateBackupJobViewAskForBackupTypeExit" xml:space="preserve">
-    <value>(ou tapez 'exit' pour retourner au menu principal)</value>
-  </data>
-  <data name="CreateBackupJobViewAskForBackupTypeIncremential" xml:space="preserve">
-    <value>2 - Différentielle</value>
-  </data>
-  <data name="CreateBackupJobViewAskForDirectorySource" xml:space="preserve">
-    <value>Entrez le chemin du répertoire source (ou tapez 'exit' pour au menu) :</value>
-  </data>
-  <data name="CreateBackupJobViewAskForDirectoryTarget" xml:space="preserve">
-    <value>Entrez le chemin du répertoire de destination (ou tapez 'exit' pour retourner au menu) :</value>
-  </data>
-  <data name="CreateBackupJobViewAskForInputName" xml:space="preserve">
-    <value>Entrez le nom de la sauvegarde (ou tapez 'exit' pour retourner au menu) :</value>
-  </data>
-  <data name="HomeChooseOptionMessage" xml:space="preserve">
-    <value>Veuillez choisir une des options : </value>
-  </data>
-  <data name="HomeOptionCreateSave" xml:space="preserve">
-    <value>Créer un travail de sauvegarde</value>
-  </data>
-  <data name="HomeOptionExit" xml:space="preserve">
-    <value>Quitter</value>
-  </data>
-  <data name="HomeOptionOpenLog" xml:space="preserve">
-    <value>Ouvrir le fichier de log</value>
-  </data>
-  <data name="HomeOptionSaveMenu" xml:space="preserve">
-    <value>Consulter les sauvegardes en place</value>
-  </data>
-  <data name="HomeOptionSettings" xml:space="preserve">
-    <value>Paramètres</value>
-  </data>
-  <data name="HomePressAKeyToReturnHome" xml:space="preserve">
-    <value>Appuyez sur une touche pour retourner au menu principal</value>
-  </data>
-  <data name="LanguageSetTextMessage" xml:space="preserve">
-    <value>Français</value>
-  </data>
-  <data name="SaveMenuDeleteBackup" xml:space="preserve">
-    <value>Supprimer une sauvegarde</value>
-  </data>
-  <data name="SaveMenuInitiateBackup" xml:space="preserve">
-    <value>Lancer une ou plusieurs sauvegarde</value>
-  </data>
-  <data name="SaveMenuReturnHome" xml:space="preserve">
-    <value>Retour à l'écran d'accueil</value>
-  </data>
-  <data name="SettingsText" xml:space="preserve">
-    <value>Paramètres :</value>
-  </data>
-  <data name="CreateBackupJobViewNoEntryPath" xml:space="preserve">
-    <value>Aucune entrée détectée, veuillez fournir un chemin valide.</value>
-  </data>
-  <data name="CreateBackupViewPathNoExist" xml:space="preserve">
-    <value>Le chemin spécifié n'existe pas. Veuillez entrer un chemin valide.</value>
-  </data>
-  <data name="SaveMenuViewSelectBackupMessageOption" xml:space="preserve">
-    <value>Sélectionnez les sauvegardes à exécuter (appuyez sur ESPACE pour sélectionner, ENTER pour confirmer, A pour sélectionner toutes, E pour quitter) :</value>
-  </data>
-  <data name="CreateBackupJobViewTitle" xml:space="preserve">
-    <value>Création d'une sauvegarde : </value>
-  </data>
-  <data name="CreateBackupJobViewPressEnter" xml:space="preserve">
-    <value>Appuyez sur Enter pour revenir au menu principal.</value>
-  </data>
-  <data name="CreateBackupJobViewSuccessMessage" xml:space="preserve">
-    <value>La sauvegarde a été créée avec succès !</value>
-  </data>
-  <data name="SaveMenuViewBackupInitMsg" xml:space="preserve">
-    <value>Sauvegarde(s) effectuées. Appuyez sur n'importe quelle touche pour revenir...</value>
-  </data>
-  <data name="SaveMenuViewInitiaeBackupPre" xml:space="preserve">
+  <data name="SettingsViewLanguage" xml:space="preserve">
     <value></value>
   </data>
 </root>

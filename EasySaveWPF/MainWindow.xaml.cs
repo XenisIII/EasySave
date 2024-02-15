@@ -1,37 +1,35 @@
-﻿using System;
+﻿using EasySaveWPF.Views;
 using System.Windows;
 
-namespace EasySaveWPF
+namespace EasySaveWPF;
+public partial class MainWindow : Window
 {
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        ContentFrame.Content = new HomeView();
+    }
 
-        private void MenuPrincipal_Click(object sender, RoutedEventArgs e)
-        {
-            // Exemple de chargement du menu principal dans le Frame
-            ContentFrame.Navigate(new Uri("Views/MenuPrincipal.xaml", UriKind.Relative));
-        }
+    private void Home_Click(object sender, RoutedEventArgs e)
+    {
+        // Load the Home view
+        ContentFrame.Navigate(new HomeView());
+    }
 
-        private void Vue1_Click(object sender, RoutedEventArgs e)
-        {
-            // Charger la Vue 1 dans le Frame
-            ContentFrame.Navigate(new Uri("Views/Vue1.xaml", UriKind.Relative));
-        }
+    private void Settings_Click(object sender, RoutedEventArgs e)
+    {
+        // Load the Settings view into the content frame
+        ContentFrame.Navigate(new SettingsView());
+    }
 
-        private void Vue2_Click(object sender, RoutedEventArgs e)
-        {
-            // Charger la Vue 2 dans le Frame
-            ContentFrame.Navigate(new Uri("Views/Vue2.xaml", UriKind.Relative));
-        }
-
-        private void LanguageSettingsPage(object sender, RoutedEventArgs e)
-        {
-            // Charger la Vue 2 dans le Frame
-            ContentFrame.Navigate(new Uri("Views/LanguageSettingsView.xaml", UriKind.Relative));
-        }
+    private void About_Click(object sender, RoutedEventArgs e)
+    {
+        // Load the About view
+        //ContentFrame.Navigate(new AboutView());
+    }
+    private void Help_Click(object sender, RoutedEventArgs e)
+    {
+        // Load the About view
+        //ContentFrame.Navigate(new AboutView());
     }
 }

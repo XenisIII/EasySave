@@ -34,7 +34,7 @@ public class SaveProcess(LogStatsRTViewModel logStatsRTViewModel)
       {
         case "Complete":
           var save1 = new CompleteSave(save);
-          logStatsRTViewModel.NewWork(save1.BackupModel);
+          logStatsRTViewModel.NewWork(save1.StatsRTModel);
           stopwatch.Start();
           save1.Execute(save);
           stopwatch.Stop();
@@ -43,11 +43,11 @@ public class SaveProcess(LogStatsRTViewModel logStatsRTViewModel)
             timeElapsed.Hours, timeElapsed.Minutes, timeElapsed.Seconds,
             timeElapsed.Milliseconds / 10);
           this.SetLogModel(save.Name, save.SourcePath, save.TargetPath,
-            save1.BackupModel.TotalFilesSize, elapsedTimeFormatted);
+            save1.StatsRTModel.TotalFilesSize, elapsedTimeFormatted);
           break;
         case "Differential":
           var save2 = new DifferentialSave(save);
-          logStatsRTViewModel.NewWork(save2.BackupModel);
+          logStatsRTViewModel.NewWork(save2.StatsRTModel);
           stopwatch.Start();
           save2.Execute(save);
           stopwatch.Stop();
@@ -55,7 +55,7 @@ public class SaveProcess(LogStatsRTViewModel logStatsRTViewModel)
           var elapsedTimeFormatted1 =
             $"{timeElapsed1.Hours:00}:{timeElapsed1.Minutes:00}:{timeElapsed1.Seconds:00}.{timeElapsed1.Milliseconds / 10:00}";
           this.SetLogModel(save.Name, save.SourcePath, save.TargetPath,
-            save2.BackupModel.TotalFilesSize, elapsedTimeFormatted1);
+            save2.StatsRTModel.TotalFilesSize, elapsedTimeFormatted1);
           break;
       }
     }

@@ -42,7 +42,7 @@ public static class WriteStatsRT
     /// </summary>
     /// <param name="backup">The backup model to log.</param>
     /// <param name="statsDirectory">The directory path to store the stats file.</param>
-    public static async Task WriteRealTimeStatsAsync(BackupModel backup, string statsDirectory)
+    public static async Task WriteRealTimeStatsAsync(StatsRTModel backup, string statsDirectory)
     {
         // Ensure the directory exists
         Directory.CreateDirectory(statsDirectory);
@@ -51,17 +51,17 @@ public static class WriteStatsRT
         var statsFileName = $"stats_{DateTime.Now:yyyyMMdd}.json";
         var statsFilePath = Path.Combine(statsDirectory, statsFileName);
 
-        List<BackupModel> statsList;
+        List<StatsRTModel> statsList;
 
         // Deserialize existing stats if the file exists
         if (File.Exists(statsFilePath))
         {
             using var stream = File.OpenRead(statsFilePath);
-            statsList = JsonSerializer.Deserialize<List<BackupModel>>(stream) ?? new List<BackupModel>();
+            statsList = JsonSerializer.Deserialize<List<StatsRTModel>>(stream) ?? new List<StatsRTModel>();
         }
         else
         {
-            statsList = new List<BackupModel>();
+            statsList = new List<StatsRTModel>();
         }
 
         // Add new stats and write to file

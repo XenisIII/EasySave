@@ -117,91 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChooseLanguageText" xml:space="preserve">
-    <value>Choose the language : </value>
-  </data>
-  <data name="HomeChooseOptionMessage" xml:space="preserve">
-    <value>Please choose between the options below : </value>
-  </data>
-  <data name="HomeOptionCreateSave" xml:space="preserve">
-    <value>Create a save</value>
-  </data>
-  <data name="HomeOptionExit" xml:space="preserve">
-    <value>Exit</value>
-  </data>
-  <data name="HomeOptionOpenLog" xml:space="preserve">
-    <value>Open log file</value>
-  </data>
-  <data name="HomeOptionSaveMenu" xml:space="preserve">
-    <value>Consult all backups</value>
-  </data>
-  <data name="HomeOptionSettings" xml:space="preserve">
+  <data name="SettingsLabel" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="HomePressAKeyToReturnHome" xml:space="preserve">
-    <value>Press any key to return to main menu</value>
+  <data name="SettingsViewApply" xml:space="preserve">
+    <value>Apply changes</value>
   </data>
-  <data name="LanguageSetTextMessage" xml:space="preserve">
-    <value>English</value>
+  <data name="SettingsViewLogType" xml:space="preserve">
+    <value>Log files extensions</value>
   </data>
-  <data name="SaveMenuDeleteBackup" xml:space="preserve">
-    <value>Delete backup</value>
-  </data>
-  <data name="SaveMenuInitiateBackup" xml:space="preserve">
-    <value>Backup Now</value>
-  </data>
-  <data name="SaveMenuReturnHome" xml:space="preserve">
-    <value>Return to Main Menu</value>
-  </data>
-  <data name="SettingsText" xml:space="preserve">
-    <value>Settings :</value>
-  </data>
-  <data name="CreateBackupJobViewAskForBackupTypeChoice" xml:space="preserve">
-    <value>Choose backup type :</value>
-  </data>
-  <data name="CreateBackupJobViewAskForBackupTypeComplete" xml:space="preserve">
-    <value>1 - Complete</value>
-  </data>
-  <data name="CreateBackupJobViewAskForBackupTypeError" xml:space="preserve">
-    <value>Invalid Input, please retry.</value>
-  </data>
-  <data name="CreateBackupJobViewAskForBackupTypeExit" xml:space="preserve">
-    <value>(or enter 'exit' to return to main menu)</value>
-  </data>
-  <data name="CreateBackupJobViewAskForBackupTypeIncremential" xml:space="preserve">
-    <value>2 - Differential</value>
-  </data>
-  <data name="CreateBackupJobViewAskForDirectorySource" xml:space="preserve">
-    <value>Enter source path (or enter 'exit' to return to main menu) :</value>
-  </data>
-  <data name="CreateBackupJobViewAskForDirectoryTarget" xml:space="preserve">
-    <value>Enter target path (or enter 'exit' to return to main menu) :</value>
-  </data>
-  <data name="CreateBackupJobViewAskForInputName" xml:space="preserve">
-    <value>Enter backup name (or enter 'exit' to return to main menu) :</value>
-  </data>
-  <data name="CreateBackupJobViewNoEntryPath" xml:space="preserve">
-    <value>No entry detected, please enter a valid path.</value>
-  </data>
-  <data name="CreateBackupViewPathNoExist" xml:space="preserve">
-    <value>The specified path doesn't exist. Please enter a valid path.</value>
-  </data>
-  <data name="SaveMenuViewSelectBackupMessageOption" xml:space="preserve">
-    <value>Select the backups to initiate (press SPACE to select, ENTER to confirm, A to select all, E to exit to main menu):</value>
-  </data>
-  <data name="CreateBackupJobViewPressEnter" xml:space="preserve">
-    <value>Press Enter to return to the main menu.</value>
-  </data>
-  <data name="CreateBackupJobViewSuccessMessage" xml:space="preserve">
-    <value>The backup was created successfully!</value>
-  </data>
-  <data name="SaveMenuViewBackupInitMsg" xml:space="preserve">
-    <value>Backups initiated. Press any key to return...</value>
-  </data>
-  <data name="CreateBackupJobViewTitle" xml:space="preserve">
-    <value>Backup creation :</value>
-  </data>
-  <data name="SaveMenuViewInitiaeBackupPre" xml:space="preserve">
-    <value>Starting backup :</value>
+  <data name="SettingsViewLanguage" xml:space="preserve">
+    <value>Languages</value>
   </data>
 </root>

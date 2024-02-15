@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="EasySaveWPF.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <!-- This column will expand to fill the space -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- This column will size to its content -->
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Data Grid for Backups -->
+        <DataGrid Grid.Column="0" ItemsSource="{Binding Backups}" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="1" Margin="10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nom" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Chemin source" Binding="{Binding SourcePath}"/>
+                <DataGridTextColumn Header="Chemin destination" Binding="{Binding DestinationPath}"/>
+                <DataGridTextColumn Header="Type de sauvegarde" Binding="{Binding BackupType}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Grid.Row="1" Margin="10">
+            <Button Content="ADD" Click="AddNewBackup" Margin="5"/>
+            <Button Content="DELETE" Command="{Binding DeleteBackupCommand}" Margin="5"/>
+            <Button Content="EXECUTE" Command="{Binding ExecuteBackupCommand}" Margin="5"/>
+            <Button Content="LOGS" Click="OpenLogsDirectory" Margin="5"/>
+        </StackPanel>
+
+        <!-- No Backups Message -->
+        <!--<TextBlock Grid.ColumnSpan="2" Text="Pas de sauvegarde enregistrée" Visibility="{Binding Backups.Count, Converter={StaticResource EmptyCollectionToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>-->
+    </Grid>
+</UserControl>

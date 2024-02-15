@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EasySaveWPF.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="14.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAQAAIAg=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="EasySave.ViewModels.SaveProcess">
+    <Position X="16" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAEAAAAAAAIAQAAABBAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ExecuteSaveViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySave.ViewModels.LogStatsRTViewModel">
+    <Position X="19.5" Y="1.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAEAEAAAAAAAAAAAAAAAAAAAgJAAAA=</HashCode>
+      <FileName>ViewModels\LogStatsRTViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySave.Models.LogVarModel">
+    <Position X="12.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEEAQAAAEAAAAAAAAAAABAAQA=</HashCode>
+      <FileName>Models\LogVarModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySave.Models.SavesModel">
+    <Position X="18.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\SavesModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySave.Models.StatsRTModel">
+    <Position X="9.5" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAACAIAAAACBAAAAAAAAAAAAAgBACCAAA=</HashCode>
+      <FileName>Models\StatsRTModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySave.Services.CommonSaveCommand">
+    <Position X="4.5" Y="1.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAFIBAAQQAEAAAAIAABAAAAAAAQACAAAAAAA=</HashCode>
+      <FileName>Services\CommonSaveCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySave.Services.CompleteSave">
+    <Position X="6" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\CompleteSave.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySave.Services.CreateSave">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAQAAAAAAAAAAQAAAABAAAA=</HashCode>
+      <FileName>Services\CreateSave.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySave.Services.DifferentialSave">
+    <Position X="3.75" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\DifferentialSave.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySave.Services.LocalizationService">
+    <Position X="16" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAABAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\RessourceManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySave.Services.WriteStatsRT">
+    <Position X="14.5" Y="5.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAgAAAA=</HashCode>
+      <FileName>Services\WriteStateRT.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySave.Services.Common.ObservableObject">
+    <Position X="9.25" Y="1.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\ObservableObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EasySaveWPF.Views.SettingsView" BaseTypeListCollapsed="true">
+    <Position X="12" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIgAAAAAAAAAAAAAIAAAAAAAgAAAAABgAIAAAgAAAAA=</HashCode>
+      <FileName>Views\SettingsView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="EasySaveWPF.Views.HomeView" BaseTypeListCollapsed="true">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\HomeView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
