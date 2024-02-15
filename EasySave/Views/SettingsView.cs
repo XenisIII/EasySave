@@ -22,9 +22,10 @@ namespace EasySave.Views
 
         public Action OnViewFinished;
 
-        public void Display()
+        public string Display()
         {
             bool done = false;
+            string logFileType = "xml"; // Default to json
 
             while (!done)
             {
@@ -74,10 +75,7 @@ namespace EasySave.Views
                         }
                         else
                         {
-                            //LogService.SetLogType(_logTypes[_logTypeSelected]); // Apply the selected log type.
-                            /////
-                            ////// A CHANGER ICI
-                            /////
+                            logFileType = _logTypes[_logTypeSelected]; // Store the selected log file type.
                             done = true;
                         }
                         break;
@@ -89,6 +87,7 @@ namespace EasySave.Views
             }
 
             OnViewFinished?.Invoke();
+            return logFileType; // Return the selected log file type
         }
 
         private void DisplayOptions(string[] options, int selected)

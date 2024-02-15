@@ -130,7 +130,7 @@
     <value>Exit</value>
   </data>
   <data name="HomeOptionOpenLog" xml:space="preserve">
-    <value>Open log file</value>
+    <value>Open log directory</value>
   </data>
   <data name="HomeOptionSaveMenu" xml:space="preserve">
     <value>Consult all backups</value>

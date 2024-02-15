@@ -105,7 +105,7 @@ void ExecuteSelectedOption(int optionIndex)
       break;
     case 2:
       var settingsView = new SettingsView();
-      settingsView.Display();
+      _LogStatsRTViewModel.Type = settingsView.Display();
       break;
     case 3:
       var logView = new LogView();

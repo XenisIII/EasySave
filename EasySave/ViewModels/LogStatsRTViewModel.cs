@@ -10,6 +10,12 @@ namespace EasySave.ViewModels
     /// </summary>
     public class LogStatsRTViewModel
     {
+        private string _type;
+        public string Type
+        {
+            get => _type;
+            set => _type = value;
+        }
         // Directory path where logs are stored.
         private static readonly string LogDirPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "PS-Logs");
 
@@ -46,13 +52,13 @@ namespace EasySave.ViewModels
         /// </summary>
         /// <param name="state">The backup model with updated state.</param>
         private void HandleStateChange(StatsRTModel state) =>
-            WriteStatsRT.WriteRealTimeStatsAsync(state, LogDirPath);
+            WriteStatsRT.WriteRealTimeStatsAsync(state, LogDirPath, _type);
 
         /// <summary>
         /// Writes log information synchronously.
         /// </summary>
         /// <param name="log">The log information to write.</param>
         public void WriteLog(LogVarModel log) =>
-            WriteStatsRT.WriteLogsSync(log, LogDirPath);
+            WriteStatsRT.WriteLogsSync(log, LogDirPath, _type);
     }
 }
