@@ -2,8 +2,9 @@ using System.ComponentModel;
 using EasySave.Models;
 using EasySave.Services;
 using System;
+using System.IO;
 
-namespace EasySave.ViewModels
+namespace EasySave.ViewModels;
 {
     /// <summary>
     /// ViewModel responsible for handling real-time logging and state changes of backup operations.
