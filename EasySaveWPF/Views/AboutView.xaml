@@ -14,15 +14,15 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" Height="330" Width="152">
-            <TextBlock Text="À propos" FontWeight="Bold" FontSize="24" Margin="0,0,0,20"/>
+            <TextBlock Text="{ext:Loc Key='AboutViewTitle'}" FontWeight="Bold" FontSize="24" Margin="0,0,0,20"/>
             <Image Source="../EasySave.ico" Height="100" Margin="0,0,0,20"/>
-            <TextBlock FontWeight="Bold" Text="Nom du logiciel:"/>
+            <TextBlock FontWeight="Bold" Text="{ext:Loc Key='AboutViewSoftName'}"/>
             <TextBlock Text="EasySave" Margin="0,0,0,10"/>
-            <TextBlock FontWeight="Bold" Text="Créateur:"/>
+            <TextBlock FontWeight="Bold" Text="{ext:Loc Key='AboutViewCreator'}"/>
             <TextBlock Text="ProSoft" Margin="0,0,0,10"/>
-            <TextBlock FontWeight="Bold" Text="Version:"/>
+            <TextBlock FontWeight="Bold" Text="{ext:Loc Key='AboutViewVersion'}"/>
             <TextBlock Text="2.0 2024" Margin="0,0,0,10"/>
-            <TextBlock FontWeight="Bold" Text="Auteurs:"/>
+            <TextBlock FontWeight="Bold" Text="{ext:Loc Key='AboutViewAuthors'}"/>
             <TextBlock Text="Arménio / Ezzaroual / Houze"/>
         </StackPanel>
     </Grid>
