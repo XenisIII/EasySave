@@ -85,8 +85,8 @@ public class SaveProcess(LogStatsRTViewModel logStatsRTViewModel)
     /// <summary>
     /// Adds a new save task configuration to the list.
     /// </summary>
-    public void CreateSaveFunc(string name, string sourcePath, string targetPath, string type) =>
-    this.SaveList.SaveList.Add(new(name, sourcePath, targetPath, type));
+    public void CreateSaveFunc(string name, string sourcePath, string targetPath, string type, string? ext) =>
+    this.SaveList.SaveList.Add(new(name, sourcePath, targetPath, type, ext));
 
     /// <summary>
     /// Deletes specified save tasks based on their indices.

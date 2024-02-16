@@ -1,7 +1,7 @@
 ﻿<Window x:Class="EasySaveWPF.Views.CreateSaveView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Create Save" Height="300" Width="500">
+        Title="Création de sauvegarde" Height="330" Width="500">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -9,19 +9,37 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Label Content="Create Save" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Grid.Row="0" />
-
         <StackPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center">
-            <TextBox Name="txtName" Margin="5">Name</TextBox>
-            <TextBox Name="txtSourcePath" Margin="5">Source Path</TextBox>
-            <TextBox Name="txtDestinationPath" Margin="5">Destination Path</TextBox>
-            <TextBox Name="txtType" Margin="5">Type</TextBox>
+            <TextBlock Text="Nom"/>
+            <TextBox Name="txtName" Margin="5" TextChanged="RequiredField_TextChanged"></TextBox>
+
+            <TextBlock Text="Chemin source"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="txtSourcePath" Margin="5" Width="400" TextChanged="RequiredField_TextChanged"/>
+                <Button Name="btnBrowseSourcePath" Content="Parcourir..." Margin="5" Click="BrowsePath_Click"/>
+            </StackPanel>
+
+            <TextBlock Text="Chemin destination"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="txtDestinationPath" Margin="5" Width="400" TextChanged="RequiredField_TextChanged"/>
+                <Button Name="btnBrowseDestinationPath" Content="Parcourir..." Margin="5" Click="BrowsePath_Click"/>
+            </StackPanel>
+
+            <TextBlock Text="Type de sauvegarde"/>
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Name="rbComplete" Content="Complète" Margin="5" GroupName="BackupType" Checked="BackupType_Checked" IsChecked="true"/>
+                <RadioButton Name="rbDifferential" Content="Différentielle" Margin="5" GroupName="BackupType" Checked="BackupType_Checked"/>
+            </StackPanel>
+
+
+            <TextBlock Text="Extensions de fichier à chiffrer"/>
+            <TextBox Name="txtExtCrypt" Margin="5"></TextBox>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
             <Button Content="Cancel" Margin="5" Click="CancelButton_Click"/>
-            <Button Content="Save et Quit" Margin="5" Click="SaveQuitButton_Click"/>
-            <Button Content="Save et Create a New" Margin="5" Click="SaveCreateButton_Click"/>
+            <Button Content="Save et Quit" Margin="5" Click="SaveQuitButton_Click" IsEnabled="{Binding CanSave}"/>
+            <Button Content="Save et Create a New" Margin="5" Click="SaveCreateButton_Click" IsEnabled="{Binding CanSave}"/>
         </StackPanel>
     </Grid>
 </Window>
