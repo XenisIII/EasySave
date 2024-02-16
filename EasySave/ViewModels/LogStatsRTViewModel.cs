@@ -10,7 +10,7 @@ namespace EasySave.ViewModels
     /// </summary>
     public class LogStatsRTViewModel
     {
-        private string _type;
+        private string _type = "xml";
         public string Type
         {
             get => _type;
