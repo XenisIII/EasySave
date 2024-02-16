@@ -69,6 +69,18 @@ namespace EasySaveWPF.ViewModels
             get => _Language;
             set => _Language = value;
         }
+        private bool _Complete;
+        public bool Complete
+        {
+            get => _Complete;
+            set => _Complete = value;
+        }
+        private bool _Differential;
+        public bool Differential
+        {
+            get => _Differential;
+            set => _Differential = value;
+        }
         /// <summary>
         /// Executes the save process for each selected save task.
         /// </summary>
@@ -146,8 +158,18 @@ namespace EasySaveWPF.ViewModels
         /// <summary>
         /// Adds a new save task configuration to the list.
         /// </summary>
-        public void CreateSaveFunc(object parameter) =>
-        this.SaveList.SaveList.Add(new(_Name, _SrcPath, _TargetPath, _Type, _Extensions));
+        public void CreateSaveFunc(object parameter)
+        {
+            if (_Complete)
+            {
+                this.SaveList.SaveList.Add(new(_Name, _SrcPath, _TargetPath, "Complete", _Extensions));
+            }
+            else if(_Differential)
+            {
+                this.SaveList.SaveList.Add(new(_Name, _SrcPath, _TargetPath, "Differential", _Extensions));
+            }
+            
+        }
 
         /// <summary>
         /// Deletes specified save tasks based on their indices.

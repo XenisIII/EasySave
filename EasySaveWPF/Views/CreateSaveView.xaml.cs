@@ -34,7 +34,6 @@ public partial class CreateSaveView : Window, INotifyPropertyChanged
     {
         this.DataContext = saveProcess;
         InitializeComponent();
-        this.DataContext = this;
     }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e)

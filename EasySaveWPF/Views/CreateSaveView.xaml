@@ -11,34 +11,34 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center">
             <TextBlock Text="{ext:Loc Key='CreateSaveViewName'}"/>
-            <TextBox Name="txtName" Margin="5" TextChanged="RequiredField_TextChanged"></TextBox>
+            <TextBox Name="txtName" Margin="5" TextChanged="RequiredField_TextChanged" Text="{Binding Name}"></TextBox>
 
             <TextBlock Text="{ext:Loc Key='CreateSaveViewSrcPath'}"/>
             <StackPanel Orientation="Horizontal">
-                <TextBox Name="txtSourcePath" Margin="5" Width="400" TextChanged="RequiredField_TextChanged"/>
+                <TextBox Name="txtSourcePath" Margin="5" Width="400" TextChanged="RequiredField_TextChanged" Text="{Binding SrcPath, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Name="btnBrowseSourcePath" Content="{ext:Loc Key='CreateSaveViewBrowse'}" Margin="5" Click="BrowsePath_Click"/>
             </StackPanel>
 
             <TextBlock Text="{ext:Loc Key='CreateSaveViewDestPath'}"/>
             <StackPanel Orientation="Horizontal">
-                <TextBox Name="txtDestinationPath" Margin="5" Width="400" TextChanged="RequiredField_TextChanged"/>
+                <TextBox Name="txtDestinationPath" Margin="5" Width="400" TextChanged="RequiredField_TextChanged" Text="{Binding TargetPath, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Name="btnBrowseDestinationPath" Content="{ext:Loc Key='CreateSaveViewBrowse'}" Margin="5" Click="BrowsePath_Click"/>
             </StackPanel>
 
             <TextBlock Text="{ext:Loc Key='CreateSaveViewType'}"/>
             <StackPanel Orientation="Horizontal">
-                <RadioButton Name="rbComplete" Content="{ext:Loc Key='CreateSaveViewComplete'}" Margin="5" GroupName="BackupType" Checked="BackupType_Checked" IsChecked="true"/>
-                <RadioButton Name="rbDifferential" Content="{ext:Loc Key='CreateSaveViewDifferential'}" Margin="5" GroupName="BackupType" Checked="BackupType_Checked"/>
+                <RadioButton Name="rbComplete" Content="{ext:Loc Key='CreateSaveViewComplete'}" Margin="5" GroupName="BackupType" Checked="BackupType_Checked" IsChecked="{Binding Complete}"/>
+                <RadioButton Name="rbDifferential" Content="{ext:Loc Key='CreateSaveViewDifferential'}" Margin="5" GroupName="BackupType" Checked="BackupType_Checked" IsChecked="{Binding Differential}"/>
             </StackPanel>
 
             <TextBlock Text="{ext:Loc Key='CreateSaveViewExt'}"/>
-            <TextBox Name="txtExtCrypt" Margin="5"></TextBox>
+            <TextBox Name="txtExtCrypt" Margin="5" Text="{Binding Extensions}"></TextBox>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
             <Button Content="{ext:Loc Key='CreateSaveViewCancel'}" Margin="5" Click="CancelButton_Click"/>
-            <Button Content="{ext:Loc Key='CreateSaveViewSaveQuit'}" Margin="5" Click="SaveQuitButton_Click" IsEnabled="{Binding CanSave}"/>
-            <Button Content="{ext:Loc Key='CreateSaveViewSaveCreate'}" Margin="5" Click="SaveCreateButton_Click" IsEnabled="{Binding CanSave}"/>
+            <Button Command="{Binding _CreateSave}" Content="{ext:Loc Key='CreateSaveViewSaveQuit'}" Margin="5" Click="SaveQuitButton_Click" IsEnabled="{Binding CanSave}"/>
+            <Button Command="{Binding _CreateSave}" Content="{ext:Loc Key='CreateSaveViewSaveCreate'}" Margin="5" Click="SaveCreateButton_Click" IsEnabled="{Binding CanSave}"/>
         </StackPanel>
     </Grid>
 </Window>
