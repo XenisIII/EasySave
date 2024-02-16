@@ -30,8 +30,9 @@ public partial class CreateSaveView : Window, INotifyPropertyChanged
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-    public CreateSaveView()
+    public CreateSaveView(SaveProcess saveProcess)
     {
+        this.DataContext = saveProcess;
         InitializeComponent();
         this.DataContext = this;
     }

@@ -13,14 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
-using EasySaveWPF.Views;   
+using EasySaveWPF.Views;
+using EasySaveWPF.ViewModels;
 
 namespace EasySaveWPF.Views;
 
 public partial class HomeView : UserControl
 {
-    public HomeView()
+    SaveProcess _saveProcess;
+    public HomeView(SaveProcess saveProcess)
     {
+        _saveProcess = saveProcess;
+        this.DataContext = saveProcess;
         InitializeComponent();
         this.DataContext = this;
     }
@@ -39,7 +43,7 @@ public partial class HomeView : UserControl
 
     public void AddNewBackup(object sender, RoutedEventArgs e)
     {
-        CreateSaveView createSaveWindow = new CreateSaveView();
+        CreateSaveView createSaveWindow = new CreateSaveView(_saveProcess);
         bool? result = createSaveWindow.ShowDialog();
 
         if (result == true)

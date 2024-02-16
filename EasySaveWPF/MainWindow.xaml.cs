@@ -12,13 +12,13 @@ public partial class MainWindow : Window
         _logStatsRTVM = new LogStatsRTViewModel();
         _SaveProcessVM = new SaveProcess(_logStatsRTVM);
         InitializeComponent();
-        ContentFrame.Content = new HomeView();
+        ContentFrame.Content = new HomeView(_SaveProcessVM);
     }
 
     private void Home_Click(object sender, RoutedEventArgs e)
     {
         // Load the Home view
-        ContentFrame.Navigate(new HomeView());
+        ContentFrame.Navigate(new HomeView(_SaveProcessVM));
     }
 
     private void Settings_Click(object sender, RoutedEventArgs e)
