@@ -1,12 +1,14 @@
 ﻿using System.Windows.Controls;
 using System.Windows;
 using EasySaveWPF.Services;
-using System.ComponentModel; // Required for INotifyPropertyChanged
+using System.ComponentModel;
+using EasySaveWPF.ViewModels; // Required for INotifyPropertyChanged
 
 namespace EasySaveWPF.Views;
 
 public partial class SettingsView : UserControl, INotifyPropertyChanged
 {
+    private LogStatsRTViewModel _logStatsRTVM;
     // Implement INotifyPropertyChanged to update the UI when the language changes
     public event PropertyChangedEventHandler PropertyChanged;
     protected void OnPropertyChanged(string name)
@@ -14,11 +16,12 @@ public partial class SettingsView : UserControl, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 
-    public SettingsView()
+    public SettingsView(SaveProcess saveProcess)
     {
+        this.DataContext = saveProcess;
         InitializeComponent();
         // Set DataContext for data binding
-        this.DataContext = this;
+        //this.DataContext = this;
     }
 
     // Add properties to bind with your UI elements, these should notify the UI when changed
@@ -67,6 +70,16 @@ public partial class SettingsView : UserControl, INotifyPropertyChanged
         OnPropertyChanged("LocalizedProperty1");
         OnPropertyChanged("LocalizedProperty2");
         // Continue for all properties that need refreshing...
+    }
+
+    private void logTypeChange_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
+
+    private void languageComboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
     }
 
     // Implement LogFormatChanged and LanguageSelectionChanged as needed, potentially using the properties above

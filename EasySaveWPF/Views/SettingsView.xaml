@@ -3,33 +3,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ext="clr-namespace:EasySaveWPF.Services"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" MinHeight="197"/>
+            <RowDefinition Height="Auto" MinHeight="48.92"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <!-- Log file format selection -->
-        <GroupBox Header="{ext:Loc Key='SettingsViewLogType'}" Grid.Row="0" Margin="10">
-            <StackPanel Orientation="Horizontal">
-                <RadioButton Name="radioJson" Content="JSON" Margin="5" IsChecked="True" Checked="LogFormatChanged"/>
-                <RadioButton Name="radioXml" Content="XML" Margin="5" Checked="LogFormatChanged"/>
-            </StackPanel>
+        <GroupBox Header="Choix type de logs" Grid.Row="0" Margin="10,10,10,10">
+            <ComboBox Name="logTypeChange" Width="150" Margin="5" SelectionChanged="logTypeChange_SelectionChanged" SelectedValue="{Binding LogType}" SelectedValuePath="Content">
+                <ComboBoxItem Content="xml" IsSelected="True"/>
+                <ComboBoxItem Content="json"/>
+            </ComboBox>
         </GroupBox>
 
         <!-- Language selection -->
-        <GroupBox Header="{ext:Loc Key='SettingsViewLanguage'}" Grid.Row="1" Margin="10">
-            <ComboBox Name="languageComboBox" Width="150" Margin="5">
+        <GroupBox Header="Choix de la langue" Grid.Row="1" Margin="10,10,10,133">
+            <ComboBox x:Name="languageComboBox1" Width="150" Margin="5" SelectionChanged="languageComboBox1_SelectionChanged" SelectedValue="{Binding Language}" SelectedValuePath="Content">
                 <ComboBoxItem Content="English" IsSelected="True"/>
                 <ComboBoxItem Content="Français"/>
                 <!-- Add more languages as needed -->
             </ComboBox>
         </GroupBox>
-        <Button Content="{ext:Loc Key='SettingsViewApply'}" Grid.Row="2" Width="Auto" Height="30" HorizontalAlignment="Right" Margin="10" Click="ApplyChanges_Click"/>
+
+        <Button 
+            Command="{Binding _ApplyChanges}"
+            Content="Apply Changes" 
+            Grid.Row="2" 
+            Margin="0,10,10,11" 
+            Click="ApplyChanges_Click" HorizontalAlignment="Right" Width="100"/>
+        <TextBox Grid.Row="1" TextWrapping="Wrap" Text="{Binding ProcessMetier}" HorizontalAlignment="Center" Width="164" Margin="0,107,0,71"/>
+        <GroupBox Header="Processus Métier" Grid.Row="1" Margin="10,85,10,58"/>
+        
     </Grid>
 </UserControl>
