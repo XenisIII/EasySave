@@ -237,4 +237,7 @@
   <data name="AboutViewAuthors" xml:space="preserve">
     <value>Auteurs :</value>
   </data>
+  <data name="SettingsViewProcess" xml:space="preserve">
+    <value>Processus maître :</value>
+  </data>
 </root>

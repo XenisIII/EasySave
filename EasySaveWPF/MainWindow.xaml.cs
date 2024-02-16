@@ -1,6 +1,7 @@
 ﻿using EasySaveWPF.Views;
 using System.Windows;
 using EasySaveWPF.ViewModels;
+using EasySaveWPF.Services;
 
 namespace EasySaveWPF;
 public partial class MainWindow : Window
@@ -13,6 +14,8 @@ public partial class MainWindow : Window
         _SaveProcessVM = new SaveProcess(_logStatsRTVM);
         InitializeComponent();
         ContentFrame.Content = new HomeView(_SaveProcessVM);
+
+        LocalizationService.CultureChanged += OnCultureChanged;
     }
 
     private void Home_Click(object sender, RoutedEventArgs e)
@@ -36,5 +39,12 @@ public partial class MainWindow : Window
     {
         // Load the About view
         ContentFrame.Navigate(new HelpView());
+    }
+
+    private void OnCultureChanged()
+    {
+        // This will refresh the current content of the window.
+        // You may need to update other parts of the UI if necessary.
+        ContentFrame.Content = ContentFrame.Content;
     }
 }

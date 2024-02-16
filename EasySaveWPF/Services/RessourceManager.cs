@@ -14,6 +14,9 @@ namespace EasySaveWPF.Services
         private static ResourceManager resourceManager =
             new ResourceManager("EasySaveWPF.Resources.Strings", typeof(LocalizationService).Assembly);
 
+        public delegate void CultureChangedHandler();
+        public static event CultureChangedHandler? CultureChanged;
+
         /// <summary>
         /// Sets the application's culture to the specified culture code.
         /// </summary>
@@ -23,6 +26,8 @@ namespace EasySaveWPF.Services
             CultureInfo culture = new CultureInfo(cultureCode);
             CultureInfo.CurrentUICulture = culture;
             CultureInfo.CurrentCulture = culture;
+
+            CultureChanged?.Invoke();
         }
 
         /// <summary>

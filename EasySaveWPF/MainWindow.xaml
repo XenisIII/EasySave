@@ -6,7 +6,7 @@
 
     <DockPanel>
         <!-- Barre latérale pour la navigation -->
-        <StackPanel Width="200" DockPanel.Dock="Left" Background="#333">
+        <StackPanel Width="90" DockPanel.Dock="Left" Background="#333">
             <!-- Utilisation de l'extension de balisage pour la localisation -->
             <Button Content="{ext:Loc Key='SideBarHome'}" Padding="10" Foreground="White" Background="Transparent" BorderThickness="0" Click="Home_Click"/>
             <Button Content="{ext:Loc Key='SideBarSettings'}" Padding="10" Foreground="White" Background="Transparent" BorderThickness="0" Click="Settings_Click"/>
