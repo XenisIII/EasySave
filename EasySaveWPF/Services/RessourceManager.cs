@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Resources;
 
-namespace EasySave.Services
+namespace EasySaveWPF.Services
 {
     /// <summary>
     /// Provides localization services for the application, allowing for dynamic language changes.

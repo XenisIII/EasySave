@@ -1,10 +1,10 @@
 using System.ComponentModel;
-using EasySave.Models;
-using EasySave.Services;
+using EasySaveWPF.Models;
+using EasySaveWPF.Services;
 using System;
 using System.IO;
 
-namespace EasySave.ViewModels;
+namespace EasySaveWPF.ViewModels;
 
 /// <summary>
 /// ViewModel responsible for handling real-time logging and state changes of backup operations.

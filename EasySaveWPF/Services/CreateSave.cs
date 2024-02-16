@@ -1,4 +1,4 @@
-namespace EasySave.Services
+namespace EasySaveWPF.Services
 {
   public class CreateSave(string name, string sourcePath, string targetPath, string type, string? ext)
   {

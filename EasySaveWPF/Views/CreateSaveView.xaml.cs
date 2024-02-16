@@ -17,7 +17,7 @@ using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.ComponentModel;
 using System.IO;
-using EasySave.ViewModels;
+using EasySaveWPF.ViewModels;
 
 namespace EasySaveWPF.Views;
 

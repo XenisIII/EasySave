@@ -1,8 +1,8 @@
 using System.Diagnostics;
-using EasySave.Models;
-using EasySave.Services;
+using EasySaveWPF.Models;
+using EasySaveWPF.Services;
 
-namespace EasySave.ViewModels;
+namespace EasySaveWPF.ViewModels;
 
 /// <summary>
 /// Manages execution of backup processes and logging.

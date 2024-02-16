@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Threading;
 
-namespace EasySave.Services
+namespace EasySaveWPF.Services
 {
     /// <summary>
     /// Implements differential backup logic.
