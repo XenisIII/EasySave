@@ -186,4 +186,55 @@
   <data name="HelpViewHelp" xml:space="preserve">
     <value>Aide</value>
   </data>
+  <data name="CreateSaveViewTitle" xml:space="preserve">
+    <value>Création de sauvegarde</value>
+  </data>
+  <data name="CreateSaveViewBrowse" xml:space="preserve">
+    <value>Parcourir...</value>
+  </data>
+  <data name="CreateSaveViewCancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="CreateSaveViewSaveQuit" xml:space="preserve">
+    <value>Sauvegarder et quitter</value>
+  </data>
+  <data name="CreateSaveViewSaveCreate" xml:space="preserve">
+    <value>Sauvegarder et créer nouveau</value>
+  </data>
+  <data name="CreateSaveViewExt" xml:space="preserve">
+    <value>Extensions de fichier à chiffrer</value>
+  </data>
+  <data name="CreateSaveViewDestPath" xml:space="preserve">
+    <value>Chemin destination</value>
+  </data>
+  <data name="CreateSaveViewType" xml:space="preserve">
+    <value>Type de sauvegarde</value>
+  </data>
+  <data name="CreateSaveViewComplete" xml:space="preserve">
+    <value>Complète</value>
+  </data>
+  <data name="CreateSaveViewDifferential" xml:space="preserve">
+    <value>Différentielle</value>
+  </data>
+  <data name="CreateSaveViewName" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="CreateSaveViewSrcPath" xml:space="preserve">
+    <value>Chemin source</value>
+  </data>
+  <data name="AboutViewSoftName" xml:space="preserve">
+    <value>Nom du logiciel :</value>
+  </data>
+  <data name="AboutViewTitle" xml:space="preserve">
+    <value>À propos</value>
+  </data>
+  <data name="AboutViewCreator" xml:space="preserve">
+    <value>Créateur :</value>
+  </data>
+  <data name="AboutViewVersion" xml:space="preserve">
+    <value>Version : </value>
+  </data>
+  <data name="AboutViewAuthors" xml:space="preserve">
+    <value>Auteurs :</value>
+  </data>
 </root>

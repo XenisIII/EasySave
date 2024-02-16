@@ -118,15 +118,123 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SettingsLabel" xml:space="preserve">
-    <value>Settings</value>
-  </data>
+  <value>Settings</value>
+</data>
   <data name="SettingsViewApply" xml:space="preserve">
-    <value>Apply changes</value>
-  </data>
+  <value>Apply Changes</value>
+</data>
   <data name="SettingsViewLogType" xml:space="preserve">
-    <value>Log files extensions</value>
-  </data>
+  <value>Log File Format</value>
+</data>
   <data name="SettingsViewLanguage" xml:space="preserve">
-    <value>Languages</value>
+  <value>Language Choice</value>
+</data>
+  <data name="SideBarAbout" xml:space="preserve">
+  <value>About</value>
+</data>
+  <data name="SideBarHome" xml:space="preserve">
+  <value>Home</value>
+</data>
+  <data name="SideBarSettings" xml:space="preserve">
+  <value>Settings</value>
+</data>
+  <data name="SideBarHelp" xml:space="preserve">
+  <value>Help</value>
+</data>
+  <data name="HomeViewName" xml:space="preserve">
+  <value>Name</value>
+</data>
+  <data name="HomeViewSrc" xml:space="preserve">
+  <value>Source Path</value>
+</data>
+  <data name="HomeViewDest" xml:space="preserve">
+  <value>Destination Path</value>
+</data>
+  <data name="HomeViewType" xml:space="preserve">
+  <value>Backup Type</value>
+</data>
+  <data name="HomeViewAdd" xml:space="preserve">
+  <value>Add</value>
+</data>
+  <data name="HomeViewDelete" xml:space="preserve">
+  <value>Delete</value>
+</data>
+  <data name="HomeViewExecute" xml:space="preserve">
+  <value>Execute</value>
+</data>
+  <data name="HomeViewLogs" xml:space="preserve">
+  <value>Logs</value>
+</data>
+  <data name="HelpViewUserDoc" xml:space="preserve">
+  <value>User Documentation:</value>
+</data>
+  <data name="HelpViewUserDocText" xml:space="preserve">
+  <value>For a complete understanding of EasySave's features and detailed instructions on how to use the software, please consult our complete user documentation. Download the guide in PDF format by clicking the link below to get started easily with EasySave.</value>
+</data>
+  <data name="HelpViewDownloadUserDoc" xml:space="preserve">
+  <value>Download User Documentation</value>
+</data>
+  <data name="HelpViewNeedAssist" xml:space="preserve">
+  <value>Need assistance?</value>
+</data>
+  <data name="HelpViewNeedAssistText" xml:space="preserve">
+  <value>If you have any questions or encounter any difficulties with EasySave, our dedicated support team is here to help. Do not hesitate to contact us for any technical assistance or questions regarding the use of EasySave. We are committed to providing the necessary help to ensure an optimal user experience.</value>
+</data>
+  <data name="HelpViewNeedAssistMail" xml:space="preserve">
+  <value>Send us an email at: support@prosoft.com</value>
+</data>
+  <data name="HelpViewHelp" xml:space="preserve">
+  <value>Help</value>
+</data>
+  <data name="CreateSaveViewTitle" xml:space="preserve">
+  <value>Backup Creation</value>
+</data>
+  <data name="CreateSaveViewBrowse" xml:space="preserve">
+  <value>Browse...</value>
+</data>
+  <data name="CreateSaveViewCancel" xml:space="preserve">
+  <value>Cancel</value>
+</data>
+  <data name="CreateSaveViewSaveQuit" xml:space="preserve">
+  <value>Save and Quit</value>
+</data>
+  <data name="CreateSaveViewSaveCreate" xml:space="preserve">
+  <value>Save and Create New</value>
+</data>
+  <data name="CreateSaveViewExt" xml:space="preserve">
+  <value>File Extensions to Encrypt</value>
+</data>
+  <data name="CreateSaveViewDestPath" xml:space="preserve">
+  <value>Destination Path</value>
+</data>
+  <data name="CreateSaveViewType" xml:space="preserve">
+  <value>Backup Type</value>
+</data>
+  <data name="CreateSaveViewComplete" xml:space="preserve">
+  <value>Complete</value>
+</data>
+  <data name="CreateSaveViewDifferential" xml:space="preserve">
+  <value>Differential</value>
+</data>
+  <data name="CreateSaveViewName" xml:space="preserve">
+  <value>Name</value>
+</data>
+  <data name="CreateSaveViewSrcPath" xml:space="preserve">
+  <value>Source Path</value>
+</data>
+  <data name="AboutViewTitle" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AboutViewSoftName" xml:space="preserve">
+    <value>Software name :</value>
+  </data>
+  <data name="AboutViewCreator" xml:space="preserve">
+    <value>Creator :</value>
+  </data>
+  <data name="AboutViewVersion" xml:space="preserve">
+    <value>Version :</value>
+  </data>
+  <data name="AboutViewAuthors" xml:space="preserve">
+    <value>Authors :</value>
   </data>
 </root>
