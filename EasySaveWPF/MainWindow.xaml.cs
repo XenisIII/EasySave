@@ -25,11 +25,11 @@ public partial class MainWindow : Window
     private void About_Click(object sender, RoutedEventArgs e)
     {
         // Load the About view
-        //ContentFrame.Navigate(new AboutView());
+        ContentFrame.Navigate(new AboutView());
     }
     private void Help_Click(object sender, RoutedEventArgs e)
     {
         // Load the About view
-        //ContentFrame.Navigate(new AboutView());
+        ContentFrame.Navigate(new HelpView());
     }
 }

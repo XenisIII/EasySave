@@ -8,10 +8,10 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading; // Required for Thread.Sleep
 using System.IO; // Required for File operations
-using EasySave.ViewModels;
-using EasySave.Services;
+using EasySaveWPF.ViewModels;
+using EasySaveWPF.Services;
 
-namespace EasySave.Services
+namespace EasySaveWPF.Services
 {
     /// <summary>
     /// Implements a complete save operation by copying all files from source to target directory.

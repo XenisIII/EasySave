@@ -1,9 +1,9 @@
 using System.Text.Json;
 using System.IO;
 using System.Collections.Generic;
-using EasySave.Models;
+using EasySaveWPF.Models;
 
-namespace EasySave.Services;
+namespace EasySaveWPF.Services;
 
 public static class WriteStatsRT
 {

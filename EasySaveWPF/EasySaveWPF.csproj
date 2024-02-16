@@ -10,7 +10,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="EasySave.ico" />
+    <None Remove="EasySave.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="EasySave.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="EasySave.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

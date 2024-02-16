@@ -28,6 +28,11 @@ public partial class HomeView : UserControl
     private static readonly string LogDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "PS-Logs");
     public void OpenLogsDirectory(object sender, RoutedEventArgs e)
     {
+
+        if (!Directory.Exists(LogDirPath))
+        {
+            Directory.CreateDirectory(LogDirPath);
+        }
         // Open the logs directory in the file explorer
         System.Diagnostics.Process.Start("explorer.exe", LogDirPath);
     }   

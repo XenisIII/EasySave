@@ -1,7 +1,7 @@
-using EasySave.Services;
+using EasySaveWPF.Services;
 using System.Collections.Generic; // Ensure to include this for List<T>
 
-namespace EasySave.Models;
+namespace EasySaveWPF.Models;
 
 /// <summary>
 /// Holds a collection of backup jobs created by the user.

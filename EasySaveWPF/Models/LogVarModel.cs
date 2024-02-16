@@ -1,4 +1,4 @@
-namespace EasySave.Models;
+namespace EasySaveWPF.Models;
 
 /// <summary>
 /// Represents a single log entry for a backup operation, capturing essential details about the operation.

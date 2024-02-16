@@ -1,9 +1,9 @@
-﻿using EasySave.Models;
+﻿using EasySaveWPF.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace EasySave.Services;
+namespace EasySaveWPF.Services;
 
 /// <summary>
 /// Handles backup operations and updates for real-time statistics.

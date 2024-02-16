@@ -1,7 +1,7 @@
-﻿using EasySave.Services.Common;
+﻿using EasySaveWPF.Services.Common;
 
 // Defines the namespace for the StatsRTModel, indicating it's part of the models related to real-time statistics.
-namespace EasySave.Models;
+namespace EasySaveWPF.Models;
 
 /// <summary>
 /// Represents the real-time statistics of an ongoing backup operation.
