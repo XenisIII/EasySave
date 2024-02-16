@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ext="clr-namespace:EasySaveWPF.Services"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -21,19 +22,19 @@
         <!-- Data Grid for Backups -->
         <DataGrid Grid.Column="0" ItemsSource="{Binding Backups}" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="1" Margin="10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nom" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Chemin source" Binding="{Binding SourcePath}"/>
-                <DataGridTextColumn Header="Chemin destination" Binding="{Binding DestinationPath}"/>
-                <DataGridTextColumn Header="Type de sauvegarde" Binding="{Binding BackupType}"/>
+                <DataGridTextColumn Header="{ext:Loc Key='HomeViewName'}" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="{ext:Loc Key='HomeViewSrc'}" Binding="{Binding SourcePath}"/>
+                <DataGridTextColumn Header="{ext:Loc Key='HomeViewDest'}" Binding="{Binding DestinationPath}"/>
+                <DataGridTextColumn Header="{ext:Loc Key='HomeViewType'}" Binding="{Binding BackupType}"/>
             </DataGrid.Columns>
         </DataGrid>
 
         <!-- Action Buttons -->
         <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Grid.Row="1" Margin="10">
-            <Button Content="ADD" Click="AddNewBackup" Margin="5"/>
-            <Button Content="DELETE" Command="{Binding DeleteBackupCommand}" Margin="5"/>
-            <Button Content="EXECUTE" Command="{Binding ExecuteBackupCommand}" Margin="5"/>
-            <Button Content="LOGS" Click="OpenLogsDirectory" Margin="5"/>
+            <Button Content="{ext:Loc Key='HomeViewAdd'}" Click="AddNewBackup" Margin="5"/>
+            <Button Content="{ext:Loc Key='HomeViewDelete'}" Command="{Binding DeleteBackupCommand}" Margin="5"/>
+            <Button Content="{ext:Loc Key='HomeViewExecute'}" Command="{Binding ExecuteBackupCommand}" Margin="5"/>
+            <Button Content="{ext:Loc Key='HomeViewLogs'}" Click="OpenLogsDirectory" Margin="5"/>
         </StackPanel>
 
         <!-- No Backups Message -->

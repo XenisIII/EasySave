@@ -124,9 +124,66 @@
     <value>Appliquer les changements</value>
   </data>
   <data name="SettingsViewLogType" xml:space="preserve">
-    <value>Extension fichiers logs</value>
+    <value>Format de fichier de logs</value>
   </data>
   <data name="SettingsViewLanguage" xml:space="preserve">
-    <value>Langues</value>
+    <value>Choix de la langue</value>
+  </data>
+  <data name="SideBarAbout" xml:space="preserve">
+    <value>À propos</value>
+  </data>
+  <data name="SideBarHome" xml:space="preserve">
+    <value>Accueil</value>
+  </data>
+  <data name="SideBarSettings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="SideBarHelp" xml:space="preserve">
+    <value>Aide</value>
+  </data>
+  <data name="HomeViewName" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="HomeViewSrc" xml:space="preserve">
+    <value>Chemin source</value>
+  </data>
+  <data name="HomeViewDest" xml:space="preserve">
+    <value>Chemin destination</value>
+  </data>
+  <data name="HomeViewType" xml:space="preserve">
+    <value>Type de sauvegarde</value>
+  </data>
+  <data name="HomeViewAdd" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="HomeViewDelete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="HomeViewExecute" xml:space="preserve">
+    <value>Executer</value>
+  </data>
+  <data name="HomeViewLogs" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="HelpViewUserDoc" xml:space="preserve">
+    <value>Documentation Utilisateur :</value>
+  </data>
+  <data name="HelpViewUserDocText" xml:space="preserve">
+    <value>Pour une compréhension complète des fonctionnalités d'EasySave et des instructions détaillées sur la manière d'utiliser le logiciel, veuillez consulter notre documentation utilisateur complète. Téléchargez le guide au format PDF en cliquant sur le lien ci-dessous pour démarrer facilement avec EasySave.</value>
+  </data>
+  <data name="HelpViewDownloadUserDoc" xml:space="preserve">
+    <value>Téléchargez la Documentation Utilisateur</value>
+  </data>
+  <data name="HelpViewNeedAssist" xml:space="preserve">
+    <value>Besoin d'assistance ?</value>
+  </data>
+  <data name="HelpViewNeedAssistText" xml:space="preserve">
+    <value>Si vous avez des questions ou rencontrez des difficultés avec EasySave, notre équipe de support dédiée est là pour vous aider. N'hésitez pas à nous contacter pour toute assistance technique ou interrogations concernant l'utilisation d'EasySave. Nous nous engageons à vous fournir l'aide nécessaire pour garantir une expérience utilisateur optimale.</value>
+  </data>
+  <data name="HelpViewNeedAssistMail" xml:space="preserve">
+    <value>Envoyez-nous un email à : support@prosoft.com</value>
+  </data>
+  <data name="HelpViewHelp" xml:space="preserve">
+    <value>Aide</value>
   </data>
 </root>

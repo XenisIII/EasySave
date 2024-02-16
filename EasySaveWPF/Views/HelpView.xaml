@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ext="clr-namespace:EasySaveWPF.Services"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -13,15 +14,15 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" Height="314" Width="462">
-            <TextBlock Text="Aide" FontWeight="Bold" FontSize="24" Margin="0,0,0,20"/>
+            <TextBlock Text="{ext:Loc Key='HelpViewHelp'}" FontWeight="Bold" FontSize="24" Margin="0,0,0,20"/>
 
-            <TextBlock FontWeight="Bold" Text="Documentation Utilisateur:"/>
-            <TextBlock Text="Pour une compréhension complète des fonctionnalités d'EasySave et des instructions détaillées sur la manière d'utiliser le logiciel, veuillez consulter notre documentation utilisateur complète. Téléchargez le guide au format PDF en cliquant sur le lien ci-dessous pour démarrer facilement avec EasySave." TextWrapping="Wrap" Margin="0,0,0,10"/>
-            <Button Content="Téléchargez la Documentation Utilisateur" Margin="0,0,0,20"/>
+            <TextBlock FontWeight="Bold" Text="{ext:Loc Key='HelpViewUserDoc'}"/>
+            <TextBlock Text="{ext:Loc Key='HelpViewUserDocText'}" TextWrapping="Wrap" Margin="0,0,0,10"/>
+            <Button Content="{ext:Loc Key='HelpViewDownloadUserDoc'}" Margin="0,0,0,20"/>
 
-            <TextBlock FontWeight="Bold" Text="Besoin d'assistance ?"/>
-            <TextBlock Text="Si vous avez des questions ou rencontrez des difficultés avec EasySave, notre équipe de support dédiée est là pour vous aider. N'hésitez pas à nous contacter pour toute assistance technique ou interrogations concernant l'utilisation d'EasySave. Nous nous engageons à vous fournir l'aide nécessaire pour garantir une expérience utilisateur optimale." TextWrapping="Wrap" Margin="0,0,0,10"/>
-            <TextBlock Text="Envoyez-nous un email à : support@prosoft.com" Margin="0,0,0,10"/>
+            <TextBlock FontWeight="Bold" Text="{ext:Loc Key='HelpViewNeedAssist'}"/>
+            <TextBlock Text="{ext:Loc Key='HelpViewNeedAssistText'}" TextWrapping="Wrap" Margin="0,0,0,10"/>
+            <TextBlock Text="{ext:Loc Key='AssistMail'}" Margin="0,0,0,10"/>
         </StackPanel>
     </Grid>
 </UserControl>

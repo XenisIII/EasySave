@@ -1,6 +1,7 @@
 ﻿<Window x:Class="EasySaveWPF.Views.CreateSaveView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ext="clr-namespace:EasySaveWPF.Services"
         Title="Création de sauvegarde" Height="330" Width="500">
     <Grid Margin="10">
         <Grid.RowDefinitions>

@@ -12,7 +12,7 @@ namespace EasySaveWPF.Services
         /// Manages resource strings for localization.
         /// </summary>
         private static ResourceManager resourceManager =
-            new ResourceManager("EasySave.Resources.Strings", typeof(LocalizationService).Assembly);
+            new ResourceManager("EasySaveWPF.Resources.Strings", typeof(LocalizationService).Assembly);
 
         /// <summary>
         /// Sets the application's culture to the specified culture code.
