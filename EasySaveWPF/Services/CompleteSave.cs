@@ -46,7 +46,15 @@ namespace EasySaveWPF.Services
                 // Simulate stats update delay (replace with async/await in the future).
                 Thread.Sleep(10);
                 SetInfosInStatsRTModel(save, element.Replace(save.SourcePath, ""));
-                File.Copy(element, element.Replace(save.SourcePath, save.TargetPath), true);
+                string fileExtension = Path.GetExtension(element);
+                string[] allowedExtensions = save.Ext.Split(';');
+                if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)))
+                {
+                    CipherOrDecipher(element, element.Replace(save.SourcePath, save.TargetPath));
+                } else
+                {
+                    File.Copy(element, element.Replace(save.SourcePath, save.TargetPath), true);
+                }
                 Thread.Sleep(10);
                 UpdateFinishedFileSave();
             }

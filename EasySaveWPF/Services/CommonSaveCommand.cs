@@ -5,6 +5,8 @@ using System.Linq;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Windows;
+using System.Reflection;
+using System.DirectoryServices;
 
 namespace EasySaveWPF.Services;
 
@@ -126,6 +128,14 @@ public class CommonSaveCommand
             Directory.CreateDirectory(destSubDirPath);
             SetTree(subDir.FullName, destSubDirPath);
         }
+    }
+    public void CipherOrDecipher(string src, string target)
+    {
+        string applicationPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CryptoSoft.exe");
+        Process CipherProcess = new Process();
+        CipherProcess.StartInfo.FileName = applicationPath;
+        CipherProcess.StartInfo.Arguments = $"\"{src}\" \"{target}\"";
+        CipherProcess.Start();
     }
 
 }
