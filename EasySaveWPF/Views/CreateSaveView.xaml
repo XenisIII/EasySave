@@ -37,8 +37,8 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
             <Button Content="{ext:Loc Key='CreateSaveViewCancel'}" Margin="5" Click="CancelButton_Click"/>
-            <Button Command="{Binding _CreateSave}" Content="{ext:Loc Key='CreateSaveViewSaveQuit'}" Margin="5" Click="SaveQuitButton_Click" IsEnabled="{Binding CanSave}"/>
-            <Button Command="{Binding _CreateSave}" Content="{ext:Loc Key='CreateSaveViewSaveCreate'}" Margin="5" Click="SaveCreateButton_Click" IsEnabled="{Binding CanSave}"/>
+            <Button Command="{Binding createSave}" Content="{ext:Loc Key='CreateSaveViewSaveQuit'}" Margin="5" Click="SaveQuitButton_Click" IsEnabled="{Binding CanSave}"/>
+            <Button Command="{Binding createSave}" Content="{ext:Loc Key='CreateSaveViewSaveCreate'}" Margin="5" Click="SaveCreateButton_Click" IsEnabled="{Binding CanSave}"/>
         </StackPanel>
     </Grid>
 </Window>

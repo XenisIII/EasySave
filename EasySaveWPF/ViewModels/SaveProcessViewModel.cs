@@ -15,7 +15,7 @@ namespace EasySaveWPF.ViewModels
     public class SaveProcess
     {
         // Holds all configured save tasks.
-        public ICommand? _CreateSave { get; set; }
+        public ICommand? createSave { get; set; }
         public ICommand? _DeleteSave { get; set; }
         public ICommand? ExecuteSave { get; set; }
         public ICommand? _ApplyChanges { get; set; }
@@ -51,7 +51,7 @@ namespace EasySaveWPF.ViewModels
             get => _Type;
             set => _Type = value;
         }
-        private string _Extensions;
+        private string _Extensions = "";
         public string Extensions
         {
             get => _Extensions;
@@ -94,7 +94,7 @@ namespace EasySaveWPF.ViewModels
 
         public SaveProcess(LogStatsRTViewModel logStatsRTViewModel)
         {
-            _CreateSave = new RelayCommand(CreateSaveFunc);
+            createSave = new RelayCommand(CreateSaveFunc);
             _ApplyChanges = new RelayCommand(ApplySettingsChanges);
             _DeleteSave = new RelayCommand(DeleteSaveFunc);
             ExecuteSave = new RelayCommand(ExecuteSaveProcess);
