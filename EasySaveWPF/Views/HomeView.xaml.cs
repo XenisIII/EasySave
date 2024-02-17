@@ -24,9 +24,8 @@ public partial class HomeView : UserControl
     public HomeView(SaveProcess saveProcess)
     {
         _saveProcess = saveProcess;
-        this.DataContext = saveProcess;
         InitializeComponent();
-        this.DataContext = this;
+        this.DataContext = saveProcess;
     }
 
     private static readonly string LogDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "PS-Logs");

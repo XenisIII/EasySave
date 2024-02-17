@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using System.Windows.Input;
 using EasySaveWPF.Models;
 using EasySaveWPF.Services;
+using System.Collections.ObjectModel;
 
 namespace EasySaveWPF.ViewModels
 {
@@ -15,9 +16,13 @@ namespace EasySaveWPF.ViewModels
         // Holds all configured save tasks.
         public ICommand? _CreateSave { get; set; }
         public ICommand? _DeleteSave { get; set; }
+        public ICommand? ExecuteSave { get; set; }
         public ICommand? _ApplyChanges { get; set; }
+        public ICommand CheckBoxChangedCommand { get; }
         public SavesModel SaveList { get; } = new();
         private LogStatsRTViewModel logStatsRTViewModel = new LogStatsRTViewModel();
+        //public ObservableCollection<CreateSave> SelectedSaves { get; set; } = new ObservableCollection<CreateSave>();
+        public ObservableCollection<CreateSave> CheckedItems { get; set; } = new ObservableCollection<CreateSave>();
 
         // Represents the current log for ongoing save task.
         public LogVarModel CurrentLogModel { get; set; }
@@ -91,18 +96,18 @@ namespace EasySaveWPF.ViewModels
             _CreateSave = new RelayCommand(CreateSaveFunc);
             _ApplyChanges = new RelayCommand(ApplySettingsChanges);
             _DeleteSave = new RelayCommand(DeleteSaveFunc);
+            ExecuteSave = new RelayCommand(ExecuteSaveProcess);
+            CheckBoxChangedCommand = new RelayCommand<CreateSave>(HandleCheckBoxChanged);
         }
-        public void ExecuteSaveProcess(IEnumerable<int> whichSaveToExecute)
+        public void ExecuteSaveProcess(object parameter)
         {
 
-            Console.Clear();
-
-            foreach (var saveIndex in whichSaveToExecute)
+            foreach (var save in CheckedItems)
             {
                 //Must be replace in oother version
                 Thread.Sleep(100);
                 var stopwatch = new Stopwatch();
-                var save = this.SaveList.SaveList[saveIndex];
+                //var save = this.SaveList.SaveList[saveIndex];
                 switch (save.Type)
                 {
                     case "Complete":
@@ -176,6 +181,20 @@ namespace EasySaveWPF.ViewModels
         /// </summary>
         public void DeleteSaveFunc(object parameter)
         {
+            // Créer une copie de la liste CheckedItems pour éviter les modifications pendant l'itération
+            var itemsToRemove = CheckedItems.ToList();
+
+            foreach (var item in itemsToRemove)
+            {
+                // Supprimer chaque élément coché de la liste principale
+                SaveList.SaveList.Remove(item);
+            }
+
+            // Vider CheckedItems après la suppression des éléments de la liste principale
+            CheckedItems.Clear();
+
+            // Notifier que la liste principale a changé, si nécessaire
+            //OnPropertyChanged(nameof(SaveList.SaveList));
             /*whichSaveToDelete.Sort();
             whichSaveToDelete.Reverse();
 
@@ -198,6 +217,18 @@ namespace EasySaveWPF.ViewModels
             }
             string metirt = _ProcessMetier;
             LocalizationService.SetCulture(language_code);
+        }
+
+        private void HandleCheckBoxChanged(CreateSave save)
+        {
+            if (!CheckedItems.Contains(save))
+            {
+                CheckedItems.Add(save);
+            }
+            else
+            {
+                CheckedItems.Remove(save);
+            }
         }
 
     }

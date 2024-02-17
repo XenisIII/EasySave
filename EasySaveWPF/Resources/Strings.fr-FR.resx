@@ -240,4 +240,7 @@
   <data name="SettingsViewProcess" xml:space="preserve">
     <value>Processus maître :</value>
   </data>
+  <data name="HomeViewExtension" xml:space="preserve">
+    <value>Extensions à chiffrer</value>
+  </data>
 </root>
