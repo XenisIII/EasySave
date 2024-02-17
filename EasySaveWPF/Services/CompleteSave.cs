@@ -31,7 +31,7 @@ namespace EasySaveWPF.Services
         /// Executes the complete save operation, copying all files and updating real-time statistics.
         /// </summary>
         /// <param name="save">The save configuration.</param>
-        public void Execute(CreateSave save)
+        public void Execute(CreateSave save, string process)
         {
             // Prepares the target directory tree to mirror the source structure.
             SetTree(save.SourcePath, save.TargetPath);
@@ -39,6 +39,10 @@ namespace EasySaveWPF.Services
             // Copies each file from the source to the target, updating stats for each file.
             foreach (string element in SourcePathAllFiles)
             {
+                if (process != null)
+                {
+                    CheckProcess(process);
+                }
                 // Simulate stats update delay (replace with async/await in the future).
                 Thread.Sleep(10);
                 SetInfosInStatsRTModel(save, element.Replace(save.SourcePath, ""));

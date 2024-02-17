@@ -4,6 +4,7 @@ using System.Windows.Input;
 using EasySaveWPF.Models;
 using EasySaveWPF.Services;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace EasySaveWPF.ViewModels
 {
@@ -114,7 +115,7 @@ namespace EasySaveWPF.ViewModels
                         var save1 = new CompleteSave(save);
                         logStatsRTViewModel.NewWork(save1.StatsRTModel);
                         stopwatch.Start();
-                        save1.Execute(save);
+                        save1.Execute(save, _ProcessMetier);
                         stopwatch.Stop();
                         var timeElapsed = stopwatch.Elapsed;
                         var elapsedTimeFormatted = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
@@ -127,7 +128,7 @@ namespace EasySaveWPF.ViewModels
                         var save2 = new DifferentialSave(save);
                         logStatsRTViewModel.NewWork(save2.StatsRTModel);
                         stopwatch.Start();
-                        save2.Execute(save);
+                        save2.Execute(save, _ProcessMetier);
                         stopwatch.Stop();
                         var timeElapsed1 = stopwatch.Elapsed;
                         var elapsedTimeFormatted1 =
@@ -217,6 +218,7 @@ namespace EasySaveWPF.ViewModels
             }
             string metirt = _ProcessMetier;
             LocalizationService.SetCulture(language_code);
+            MessageBox.Show($"Changements appliqués avec succès!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void HandleCheckBoxChanged(CreateSave save)

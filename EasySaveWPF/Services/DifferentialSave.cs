@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using System.IO;
 using System.Threading;
+using System.Diagnostics;
 
 namespace EasySaveWPF.Services
 {
@@ -20,13 +21,18 @@ namespace EasySaveWPF.Services
         /// <summary>
         /// Executes the differential backup.
         /// </summary>
-        public void Execute(CreateSave save)
+        public void Execute(CreateSave save, string process)
         {
             // Prepare directory structure at target location.
             SetTree(save.SourcePath, save.TargetPath);
 
             foreach (string element in SourcePathAllFiles)
             {
+                if (process != null)
+                {
+                    CheckProcess(process);
+                }
+                
                 string targetFile = element.Replace(save.SourcePath, save.TargetPath);
 
                 // Update real-time stats model before copying the file.

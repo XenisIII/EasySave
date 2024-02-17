@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
+using System.ComponentModel;
+using System.Windows;
 
 namespace EasySaveWPF.Services;
 
@@ -94,6 +97,21 @@ public class CommonSaveCommand
         return count;
     }
 
+    public void CheckProcess(string name_process)
+    {
+        Process[] localByName = Process.GetProcessesByName(name_process);
+        if(localByName.Length > 0)
+        {
+            foreach(var process in localByName)
+            {
+                MessageBox.Show($"Le processus {name_process} est en cours d'exécution. Veuillez fermer toutes ses instances pour reprendre la sauvegarde.", "Processus en cours d'exécution", MessageBoxButton.OK, MessageBoxImage.Information);
+                process.WaitForExit();
+            }
+            MessageBox.Show($"Tous les processus de {name_process} on été fermés, reprise de la sauvegarde", "Reprise sauvegarde", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+    }
+
     /// <summary>
     /// Creates the directory structure in the target directory.
     /// </summary>
@@ -109,4 +127,5 @@ public class CommonSaveCommand
             SetTree(subDir.FullName, destSubDirPath);
         }
     }
+
 }
