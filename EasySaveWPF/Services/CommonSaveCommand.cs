@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Reflection;
 using System.DirectoryServices;
+using System;
 
 namespace EasySaveWPF.Services;
 
@@ -135,6 +136,8 @@ public class CommonSaveCommand
         Process CipherProcess = new Process();
         CipherProcess.StartInfo.FileName = applicationPath;
         CipherProcess.StartInfo.Arguments = $"\"{src}\" \"{target}\"";
+        CipherProcess.StartInfo.UseShellExecute = false;
+        CipherProcess.StartInfo.CreateNoWindow = true;
         CipherProcess.Start();
     }
 

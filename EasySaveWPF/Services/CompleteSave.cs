@@ -50,7 +50,12 @@ namespace EasySaveWPF.Services
                 string[] allowedExtensions = save.Ext.Split(';');
                 if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)))
                 {
-                    CipherOrDecipher(element, element.Replace(save.SourcePath, save.TargetPath));
+                    string target = element.Replace(save.SourcePath, save.TargetPath);
+                    string filename = Path.GetFileName(target);
+                    string encryptedFilename = $".encrypted.{filename}";
+                    string targetDirectory = target.Substring(0, target.Length - filename.Length);
+                    target = Path.Combine(targetDirectory, encryptedFilename);
+                    CipherOrDecipher(element, target);
                 } else
                 {
                     File.Copy(element, element.Replace(save.SourcePath, save.TargetPath), true);

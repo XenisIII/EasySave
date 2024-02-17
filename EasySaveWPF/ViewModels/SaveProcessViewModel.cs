@@ -51,7 +51,7 @@ namespace EasySaveWPF.ViewModels
             get => _Type;
             set => _Type = value;
         }
-        private string _Extensions = "";
+        private string _Extensions;
         public string Extensions
         {
             get => _Extensions;
