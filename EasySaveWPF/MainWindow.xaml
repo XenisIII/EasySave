@@ -8,10 +8,10 @@
         <!-- Barre latérale pour la navigation -->
         <StackPanel Width="90" DockPanel.Dock="Left" Background="#333">
             <!-- Utilisation de l'extension de balisage pour la localisation -->
-            <Button Content="{ext:Loc Key='SideBarHome'}" Padding="10" Foreground="White" Background="Transparent" BorderThickness="0" Click="Home_Click"/>
-            <Button Content="{ext:Loc Key='SideBarSettings'}" Padding="10" Foreground="White" Background="Transparent" BorderThickness="0" Click="Settings_Click"/>
-            <Button Content="{ext:Loc Key='SideBarAbout'}" Padding="10" Foreground="White" Background="Transparent" BorderThickness="0" Click="About_Click"/>
-            <Button Content="{ext:Loc Key='SideBarHelp'}" Padding="10" Foreground="White" Background="Transparent" BorderThickness="0" Click="Help_Click"/>
+            <Button x:Name="HomeButton" Content="{ext:Loc Key='SideBarHome'}" Padding="10" Foreground="White" Background="Transparent" BorderThickness="0" Click="Home_Click"/>
+            <Button x:Name="SettingsButton" Content="{ext:Loc Key='SideBarSettings'}" Padding="10" Foreground="White" Background="Transparent" BorderThickness="0" Click="Settings_Click"/>
+            <Button x:Name="AboutButton" Content="{ext:Loc Key='SideBarAbout'}" Padding="10" Foreground="White" Background="Transparent" BorderThickness="0" Click="About_Click"/>
+            <Button x:Name="HelpButton" Content="{ext:Loc Key='SideBarHelp'}" Padding="10" Foreground="White" Background="Transparent" BorderThickness="0" Click="Help_Click"/>
         </StackPanel>
 
         <!-- Zone de contenu principale -->

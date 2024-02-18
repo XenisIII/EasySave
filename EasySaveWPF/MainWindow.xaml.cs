@@ -43,8 +43,9 @@ public partial class MainWindow : Window
 
     private void OnCultureChanged()
     {
-        // This will refresh the current content of the window.
-        // You may need to update other parts of the UI if necessary.
-        ContentFrame.Content = ContentFrame.Content;
+        HomeButton.Content = LocalizationService.GetString("SideBarHome");
+        SettingsButton.Content = LocalizationService.GetString("SideBarSettings");
+        AboutButton.Content = LocalizationService.GetString("SideBarAbout");
+        HelpButton.Content = LocalizationService.GetString("SideBarHelp");
     }
 }

@@ -38,6 +38,7 @@ namespace EasySaveWPF.Services
             SetTree(save.SourcePath, save.TargetPath);
 
             // Copies each file from the source to the target, updating stats for each file.
+            int counter = 0;
             foreach (string element in SourcePathAllFiles)
             {
                 if (process != null)
@@ -62,8 +63,13 @@ namespace EasySaveWPF.Services
                     File.Copy(element, element.Replace(save.SourcePath, save.TargetPath), true);
                 }
                 Thread.Sleep(10);
-                UpdateFinishedFileSave();                              
-                MessageBox.Show($"La sauvegarde { save.Name } est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                UpdateFinishedFileSave();
+                counter++;
+                if (SourcePathAllFiles.Count == counter)
+                {
+                    MessageBox.Show($"La sauvegarde {save.Name} est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }   
+                
             }
         }
     }

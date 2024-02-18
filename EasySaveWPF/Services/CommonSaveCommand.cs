@@ -132,9 +132,10 @@ public class CommonSaveCommand
     }
     public void CipherOrDecipher(string src, string target)
     {
-        string applicationPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CryptoSoft.exe");
+        //string applicationPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CryptoSoft.exe");
         Process CipherProcess = new Process();
-        CipherProcess.StartInfo.FileName = applicationPath;
+        //CipherProcess.StartInfo.FileName = applicationPath;
+        CipherProcess.StartInfo.FileName = "CryptoSoft.exe";
         CipherProcess.StartInfo.Arguments = $"\"{src}\" \"{target}\"";
         CipherProcess.StartInfo.UseShellExecute = false;
         CipherProcess.StartInfo.CreateNoWindow = true;

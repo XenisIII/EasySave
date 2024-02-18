@@ -43,6 +43,7 @@ public partial class HomeView : UserControl
     public void AddNewBackup(object sender, RoutedEventArgs e)
     {
         CreateSaveView createSaveWindow = new CreateSaveView(_saveProcess);
+        createSaveWindow.Owner = Window.GetWindow(this);
         bool? result = createSaveWindow.ShowDialog();
 
         if (result == true)
@@ -52,6 +53,17 @@ public partial class HomeView : UserControl
         else
         {
             // Handle the case where the user clicked "Cancel"
+        }
+    }
+
+    private void Execute_Click(object sender, RoutedEventArgs e)
+    {
+        // Load the About view
+        var mainWindow = Application.Current.MainWindow as MainWindow;
+        if (mainWindow != null)
+        {
+            // Créer une instance de LogView et naviguer vers elle
+            mainWindow.ContentFrame.Navigate(new LogView("xml")); // ou "json", selon le type de log
         }
     }
 }
