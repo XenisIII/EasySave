@@ -140,6 +140,7 @@ namespace EasySaveWPF.Services
                     }
                 }
                 UpdateFinishedFileSave();
+                MessageBox.Show($"La sauvegarde {save.Name} est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

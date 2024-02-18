@@ -10,6 +10,7 @@ using System.Threading; // Required for Thread.Sleep
 using System.IO; // Required for File operations
 using EasySaveWPF.ViewModels;
 using EasySaveWPF.Services;
+using System.Windows;
 
 namespace EasySaveWPF.Services
 {
@@ -61,7 +62,8 @@ namespace EasySaveWPF.Services
                     File.Copy(element, element.Replace(save.SourcePath, save.TargetPath), true);
                 }
                 Thread.Sleep(10);
-                UpdateFinishedFileSave();
+                UpdateFinishedFileSave();                              
+                MessageBox.Show($"La sauvegarde { save.Name } est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }
