@@ -10,7 +10,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="EasySave.ico" />
+    <None Remove="CryptoSoft.exe" />
+    <None Remove="EasySave.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="CryptoSoft.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EasySave.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="EasySave.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

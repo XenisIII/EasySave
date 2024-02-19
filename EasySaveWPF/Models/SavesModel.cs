@@ -1,7 +1,8 @@
-using EasySave.Services;
+using EasySaveWPF.Services;
 using System.Collections.Generic; // Ensure to include this for List<T>
+using System.Collections.ObjectModel;
 
-namespace EasySave.Models;
+namespace EasySaveWPF.Models;
 
 /// <summary>
 /// Holds a collection of backup jobs created by the user.
@@ -14,5 +15,5 @@ public class SavesModel
     /// A list containing instances of CreateSave, each representing a unique backup job configuration.
     /// This property is initialized as an empty list, ready to store backup configurations.
     /// </summary>
-    public List<CreateSave> SaveList { get; set; } = new List<CreateSave>();
+    public ObservableCollection<CreateSave> SaveList { get; set; } = new ObservableCollection<CreateSave>();
 }

@@ -1,9 +1,15 @@
-﻿using EasySave.Models;
+﻿using EasySaveWPF.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
+using System.ComponentModel;
+using System.Windows;
+using System.Reflection;
+using System.DirectoryServices;
+using System;
 
-namespace EasySave.Services;
+namespace EasySaveWPF.Services;
 
 /// <summary>
 /// Handles backup operations and updates for real-time statistics.
@@ -17,10 +23,10 @@ public class CommonSaveCommand
     private long Sizes;
 
     // Represents the current backup operation.
-    private BackupModel _backupModel;
+    private StatsRTModel _statsRTModel;
 
     // Exposes backup model details.
-    public BackupModel BackupModel => this._backupModel;
+    public StatsRTModel StatsRTModel => this._statsRTModel;
 
     /// <summary>
     /// Initializes backup preparation.
@@ -29,7 +35,7 @@ public class CommonSaveCommand
     {
         this.SourcePathAllFiles = new List<string>();
         VerifyFilesToCopy(save.SourcePath);
-        this._backupModel = new BackupModel();
+        this._statsRTModel = new StatsRTModel();
     }
 
     /// <summary>
@@ -37,14 +43,14 @@ public class CommonSaveCommand
     /// </summary>
     public void SetInfosInStatsRTModel(CreateSave save, string fileName)
     {
-        _backupModel.SaveName = save.Name;
-        _backupModel.TotalFilesToCopy = SourcePathAllFiles.Count;
-        _backupModel.SourceFilePath = GetPathFile(fileName);
-        _backupModel.TargetFilePath = GetPathFile(fileName).Replace(save.SourcePath, save.TargetPath);
-        _backupModel.State = "Activated";
-        _backupModel.TotalFilesSize = Sizes;
-        _backupModel.NbFilesLeftToDo = SourcePathAllFiles.Count - SourcePathAllFiles.IndexOf(GetPathFile(fileName));
-        _backupModel.Progress = (int)((_backupModel.TotalFilesToCopy - _backupModel.NbFilesLeftToDo) / (double)_backupModel.TotalFilesToCopy * 100);
+        _statsRTModel.SaveName = save.Name;
+        _statsRTModel.TotalFilesToCopy = SourcePathAllFiles.Count;
+        _statsRTModel.SourceFilePath = GetPathFile(fileName);
+        _statsRTModel.TargetFilePath = GetPathFile(fileName).Replace(save.SourcePath, save.TargetPath);
+        _statsRTModel.State = "Activated";
+        _statsRTModel.TotalFilesSize = Sizes;
+        _statsRTModel.NbFilesLeftToDo = SourcePathAllFiles.Count - SourcePathAllFiles.IndexOf(GetPathFile(fileName));
+        _statsRTModel.Progress = (int)((_statsRTModel.TotalFilesToCopy - _statsRTModel.NbFilesLeftToDo) / (double)_statsRTModel.TotalFilesToCopy * 100);
     }
 
     /// <summary>
@@ -52,7 +58,7 @@ public class CommonSaveCommand
     /// </summary>
     public void UpdateFinishedFileSave()
     {
-        _backupModel.State = "Finished";
+        _statsRTModel.State = "Finished";
     }
 
     /// <summary>
@@ -94,6 +100,21 @@ public class CommonSaveCommand
         return count;
     }
 
+    public void CheckProcess(string name_process)
+    {
+        Process[] localByName = Process.GetProcessesByName(name_process);
+        if(localByName.Length > 0)
+        {
+            foreach(var process in localByName)
+            {
+                MessageBox.Show($"Le processus {name_process} est en cours d'exécution. Veuillez fermer toutes ses instances pour reprendre la sauvegarde.", "Processus en cours d'exécution", MessageBoxButton.OK, MessageBoxImage.Information);
+                process.WaitForExit();
+            }
+            MessageBox.Show($"Tous les processus de {name_process} on été fermés, reprise de la sauvegarde", "Reprise sauvegarde", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+    }
+
     /// <summary>
     /// Creates the directory structure in the target directory.
     /// </summary>
@@ -109,4 +130,16 @@ public class CommonSaveCommand
             SetTree(subDir.FullName, destSubDirPath);
         }
     }
+    public void CipherOrDecipher(string src, string target)
+    {
+        //string applicationPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CryptoSoft.exe");
+        Process CipherProcess = new Process();
+        //CipherProcess.StartInfo.FileName = applicationPath;
+        CipherProcess.StartInfo.FileName = "CryptoSoft.exe";
+        CipherProcess.StartInfo.Arguments = $"\"{src}\" \"{target}\"";
+        CipherProcess.StartInfo.UseShellExecute = false;
+        CipherProcess.StartInfo.CreateNoWindow = true;
+        CipherProcess.Start();
+    }
+
 }

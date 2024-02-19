@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
-namespace EasySave.Services.Common;
+namespace EasySaveWPF.Services.Common;
 
 public abstract class ObservableObject : INotifyPropertyChanged
 {

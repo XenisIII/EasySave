@@ -8,10 +8,11 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading; // Required for Thread.Sleep
 using System.IO; // Required for File operations
-using EasySave.ViewModels;
-using EasySave.Services;
+using EasySaveWPF.ViewModels;
+using EasySaveWPF.Services;
+using System.Windows;
 
-namespace EasySave.Services
+namespace EasySaveWPF.Services
 {
     /// <summary>
     /// Implements a complete save operation by copying all files from source to target directory.
@@ -31,20 +32,44 @@ namespace EasySave.Services
         /// Executes the complete save operation, copying all files and updating real-time statistics.
         /// </summary>
         /// <param name="save">The save configuration.</param>
-        public void Execute(CreateSave save)
+        public void Execute(CreateSave save, string process)
         {
             // Prepares the target directory tree to mirror the source structure.
             SetTree(save.SourcePath, save.TargetPath);
 
             // Copies each file from the source to the target, updating stats for each file.
+            int counter = 0;
             foreach (string element in SourcePathAllFiles)
             {
+                if (process != null)
+                {
+                    CheckProcess(process);
+                }
                 // Simulate stats update delay (replace with async/await in the future).
                 Thread.Sleep(10);
                 SetInfosInStatsRTModel(save, element.Replace(save.SourcePath, ""));
-                File.Copy(element, element.Replace(save.SourcePath, save.TargetPath), true);
+                string fileExtension = Path.GetExtension(element);
+                string[] allowedExtensions = save.Ext.Split(';');
+                if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)))
+                {
+                    string target = element.Replace(save.SourcePath, save.TargetPath);
+                    string filename = Path.GetFileName(target);
+                    string encryptedFilename = $".encrypted.{filename}";
+                    string targetDirectory = target.Substring(0, target.Length - filename.Length);
+                    target = Path.Combine(targetDirectory, encryptedFilename);
+                    CipherOrDecipher(element, target);
+                } else
+                {
+                    File.Copy(element, element.Replace(save.SourcePath, save.TargetPath), true);
+                }
                 Thread.Sleep(10);
                 UpdateFinishedFileSave();
+                counter++;
+                if (SourcePathAllFiles.Count == counter)
+                {
+                    MessageBox.Show($"La sauvegarde {save.Name} est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }   
+                
             }
         }
     }

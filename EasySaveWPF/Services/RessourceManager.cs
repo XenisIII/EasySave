@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Resources;
 
-namespace EasySave.Services
+namespace EasySaveWPF.Services
 {
     /// <summary>
     /// Provides localization services for the application, allowing for dynamic language changes.
@@ -12,7 +12,10 @@ namespace EasySave.Services
         /// Manages resource strings for localization.
         /// </summary>
         private static ResourceManager resourceManager =
-            new ResourceManager("EasySave.Resources.Strings", typeof(LocalizationService).Assembly);
+            new ResourceManager("EasySaveWPF.Resources.Strings", typeof(LocalizationService).Assembly);
+
+        public delegate void CultureChangedHandler();
+        public static event CultureChangedHandler? CultureChanged;
 
         /// <summary>
         /// Sets the application's culture to the specified culture code.
@@ -23,6 +26,8 @@ namespace EasySave.Services
             CultureInfo culture = new CultureInfo(cultureCode);
             CultureInfo.CurrentUICulture = culture;
             CultureInfo.CurrentCulture = culture;
+
+            CultureChanged?.Invoke();
         }
 
         /// <summary>
