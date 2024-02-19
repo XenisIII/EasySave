@@ -45,14 +45,9 @@ public partial class HomeView : UserControl
         CreateSaveView createSaveWindow = new CreateSaveView(_saveProcess);
         createSaveWindow.Owner = Window.GetWindow(this);
         bool? result = createSaveWindow.ShowDialog();
-
-        if (result == true)
+        if (createSaveWindow.CreateNewSave)
         {
-            // Handle the case where the user clicked "Save & Quit"
-        }
-        else
-        {
-            // Handle the case where the user clicked "Cancel"
+            AddNewBackup(sender, e);
         }
     }
 

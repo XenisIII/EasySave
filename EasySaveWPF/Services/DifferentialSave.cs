@@ -27,7 +27,7 @@ namespace EasySaveWPF.Services
         {
             // Prepare directory structure at target location.
             SetTree(save.SourcePath, save.TargetPath);
-
+            int counter = 0;
             foreach (string element in SourcePathAllFiles)
             {
                 if (process != null)
@@ -140,7 +140,11 @@ namespace EasySaveWPF.Services
                     }
                 }
                 UpdateFinishedFileSave();
-                MessageBox.Show($"La sauvegarde {save.Name} est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                counter++;
+                if (SourcePathAllFiles.Count == counter)
+                {
+                    MessageBox.Show($"La sauvegarde {save.Name} est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
         }
 
