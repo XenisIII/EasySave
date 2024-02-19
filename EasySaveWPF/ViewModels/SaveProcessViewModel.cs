@@ -5,6 +5,7 @@ using EasySaveWPF.Models;
 using EasySaveWPF.Services;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.IO;
 
 namespace EasySaveWPF.ViewModels
 {
@@ -18,6 +19,7 @@ namespace EasySaveWPF.ViewModels
         public ICommand? createSave { get; set; }
         public ICommand? _DeleteSave { get; set; }
         public ICommand? ExecuteSave { get; set; }
+        public ICommand? ResetValues { get; set; }
         public ICommand? _ApplyChanges { get; set; }
         public ICommand CheckBoxChangedCommand { get; }
         public SavesModel SaveList { get; } = new();
@@ -45,7 +47,7 @@ namespace EasySaveWPF.ViewModels
             get => _TargetPath;
             set => _TargetPath = value;
         }
-        private string _Type = "";
+        private string _Type = "Complete";
         public string Type
         {
             get => _Type;
@@ -75,7 +77,7 @@ namespace EasySaveWPF.ViewModels
             get => _Language;
             set => _Language = value;
         }
-        private bool _Complete;
+        /*private bool _Complete;
         public bool Complete
         {
             get => _Complete;
@@ -86,7 +88,7 @@ namespace EasySaveWPF.ViewModels
         {
             get => _Differential;
             set => _Differential = value;
-        }
+        }*/
         /// <summary>
         /// Executes the save process for each selected save task.
         /// </summary>
@@ -98,6 +100,7 @@ namespace EasySaveWPF.ViewModels
             _ApplyChanges = new RelayCommand(ApplySettingsChanges);
             _DeleteSave = new RelayCommand(DeleteSaveFunc);
             ExecuteSave = new RelayCommand(ExecuteSaveProcess);
+            ResetValues = new RelayCommand(ResetTempValues);
             CheckBoxChangedCommand = new RelayCommand<CreateSave>(HandleCheckBoxChanged);
         }
         public void ExecuteSaveProcess(object parameter)
@@ -166,15 +169,28 @@ namespace EasySaveWPF.ViewModels
         /// </summary>
         public void CreateSaveFunc(object parameter)
         {
-            if (_Complete)
+            if (!ArePathsValid())
             {
-                this.SaveList.SaveList.Add(new(_Name, _SrcPath, _TargetPath, "Complete", _Extensions));
+                MessageBox.Show("Un ou plusieurs chemins spécifiés n'existent pas.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else if(_Differential)
-            {
-                this.SaveList.SaveList.Add(new(_Name, _SrcPath, _TargetPath, "Differential", _Extensions));
+            else
+            {   
+                this.SaveList.SaveList.Add(new(_Name, _SrcPath, _TargetPath, _Type, _Extensions));
             }
-            
+            _Type = "Complete";
+            _Name = "";
+            _SrcPath = "";
+            _TargetPath = "";
+            _Extensions = "";
+        }
+
+        public void ResetTempValues(object parameter)
+        {
+            _Type = "Complete";
+            _Name = "";
+            _SrcPath = "";
+            _TargetPath = "";
+            _Extensions = "";
         }
 
         /// <summary>
@@ -216,7 +232,6 @@ namespace EasySaveWPF.ViewModels
                     language_code = "fr-FR";
                     break;
             }
-            string metirt = _ProcessMetier;
             LocalizationService.SetCulture(language_code);
             MessageBox.Show($"Changements appliqués avec succès!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
         }
@@ -231,6 +246,10 @@ namespace EasySaveWPF.ViewModels
             {
                 CheckedItems.Remove(save);
             }
+        }
+        private bool ArePathsValid()
+        {
+            return Directory.Exists(_SrcPath) && Directory.Exists(_TargetPath);
         }
 
     }

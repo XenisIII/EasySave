@@ -26,17 +26,18 @@
             </StackPanel>
 
             <TextBlock Text="{ext:Loc Key='CreateSaveViewType'}"/>
-            <StackPanel Orientation="Horizontal">
-                <RadioButton Name="rbComplete" Content="{ext:Loc Key='CreateSaveViewComplete'}" Margin="5" GroupName="BackupType" Checked="BackupType_Checked" IsChecked="{Binding Complete}"/>
-                <RadioButton Name="rbDifferential" Content="{ext:Loc Key='CreateSaveViewDifferential'}" Margin="5" GroupName="BackupType" Checked="BackupType_Checked" IsChecked="{Binding Differential}"/>
-            </StackPanel>
+            <ComboBox Width="120" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" SelectedValue="{Binding Type}" SelectedValuePath="Tag">
+                <ComboBoxItem Content="{ext:Loc Key='CreateSaveViewComplete'}" Tag="Complete" IsSelected="True"/>
+                <ComboBoxItem Content="{ext:Loc Key='CreateSaveViewDifferential'}" Tag="Differential"/>
+            </ComboBox>
+         <StackPanel Orientation="Horizontal"/>
 
             <TextBlock Text="{ext:Loc Key='CreateSaveViewExt'}"/>
             <TextBox Name="txtExtCrypt" Margin="5" Text="{Binding Extensions}"></TextBox>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
-            <Button Content="{ext:Loc Key='CreateSaveViewCancel'}" Margin="5" Click="CancelButton_Click"/>
+            <Button Command="{Binding ResetValues}" Content="{ext:Loc Key='CreateSaveViewCancel'}" Margin="5" Click="CancelButton_Click"/>
             <Button Command="{Binding createSave}" Content="{ext:Loc Key='CreateSaveViewSaveQuit'}" Margin="5" Click="SaveQuitButton_Click" IsEnabled="{Binding CanSave}"/>
             <Button Command="{Binding createSave}" Content="{ext:Loc Key='CreateSaveViewSaveCreate'}" Margin="5" Click="SaveCreateButton_Click" IsEnabled="{Binding CanSave}"/>
         </StackPanel>

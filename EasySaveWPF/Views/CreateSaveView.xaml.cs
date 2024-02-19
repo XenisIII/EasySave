@@ -18,6 +18,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using System.ComponentModel;
 using System.IO;
 using EasySaveWPF.ViewModels;
+using System.Security.Cryptography;
 
 namespace EasySaveWPF.Views;
 
@@ -26,6 +27,12 @@ namespace EasySaveWPF.Views;
 /// </summary>
 public partial class CreateSaveView : Window, INotifyPropertyChanged
 {
+    private bool _CreateNewSave = false;
+    public bool CreateNewSave
+    {
+        get => _CreateNewSave;
+        set => _CreateNewSave = value;
+    }
     public bool DialogResult { get; private set; }
 
     public event PropertyChangedEventHandler PropertyChanged;
@@ -47,20 +54,14 @@ public partial class CreateSaveView : Window, INotifyPropertyChanged
     {
         // Logic to save the backup and quit
 
-        if (!ArePathsValid())
-        {
-            MessageBox.Show("Un ou plusieurs chemins spécifiés n'existent pas.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-
-        if ((bool)rbComplete.IsChecked)
+        /*if ((bool)rbComplete.IsChecked)
         {
             type = "Complete";
         }
         else
         {
             type = "Differential";
-        }
+        }*/
 
         // Save the backup
         //SaveProcess.CreateSaveFunc(txtName.Text, txtSourcePath.Text, txtDestinationPath.Text, type, txtExtCrypt.Text);
@@ -71,17 +72,8 @@ public partial class CreateSaveView : Window, INotifyPropertyChanged
 
     private void SaveCreateButton_Click(object sender, RoutedEventArgs e)
     {
-        // Logic to save the backup and reset fields for new input
-        if (!ArePathsValid())
-        {
-            MessageBox.Show("Un ou plusieurs chemins spécifiés n'existent pas.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-
-        txtName.Clear();
-        txtSourcePath.Clear();
-        txtDestinationPath.Clear();
-        txtExtCrypt.Clear();
+        CreateNewSave = true;
+        this.Close();
     }
 
     private void BrowsePath_Click(object sender, RoutedEventArgs e)
@@ -123,20 +115,11 @@ public partial class CreateSaveView : Window, INotifyPropertyChanged
         NotifyPropertyChanged(nameof(CanSave));
     }
 
-    private bool ArePathsValid()
-    {
-        return Directory.Exists(txtSourcePath.Text) && Directory.Exists(txtDestinationPath.Text);
-    }
 
     private void BackupType_Checked(object sender, RoutedEventArgs e)
     {
-        var radioButton = sender as RadioButton;
-        if (radioButton != null)
-        {
-            // Vous pouvez utiliser la propriété Content du RadioButton sélectionné pour déterminer le type choisi
-            // Exemple : Sauvegarder le choix dans une variable ou ajuster l'interface utilisateur en conséquence
-            // string selectedBackupType = radioButton.Content.ToString();
-        }
+        //var radioButton = sender as RadioButton;
+        //radioButton.IsChecked = true;
     }
 
 }
