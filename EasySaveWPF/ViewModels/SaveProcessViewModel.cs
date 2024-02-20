@@ -105,42 +105,52 @@ namespace EasySaveWPF.ViewModels
         }
         public void ExecuteSaveProcess(object parameter)
         {
+            var _ = ExecuteSaveProcessAsync();
+        }
+
+        public async Task ExecuteSaveProcessAsync()
+        {
+            var saveTasks = new List<Task>();
 
             foreach (var save in CheckedItems)
             {
-                //Must be replace in oother version
-                Thread.Sleep(100);
-                var stopwatch = new Stopwatch();
-                //var save = this.SaveList.SaveList[saveIndex];
-                switch (save.Type)
+                // Créer une nouvelle tâche pour chaque sauvegarde
+                var saveTask = Task.Run(() =>
                 {
-                    case "Complete":
-                        var save1 = new CompleteSave(save);
-                        logStatsRTViewModel.NewWork(save1.StatsRTModel);
-                        stopwatch.Start();
-                        save1.Execute(save, _ProcessMetier);
-                        stopwatch.Stop();
-                        var timeElapsed = stopwatch.Elapsed;
-                        var elapsedTimeFormatted = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                          timeElapsed.Hours, timeElapsed.Minutes, timeElapsed.Seconds,
-                          timeElapsed.Milliseconds / 10);
-                        this.SetLogModel(save.Name, save.SourcePath, save.TargetPath,
-                          save1.StatsRTModel.TotalFilesSize, elapsedTimeFormatted);
-                        break;
-                    case "Differential":
-                        var save2 = new DifferentialSave(save);
-                        logStatsRTViewModel.NewWork(save2.StatsRTModel);
-                        stopwatch.Start();
-                        save2.Execute(save, _ProcessMetier);
-                        stopwatch.Stop();
-                        var timeElapsed1 = stopwatch.Elapsed;
-                        var elapsedTimeFormatted1 =
-                          $"{timeElapsed1.Hours:00}:{timeElapsed1.Minutes:00}:{timeElapsed1.Seconds:00}.{timeElapsed1.Milliseconds / 10:00}";
-                        this.SetLogModel(save.Name, save.SourcePath, save.TargetPath,
-                          save2.StatsRTModel.TotalFilesSize, elapsedTimeFormatted1);
-                        break;
-                }
+                    var stopwatch = new Stopwatch();
+                    stopwatch.Start();
+
+                    switch (save.Type)
+                    {
+                        case "Complete":
+                            var save1 = new CompleteSave(save);
+                            logStatsRTViewModel.NewWork(save1.StatsRTModel);
+                            save1.Execute(save, _ProcessMetier);
+                            break;
+                        case "Differential":
+                            var save2 = new DifferentialSave(save);
+                            logStatsRTViewModel.NewWork(save2.StatsRTModel);
+                            save2.Execute(save, _ProcessMetier);
+                            break;
+                    }
+
+                    stopwatch.Stop();
+                    var elapsedTime = stopwatch.Elapsed;
+                    var elapsedTimeFormatted = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                        elapsedTime.Hours, elapsedTime.Minutes, elapsedTime.Seconds,
+                        elapsedTime.Milliseconds / 10);
+
+                    this.SetLogModel(save.Name, save.SourcePath, save.TargetPath,
+                        0, elapsedTimeFormatted); // Note: Adjust the '0' if you have file size info
+                });
+
+                saveTasks.Add(saveTask);
             }
+
+            // Attendre que toutes les tâches de sauvegarde soient terminées
+            await Task.WhenAll(saveTasks);
+
+            MessageBox.Show($"Toutes les sauvegardes sont terminées", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         /// <summary>

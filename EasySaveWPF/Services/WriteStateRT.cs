@@ -8,6 +8,7 @@ namespace EasySaveWPF.Services
 {
     public static class WriteStatsRT
     {
+
         public static void WriteLogsSync(LogVarModel logModel, string logDirPath, string format)
         {
             Directory.CreateDirectory(logDirPath);

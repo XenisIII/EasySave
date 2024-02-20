@@ -126,11 +126,7 @@ namespace EasySaveWPF.Services
                             string targetDirectory1 = targetFile.Substring(0, targetFile.Length - filename.Length);
                             targetFile = Path.Combine(targetDirectory1, encryptedFilename);
                             CipherOrDecipher(element, targetFile);
-                            MessageBoxResult result = MessageBox.Show($"Le fichier {element.Replace(save.SourcePath, save.TargetPath)} existait dans le dossier de destination mais non chiffré et dans une version différente. Voulez-vous supprimer ce fichier?", "Fichier existant : version différente non chiffrée", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                            if (result == MessageBoxResult.Yes)
-                            {
-                                File.Delete(element.Replace(save.SourcePath, save.TargetPath));
-                            }
+                            
                         }
                         // Sinon copier uniquement
                         else
