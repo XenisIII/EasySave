@@ -11,6 +11,12 @@ namespace EasySaveWPF.ViewModels
     /// </summary>
     public class LogStatsRTViewModel
     {
+        private WriteStatsRT _WriteStatsRT;
+        public WriteStatsRT WriteStatsRT
+        {
+            get => _WriteStatsRT;
+            set => _WriteStatsRT = value;
+        }
         private string _type = "xml";
         public string Type
         {
@@ -22,6 +28,12 @@ namespace EasySaveWPF.ViewModels
 
         // Current backup model being monitored.
         private StatsRTModel _currentStatsRTModel;
+
+        public LogStatsRTViewModel()
+        {
+            _WriteStatsRT = new WriteStatsRT();
+
+        }
 
         /// <summary>
         /// Sets a new backup model for monitoring and logs state changes.
@@ -53,13 +65,13 @@ namespace EasySaveWPF.ViewModels
         /// </summary>
         /// <param name="state">The backup model with updated state.</param>
         private void HandleStateChange(StatsRTModel state) =>
-            WriteStatsRT.WriteRealTimeStatsAsync(state, LogDirPath, _type);
+            _WriteStatsRT.WriteRealTimeStatsAsync(state, LogDirPath, _type);
 
         /// <summary>
         /// Writes log information synchronously.
         /// </summary>
         /// <param name="log">The log information to write.</param>
         public void WriteLog(LogVarModel log) =>
-            WriteStatsRT.WriteLogsSync(log, LogDirPath, _type);
+            _WriteStatsRT.WriteLogsSync(log, LogDirPath, _type);
     }
 }

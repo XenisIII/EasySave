@@ -46,7 +46,7 @@ namespace EasySaveWPF.Services
                     CheckProcess(process);
                 }
                 // Simulate stats update delay (replace with async/await in the future).
-                Thread.Sleep(10);
+                //Thread.Sleep(10);
                 SetInfosInStatsRTModel(save, element.Replace(save.SourcePath, ""));
                 string fileExtension = Path.GetExtension(element);
                 string[] allowedExtensions = save.Ext.Split(';');
@@ -62,7 +62,7 @@ namespace EasySaveWPF.Services
                 {
                     File.Copy(element, element.Replace(save.SourcePath, save.TargetPath), true);
                 }
-                Thread.Sleep(10);
+                //Thread.Sleep(10);
                 UpdateFinishedFileSave();
                 counter++;
                 if (SourcePathAllFiles.Count == counter)

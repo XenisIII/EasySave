@@ -6,9 +6,19 @@ using EasySaveWPF.Models;
 
 namespace EasySaveWPF.Services
 {
-    public static class WriteStatsRT
+    public class WriteStatsRT
     {
-        public static void WriteLogsSync(LogVarModel logModel, string logDirPath, string format)
+        private List<StatsRTModel> _statsList;
+        public List<StatsRTModel> StatsList
+        {
+            get => _statsList;
+            set => _statsList = value;
+        }
+        public WriteStatsRT()
+        {
+            _statsList = new List<StatsRTModel>();
+        }
+        public void WriteLogsSync(LogVarModel logModel, string logDirPath, string format)
         {
             Directory.CreateDirectory(logDirPath);
 
@@ -29,7 +39,7 @@ namespace EasySaveWPF.Services
             }
         }
 
-        public static async Task WriteRealTimeStatsAsync(StatsRTModel stats, string statsDirectory, string format)
+        public async Task WriteRealTimeStatsAsync(StatsRTModel stats, string statsDirectory, string format)
         {
             Directory.CreateDirectory(statsDirectory);
 
@@ -38,19 +48,21 @@ namespace EasySaveWPF.Services
 
             if (format.ToLower() == "xml")
             {
-                List<StatsRTModel> statsList = ReadFromXmlFile<List<StatsRTModel>>(filePath) ?? new List<StatsRTModel>();
-                statsList.Add(stats);
-                await WriteToXmlFileAsync(filePath, statsList);
+                //List<StatsRTModel> statsList = ReadFromXmlFile<List<StatsRTModel>>(filePath) ?? new List<StatsRTModel>();
+                _statsList.Add(stats);
+                WriteToXmlFileAsync(filePath, _statsList);
+                //await WriteToXmlFileAsync(filePath, _statsList);
             }
             else
             {
-                List<StatsRTModel> statsList = ReadFromJsonFile<List<StatsRTModel>>(filePath) ?? new List<StatsRTModel>();
-                statsList.Add(stats);
-                await WriteToJsonFileAsync(filePath, statsList);
+                //List<StatsRTModel> statsList = ReadFromJsonFile<List<StatsRTModel>>(filePath) ?? new List<StatsRTModel>();
+                _statsList.Add(stats);
+                WriteToJsonFileAsync(filePath, _statsList);
+                //await WriteToJsonFileAsync(filePath, _statsList);
             }
         }
 
-        private static void WriteToXmlFile<T>(string filePath, T data)
+        private void WriteToXmlFile<T>(string filePath, T data)
         {
             var serializer = new XmlSerializer(typeof(T));
             using (var stream = File.Create(filePath))
@@ -59,16 +71,16 @@ namespace EasySaveWPF.Services
             }
         }
 
-        private static async Task WriteToXmlFileAsync<T>(string filePath, T data)
+        private async Task WriteToXmlFileAsync<T>(string filePath, T data)
         {
             var serializer = new XmlSerializer(typeof(T));
-            await using (var stream = File.Create(filePath))
+            using (var stream = File.Create(filePath))
             {
                 serializer.Serialize(stream, data);
             }
         }
 
-        private static T? ReadFromXmlFile<T>(string filePath)
+        private T? ReadFromXmlFile<T>(string filePath)
         {
             if (!File.Exists(filePath)) return default(T);
 
@@ -79,19 +91,19 @@ namespace EasySaveWPF.Services
             }
         }
 
-        private static void WriteToJsonFile<T>(string filePath, T data)
+        private void WriteToJsonFile<T>(string filePath, T data)
         {
             string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, json);
         }
 
-        private static async Task WriteToJsonFileAsync<T>(string filePath, T data)
+        private async Task WriteToJsonFileAsync<T>(string filePath, T data)
         {
             await using var stream = File.Create(filePath);
             await JsonSerializer.SerializeAsync(stream, data, new JsonSerializerOptions { WriteIndented = true });
         }
 
-        private static T? ReadFromJsonFile<T>(string filePath)
+        private T? ReadFromJsonFile<T>(string filePath)
         {
             if (!File.Exists(filePath)) return default(T);
 
