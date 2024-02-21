@@ -243,4 +243,16 @@
   <data name="HomeViewExtension" xml:space="preserve">
     <value>Extensions à chiffrer</value>
   </data>
+  <data name="HomeViewSaveStatus" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="SaveFinished" xml:space="preserve">
+    <value>Fini</value>
+  </data>
+  <data name="SaveInProgress" xml:space="preserve">
+    <value>En cours</value>
+  </data>
+  <data name="SaveReady" xml:space="preserve">
+    <value>Prête</value>
+  </data>
 </root>

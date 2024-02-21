@@ -22,4 +22,7 @@ public class LogVarModel
 
     // Timestamp of when the backup operation was completed.
     public required string Time { get; set; }
+
+    public required string Encryption {  get; set; }
+    public required string EncryptionErrors { get; set; }
 }

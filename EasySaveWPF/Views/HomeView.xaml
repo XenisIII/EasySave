@@ -47,6 +47,7 @@
                     <GridViewColumn Header="{ext:Loc Key='HomeViewDest'}" DisplayMemberBinding="{Binding TargetPath}"/>
                     <GridViewColumn Header="{ext:Loc Key='HomeViewType'}" DisplayMemberBinding="{Binding Type}"/>
                     <GridViewColumn Header="{ext:Loc Key='HomeViewExtension'}" DisplayMemberBinding="{Binding Ext}"/>
+                    <GridViewColumn Header="{ext:Loc Key='HomeViewSaveStatus'}" DisplayMemberBinding="{Binding Status}"/>
                 </GridView>
             </ListView.View>
         </ListView>

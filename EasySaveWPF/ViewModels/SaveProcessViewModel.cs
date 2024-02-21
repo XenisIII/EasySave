@@ -59,7 +59,7 @@ namespace EasySaveWPF.ViewModels
             get => _Extensions;
             set => _Extensions = value;
         }
-        private string _LogType;
+        private string _LogType = "xml";
         public string LogType
         {
             get => _LogType;
@@ -71,7 +71,7 @@ namespace EasySaveWPF.ViewModels
             get => _ProcessMetier;
             set => _ProcessMetier = value;
         }
-        private string _Language;
+        private string _Language = "Français";
         public string Language
         {
             get => _Language;
@@ -110,10 +110,19 @@ namespace EasySaveWPF.ViewModels
 
         public async Task ExecuteSaveProcessAsync()
         {
+            long totalfilessize = 0;
+            int timetoencrypt = 0;
+            int errors = 0;
             var saveTasks = new List<Task>();
 
             foreach (var save in CheckedItems)
             {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    //save.Status = "In Progress";
+                    save.Status = LocalizationService.GetString("SaveInProgress");
+                });
+
                 // Créer une nouvelle tâche pour chaque sauvegarde
                 var saveTask = Task.Run(() =>
                 {
@@ -124,13 +133,21 @@ namespace EasySaveWPF.ViewModels
                     {
                         case "Complete":
                             var save1 = new CompleteSave(save);
+                            //save.Status = "In Progress";
                             logStatsRTViewModel.NewWork(save1.StatsRTModel);
                             save1.Execute(save, _ProcessMetier);
+                            totalfilessize = save1.StatsRTModel.TotalFilesSize;
+                            timetoencrypt = save1.ExitCode;
+                            errors = save1.EncryptionErrors;
                             break;
                         case "Differential":
                             var save2 = new DifferentialSave(save);
+                            //save.Status = "In Progress";
                             logStatsRTViewModel.NewWork(save2.StatsRTModel);
                             save2.Execute(save, _ProcessMetier);
+                            totalfilessize = save2.StatsRTModel.TotalFilesSize;
+                            timetoencrypt = save2.ExitCode;
+                            errors = save2.EncryptionErrors;
                             break;
                     }
 
@@ -141,7 +158,14 @@ namespace EasySaveWPF.ViewModels
                         elapsedTime.Milliseconds / 10);
 
                     this.SetLogModel(save.Name, save.SourcePath, save.TargetPath,
-                        0, elapsedTimeFormatted); // Note: Adjust the '0' if you have file size info
+                        totalfilessize, elapsedTimeFormatted, timetoencrypt, errors);
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        //save.Status = "Completed";
+                        save.Status = LocalizationService.GetString("SaveFinished");
+                    });
+                    MessageBox.Show($"La sauvegarde {save.Name} est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 });
 
                 saveTasks.Add(saveTask);
@@ -156,7 +180,7 @@ namespace EasySaveWPF.ViewModels
         /// <summary>
         /// Sets and updates the log model with backup process details.
         /// </summary>
-        public void SetLogModel(string name, string sourcePath, string targetPath, long filesSize, string fileTransferTime)
+        public void SetLogModel(string name, string sourcePath, string targetPath, long filesSize, string fileTransferTime, int timetoencrypt, int nbErrors)
         {
             var model = new LogVarModel()
             {
@@ -165,7 +189,9 @@ namespace EasySaveWPF.ViewModels
                 TargetPath = targetPath,
                 FilesSize = filesSize,
                 FileTransferTime = fileTransferTime,
-                Time = DateTime.Now.ToString("yyyyMMdd_HHmmss")
+                Time = DateTime.Now.ToString("yyyyMMdd_HHmmss"),
+                Encryption = $"{timetoencrypt} ms",
+                EncryptionErrors = nbErrors.ToString(),
             };
 
             // Update current state.
@@ -185,7 +211,7 @@ namespace EasySaveWPF.ViewModels
             }
             else
             {   
-                this.SaveList.SaveList.Add(new(_Name, _SrcPath, _TargetPath, _Type, _Extensions));
+                this.SaveList.SaveList.Add(new(_Name, _SrcPath, _TargetPath, _Type, _Extensions, LocalizationService.GetString("SaveReady")));
             }
             _Type = "Complete";
             _Name = "";
