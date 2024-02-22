@@ -27,7 +27,6 @@ namespace EasySaveWPF.Services
         {
             // Prepare directory structure at target location.
             SetTree(save.SourcePath, save.TargetPath);
-            int counter = 0;
             foreach (string element in SourcePathAllFiles)
             {
                 if (process != null)
@@ -89,7 +88,7 @@ namespace EasySaveWPF.Services
                     if (File.Exists(targetFile) && CalculateFileHash(element) == CalculateFileHash(targetFile))
                     {
                         // Vérifie si l'extension du fichier fait partie des extensions à chiffrer, si oui : chiffrer
-                        if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)))
+                        if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)) || save.Ext == ".*")
                         {
                             string filename = Path.GetFileName(element);
                             string targetDirectory = element.Replace(save.SourcePath, save.TargetPath).Replace(filename, "");
@@ -119,18 +118,14 @@ namespace EasySaveWPF.Services
                             }
                         }
                         // Vérifie si l'extension du fichier fait partie des extensions à chiffrer, si oui : copier et chiffrer
-                        if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)))
+                        if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)) || save.Ext == ".*")
                         {
                             string filename1 = Path.GetFileName(targetFile);
                             string encryptedFilename = $".encrypted.{filename1}";
                             string targetDirectory1 = targetFile.Substring(0, targetFile.Length - filename.Length);
                             targetFile = Path.Combine(targetDirectory1, encryptedFilename);
                             CipherOrDecipher(element, targetFile);
-                            MessageBoxResult result = MessageBox.Show($"Le fichier {element.Replace(save.SourcePath, save.TargetPath)} existait dans le dossier de destination mais non chiffré et dans une version différente. Voulez-vous supprimer ce fichier?", "Fichier existant : version différente non chiffrée", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                            if (result == MessageBoxResult.Yes)
-                            {
-                                File.Delete(element.Replace(save.SourcePath, save.TargetPath));
-                            }
+                            
                         }
                         // Sinon copier uniquement
                         else
@@ -140,11 +135,6 @@ namespace EasySaveWPF.Services
                     }
                 }
                 UpdateFinishedFileSave();
-                counter++;
-                if (SourcePathAllFiles.Count == counter)
-                {
-                    MessageBox.Show($"La sauvegarde {save.Name} est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
             }
         }
 

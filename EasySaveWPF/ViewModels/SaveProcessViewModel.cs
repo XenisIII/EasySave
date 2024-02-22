@@ -59,7 +59,7 @@ namespace EasySaveWPF.ViewModels
             get => _Extensions;
             set => _Extensions = value;
         }
-        private string _LogType;
+        private string _LogType = "xml";
         public string LogType
         {
             get => _LogType;
@@ -71,7 +71,7 @@ namespace EasySaveWPF.ViewModels
             get => _ProcessMetier;
             set => _ProcessMetier = value;
         }
-        private string _Language;
+        private string _Language = "Français";
         public string Language
         {
             get => _Language;
@@ -105,48 +105,82 @@ namespace EasySaveWPF.ViewModels
         }
         public void ExecuteSaveProcess(object parameter)
         {
+            var _ = ExecuteSaveProcessAsync();
+        }
+
+        public async Task ExecuteSaveProcessAsync()
+        {
+            long totalfilessize = 0;
+            int timetoencrypt = 0;
+            int errors = 0;
+            var saveTasks = new List<Task>();
 
             foreach (var save in CheckedItems)
             {
-                //Must be replace in oother version
-                Thread.Sleep(100);
-                var stopwatch = new Stopwatch();
-                //var save = this.SaveList.SaveList[saveIndex];
-                switch (save.Type)
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    case "Complete":
-                        var save1 = new CompleteSave(save);
-                        logStatsRTViewModel.NewWork(save1.StatsRTModel);
-                        stopwatch.Start();
-                        save1.Execute(save, _ProcessMetier);
-                        stopwatch.Stop();
-                        var timeElapsed = stopwatch.Elapsed;
-                        var elapsedTimeFormatted = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                          timeElapsed.Hours, timeElapsed.Minutes, timeElapsed.Seconds,
-                          timeElapsed.Milliseconds / 10);
-                        this.SetLogModel(save.Name, save.SourcePath, save.TargetPath,
-                          save1.StatsRTModel.TotalFilesSize, elapsedTimeFormatted);
-                        break;
-                    case "Differential":
-                        var save2 = new DifferentialSave(save);
-                        logStatsRTViewModel.NewWork(save2.StatsRTModel);
-                        stopwatch.Start();
-                        save2.Execute(save, _ProcessMetier);
-                        stopwatch.Stop();
-                        var timeElapsed1 = stopwatch.Elapsed;
-                        var elapsedTimeFormatted1 =
-                          $"{timeElapsed1.Hours:00}:{timeElapsed1.Minutes:00}:{timeElapsed1.Seconds:00}.{timeElapsed1.Milliseconds / 10:00}";
-                        this.SetLogModel(save.Name, save.SourcePath, save.TargetPath,
-                          save2.StatsRTModel.TotalFilesSize, elapsedTimeFormatted1);
-                        break;
-                }
+                    //save.Status = "In Progress";
+                    save.Status = LocalizationService.GetString("SaveInProgress");
+                });
+
+                // Créer une nouvelle tâche pour chaque sauvegarde
+                var saveTask = Task.Run(() =>
+                {
+                    var stopwatch = new Stopwatch();
+                    stopwatch.Start();
+
+                    switch (save.Type)
+                    {
+                        case "Complete":
+                            var save1 = new CompleteSave(save);
+                            //save.Status = "In Progress";
+                            logStatsRTViewModel.NewWork(save1.StatsRTModel);
+                            save1.Execute(save, _ProcessMetier);
+                            totalfilessize = save1.StatsRTModel.TotalFilesSize;
+                            timetoencrypt = save1.ExitCode;
+                            errors = save1.EncryptionErrors;
+                            break;
+                        case "Differential":
+                            var save2 = new DifferentialSave(save);
+                            //save.Status = "In Progress";
+                            logStatsRTViewModel.NewWork(save2.StatsRTModel);
+                            save2.Execute(save, _ProcessMetier);
+                            totalfilessize = save2.StatsRTModel.TotalFilesSize;
+                            timetoencrypt = save2.ExitCode;
+                            errors = save2.EncryptionErrors;
+                            break;
+                    }
+
+                    stopwatch.Stop();
+                    var elapsedTime = stopwatch.Elapsed;
+                    var elapsedTimeFormatted = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                        elapsedTime.Hours, elapsedTime.Minutes, elapsedTime.Seconds,
+                        elapsedTime.Milliseconds / 10);
+
+                    this.SetLogModel(save.Name, save.SourcePath, save.TargetPath,
+                        totalfilessize, elapsedTimeFormatted, timetoencrypt, errors);
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        //save.Status = "Completed";
+                        save.Status = LocalizationService.GetString("SaveFinished");
+                    });
+                    MessageBox.Show($"La sauvegarde {save.Name} est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                });
+
+                saveTasks.Add(saveTask);
             }
+
+            // Attendre que toutes les tâches de sauvegarde soient terminées
+            await Task.WhenAll(saveTasks);
+
+            MessageBox.Show($"Toutes les sauvegardes sont terminées", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         /// <summary>
         /// Sets and updates the log model with backup process details.
         /// </summary>
-        public void SetLogModel(string name, string sourcePath, string targetPath, long filesSize, string fileTransferTime)
+        public void SetLogModel(string name, string sourcePath, string targetPath, long filesSize, string fileTransferTime, int timetoencrypt, int nbErrors)
         {
             var model = new LogVarModel()
             {
@@ -155,7 +189,9 @@ namespace EasySaveWPF.ViewModels
                 TargetPath = targetPath,
                 FilesSize = filesSize,
                 FileTransferTime = fileTransferTime,
-                Time = DateTime.Now.ToString("yyyyMMdd_HHmmss")
+                Time = DateTime.Now.ToString("yyyyMMdd_HHmmss"),
+                Encryption = $"{timetoencrypt} ms",
+                EncryptionErrors = nbErrors.ToString(),
             };
 
             // Update current state.
@@ -175,7 +211,7 @@ namespace EasySaveWPF.ViewModels
             }
             else
             {   
-                this.SaveList.SaveList.Add(new(_Name, _SrcPath, _TargetPath, _Type, _Extensions));
+                this.SaveList.SaveList.Add(new(_Name, _SrcPath, _TargetPath, _Type, _Extensions, LocalizationService.GetString("SaveReady")));
             }
             _Type = "Complete";
             _Name = "";

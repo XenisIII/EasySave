@@ -22,6 +22,19 @@ public class CommonSaveCommand
     // Total size of files to be copied.
     private long Sizes;
 
+    private int _exitCode = 0;
+    public int ExitCode
+    {
+        get => _exitCode;
+        set => _exitCode = value;
+    }
+    private int _encryptionErrors = 0;
+    public int EncryptionErrors
+    {
+        get => _encryptionErrors;
+        set => _encryptionErrors = value;
+    }
+
     // Represents the current backup operation.
     private StatsRTModel _statsRTModel;
 
@@ -140,6 +153,15 @@ public class CommonSaveCommand
         CipherProcess.StartInfo.UseShellExecute = false;
         CipherProcess.StartInfo.CreateNoWindow = true;
         CipherProcess.Start();
+        CipherProcess.WaitForExit();
+        if(CipherProcess.ExitCode == -1)
+        {
+            _encryptionErrors += 1;
+        }
+        else
+        {
+            _exitCode += CipherProcess.ExitCode;
+        }        
     }
 
 }
