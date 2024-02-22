@@ -1,65 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
-using EasySaveWPF.Views;
 using EasySaveWPF.ViewModels;
+using System.Diagnostics;
 
 namespace EasySaveWPF.Views;
 
 public partial class HomeView : UserControl
 {
-    SaveProcess _saveProcess;
-    public HomeView(SaveProcess saveProcess)
+    private static readonly string LogDirPath = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "PS-Logs");
+
+    readonly SaveProcessViewModel _saveProcessViewModel;
+
+    public HomeView(SaveProcessViewModel saveProcess)
     {
-        _saveProcess = saveProcess;
+        _saveProcessViewModel = saveProcess;
+
+        DataContext = saveProcess;
+
         InitializeComponent();
-        this.DataContext = saveProcess;
     }
 
-    private static readonly string LogDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "PS-Logs");
     public void OpenLogsDirectory(object sender, RoutedEventArgs e)
     {
-
         if (!Directory.Exists(LogDirPath))
         {
             Directory.CreateDirectory(LogDirPath);
         }
+
         // Open the logs directory in the file explorer
-        System.Diagnostics.Process.Start("explorer.exe", LogDirPath);
+        Process.Start("explorer.exe", LogDirPath);
     }   
 
     public void AddNewBackup(object sender, RoutedEventArgs e)
     {
-        CreateSaveView createSaveWindow = new CreateSaveView(_saveProcess);
-        createSaveWindow.Owner = Window.GetWindow(this);
-        bool? result = createSaveWindow.ShowDialog();
-        if (createSaveWindow.CreateNewSave)
+        CreateBackupJobViewModel createBackupJobViewModel = new(_saveProcessViewModel);
+
+        CreateSaveView createSaveWindow = new(createBackupJobViewModel)
         {
-            AddNewBackup(sender, e);
-        }
+            Owner = Window.GetWindow(this)
+        };
+
+        createSaveWindow.ShowDialog();
     }
 
     private void Execute_Click(object sender, RoutedEventArgs e)
     {
         // Load the About view
         var mainWindow = Application.Current.MainWindow as MainWindow;
-        if (mainWindow != null)
-        {
-            // Créer une instance de LogView et naviguer vers elle
-            mainWindow.ContentFrame.Navigate(new LogView("xml")); // ou "json", selon le type de log
-        }
+
+        // Créer une instance de LogView et naviguer vers elle
+        mainWindow?.ContentFrame.Navigate(new LogView("xml")); // ou "json", selon le type de log
     }
 }
 

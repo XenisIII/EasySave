@@ -4,16 +4,16 @@ using EasySaveWPF.ViewModels;
 using EasySaveWPF.Services;
 
 namespace EasySaveWPF;
+
 public partial class MainWindow : Window
 {
-    public LogStatsRTViewModel? _logStatsRTVM { get; }
-    public SaveProcess? _SaveProcessVM { get; }
+    public SaveProcessViewModel SaveProcessVM { get; } = new SaveProcessViewModel();
+
     public MainWindow()
     {
-        _logStatsRTVM = new LogStatsRTViewModel();
-        _SaveProcessVM = new SaveProcess(_logStatsRTVM);
         InitializeComponent();
-        ContentFrame.Content = new HomeView(_SaveProcessVM);
+
+        ContentFrame.Content = new HomeView(SaveProcessVM);
 
         LocalizationService.CultureChanged += OnCultureChanged;
     }
@@ -21,13 +21,13 @@ public partial class MainWindow : Window
     private void Home_Click(object sender, RoutedEventArgs e)
     {
         // Load the Home view
-        ContentFrame.Navigate(new HomeView(_SaveProcessVM));
+        ContentFrame.Navigate(new HomeView(SaveProcessVM));
     }
 
     private void Settings_Click(object sender, RoutedEventArgs e)
     {
         // Load the Settings view into the content frame
-        ContentFrame.Navigate(new SettingsView(_SaveProcessVM));
+        ContentFrame.Navigate(new SettingsView(SaveProcessVM));
     }
 
     private void About_Click(object sender, RoutedEventArgs e)

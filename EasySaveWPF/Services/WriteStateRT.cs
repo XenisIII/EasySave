@@ -1,114 +1,119 @@
 using System.Text.Json;
 using System.Xml.Serialization;
 using System.IO;
-using System.Collections.Generic;
 using EasySaveWPF.Models;
 
-namespace EasySaveWPF.Services
+namespace EasySaveWPF.Services;
+
+public class WriteStatsRT
 {
-    public class WriteStatsRT
+    public List<StatsRTModel> StatsList { get; set; } = new List<StatsRTModel>();
+
+    public void WriteLogsSync(LogVarModel logModel, string logDirPath, string format)
     {
-        private List<StatsRTModel> _statsList;
-        public List<StatsRTModel> StatsList
+        CreateDirectoryIfNotExists(logDirPath);
+
+        var dateNow = $"{DateTime.Now:yyyyMMdd}";
+
+        if (format.ToLower() == "xml")
         {
-            get => _statsList;
-            set => _statsList = value;
+            string filePath = Path.Combine(logDirPath, $"{dateNow}_Log.xml");
+
+            List<LogVarModel> logs = ReadFromXmlFile<List<LogVarModel>>(filePath) ?? [];
+
+            logs.Add(logModel);
+
+            WriteToXmlFile(filePath, logs);
         }
-        public WriteStatsRT()
+        else
         {
-            _statsList = new List<StatsRTModel>();
+            string filePath = Path.Combine(logDirPath, $"{dateNow}_Log.json");
+
+            List<LogVarModel> logs = ReadFromJsonFile<List<LogVarModel>>(filePath) ?? [];
+
+            logs.Add(logModel);
+
+            WriteToJsonFile(filePath, logs);
         }
-        public void WriteLogsSync(LogVarModel logModel, string logDirPath, string format)
+    }
+
+    public void WriteRealTimeStats(StatsRTModel stats, string statsDirectory, string format)
+    {
+        CreateDirectoryIfNotExists(statsDirectory);
+
+        var dateNow = $"{DateTime.Now:yyyyMMdd}";
+
+        if (format.ToLower() == "xml")
+        {
+            //List<StatsRTModel> statsList = ReadFromXmlFile<List<StatsRTModel>>(filePath) ?? new List<StatsRTModel>();
+            StatsList.Add(stats);
+
+            string filePath = Path.Combine(statsDirectory, $"{dateNow}_Stats.xml");
+
+            WriteToXmlFile(filePath, StatsList);
+        }
+        else
+        {
+            //List<StatsRTModel> statsList = ReadFromJsonFile<List<StatsRTModel>>(filePath) ?? new List<StatsRTModel>();
+            StatsList.Add(stats);
+
+            string filePath = Path.Combine(statsDirectory, $"{dateNow}_Stats.json");
+
+            WriteToJsonFile(filePath, StatsList);
+        }
+    }
+
+    private static void WriteToXmlFile<T>(string filePath, T data)
+    {
+        using var stream = File.Create(filePath);
+
+        var serializer = new XmlSerializer(typeof(T));
+
+        serializer.Serialize(stream, data);
+    }
+
+    //private Task WriteToXmlFileAsync<T>(string filePath, T data)
+    //    => Task.Run(() => WriteToXmlFile(filePath, data));
+
+    private static T? ReadFromXmlFile<T>(string filePath)
+    {
+        if (!File.Exists(filePath)) return default(T);
+
+        using var stream = File.OpenRead(filePath);
+
+        var serializer = new XmlSerializer(typeof(T));
+
+        return (T?)serializer.Deserialize(stream);
+    }
+
+    private static void WriteToJsonFile<T>(string filePath, T data)
+    {
+        string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+
+        File.WriteAllText(filePath, json);
+    }
+
+    //private static async Task WriteToJsonFileAsync<T>(string filePath, T data)
+    //{
+    //    await using var stream = File.Create(filePath);
+
+    //    await JsonSerializer.SerializeAsync(stream, data, new JsonSerializerOptions { WriteIndented = true });
+    //}
+
+    private static T? ReadFromJsonFile<T>(string filePath)
+    {
+        if (!File.Exists(filePath)) return default(T);
+
+        string json = File.ReadAllText(filePath);
+
+        return JsonSerializer.Deserialize<T>(json);
+    }
+
+    private static void CreateDirectoryIfNotExists(string logDirPath)
+    {
+        if (!Directory.Exists(logDirPath))
         {
             Directory.CreateDirectory(logDirPath);
-
-            string fileName = format.ToLower() == "xml" ? "Log.xml" : "Log.json";
-            string filePath = Path.Combine(logDirPath, $"{DateTime.Now:yyyyMMdd}_{fileName}");
-
-            if (format.ToLower() == "xml")
-            {
-                List<LogVarModel> logs = ReadFromXmlFile<List<LogVarModel>>(filePath) ?? new List<LogVarModel>();
-                logs.Add(logModel);
-                WriteToXmlFile(filePath, logs);
-            }
-            else
-            {
-                List<LogVarModel> logs = ReadFromJsonFile<List<LogVarModel>>(filePath) ?? new List<LogVarModel>();
-                logs.Add(logModel);
-                WriteToJsonFile(filePath, logs);
-            }
-        }
-
-        public async Task WriteRealTimeStatsAsync(StatsRTModel stats, string statsDirectory, string format)
-        {
-            Directory.CreateDirectory(statsDirectory);
-
-            string fileName = format.ToLower() == "xml" ? "Stats.xml" : "Stats.json";
-            string filePath = Path.Combine(statsDirectory, $"{DateTime.Now:yyyyMMdd}_{fileName}");
-
-            if (format.ToLower() == "xml")
-            {
-                //List<StatsRTModel> statsList = ReadFromXmlFile<List<StatsRTModel>>(filePath) ?? new List<StatsRTModel>();
-                _statsList.Add(stats);
-                WriteToXmlFileAsync(filePath, _statsList);
-                //await WriteToXmlFileAsync(filePath, _statsList);
-            }
-            else
-            {
-                //List<StatsRTModel> statsList = ReadFromJsonFile<List<StatsRTModel>>(filePath) ?? new List<StatsRTModel>();
-                _statsList.Add(stats);
-                WriteToJsonFileAsync(filePath, _statsList);
-                //await WriteToJsonFileAsync(filePath, _statsList);
-            }
-        }
-
-        private void WriteToXmlFile<T>(string filePath, T data)
-        {
-            var serializer = new XmlSerializer(typeof(T));
-            using (var stream = File.Create(filePath))
-            {
-                serializer.Serialize(stream, data);
-            }
-        }
-
-        private async Task WriteToXmlFileAsync<T>(string filePath, T data)
-        {
-            var serializer = new XmlSerializer(typeof(T));
-            using (var stream = File.Create(filePath))
-            {
-                serializer.Serialize(stream, data);
-            }
-        }
-
-        private T? ReadFromXmlFile<T>(string filePath)
-        {
-            if (!File.Exists(filePath)) return default(T);
-
-            var serializer = new XmlSerializer(typeof(T));
-            using (var stream = File.OpenRead(filePath))
-            {
-                return (T?)serializer.Deserialize(stream);
-            }
-        }
-
-        private void WriteToJsonFile<T>(string filePath, T data)
-        {
-            string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(filePath, json);
-        }
-
-        private async Task WriteToJsonFileAsync<T>(string filePath, T data)
-        {
-            await using var stream = File.Create(filePath);
-            await JsonSerializer.SerializeAsync(stream, data, new JsonSerializerOptions { WriteIndented = true });
-        }
-
-        private T? ReadFromJsonFile<T>(string filePath)
-        {
-            if (!File.Exists(filePath)) return default(T);
-
-            string json = File.ReadAllText(filePath);
-            return JsonSerializer.Deserialize<T>(json);
         }
     }
 }

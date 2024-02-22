@@ -1,47 +1,47 @@
 ﻿using EasySaveWPF.Models;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Diagnostics;
-using System.ComponentModel;
 using System.Windows;
-using System.Reflection;
-using System.DirectoryServices;
-using System;
 
-namespace EasySaveWPF.Services;
+namespace EasySaveWPF.Services.Save;
 
 /// <summary>
 /// Handles backup operations and updates for real-time statistics.
 /// </summary>
-public class CommonSaveCommand
+public abstract class CommonSaveCommand
 {
-    // Tracks all files from the source directory.
-    protected List<string> SourcePathAllFiles;
-
     // Total size of files to be copied.
     private long Sizes;
 
     // Represents the current backup operation.
     private StatsRTModel _statsRTModel;
 
-    // Exposes backup model details.
-    public StatsRTModel StatsRTModel => this._statsRTModel;
+    /// <summary>
+    /// Tracks all files from the source directory.
+    /// </summary>
+    protected List<string> SourcePathAllFiles { get; private set; }
+
+    /// <summary>
+    /// Exposes backup model details.
+    /// </summary>
+    public StatsRTModel StatsRTModel => _statsRTModel;
 
     /// <summary>
     /// Initializes backup preparation.
     /// </summary>
-    public void Init(CreateSave save)
+    public void Init(BackupJobModel save)
     {
-        this.SourcePathAllFiles = new List<string>();
+        SourcePathAllFiles = [];
+
         VerifyFilesToCopy(save.SourcePath);
-        this._statsRTModel = new StatsRTModel();
+
+        _statsRTModel = new StatsRTModel();
     }
 
     /// <summary>
     /// Sets information in the real-time stats model.
     /// </summary>
-    public void SetInfosInStatsRTModel(CreateSave save, string fileName)
+    public void SetInfosInStatsRTModel(BackupJobModel save, string fileName)
     {
         _statsRTModel.SaveName = save.Name;
         _statsRTModel.TotalFilesToCopy = SourcePathAllFiles.Count;
@@ -78,8 +78,54 @@ public class CommonSaveCommand
     /// <summary>
     /// Finds the full path for a given file name.
     /// </summary>
-    public string? GetPathFile(string name) =>
-        SourcePathAllFiles.FirstOrDefault(path => path.EndsWith(name));
+    public string? GetPathFile(string name)
+        => SourcePathAllFiles.FirstOrDefault(path => path.EndsWith(name));
+
+    public void CheckProcess(string name_process)
+    {
+        Process[] localByName = Process.GetProcessesByName(name_process);
+
+        if (localByName.Length == 0)
+        {
+            return;
+        }
+
+        foreach (var process in localByName)
+        {
+            MessageBox.Show($"Le processus {name_process} est en cours d'exécution. Veuillez fermer toutes ses instances pour reprendre la sauvegarde.", "Processus en cours d'exécution", MessageBoxButton.OK, MessageBoxImage.Information);
+            process.WaitForExit();
+        }
+
+        MessageBox.Show($"Tous les processus de {name_process} on été fermés, reprise de la sauvegarde", "Reprise sauvegarde", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    /// <summary>
+    /// Creates the directory structure in the target directory.
+    /// </summary>
+    public void SetTree(string sourceDir, string destDir)
+    {
+        Directory.CreateDirectory(destDir);
+
+        var directoryInfo = new DirectoryInfo(sourceDir);
+        foreach (DirectoryInfo subDir in directoryInfo.GetDirectories())
+        {
+            var destSubDirPath = Path.Combine(destDir, subDir.Name);
+            Directory.CreateDirectory(destSubDirPath);
+            SetTree(subDir.FullName, destSubDirPath);
+        }
+    }
+
+    public void CipherOrDecipher(string src, string target)
+    {
+        //string applicationPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CryptoSoft.exe");
+        Process CipherProcess = new Process();
+        //CipherProcess.StartInfo.FileName = applicationPath;
+        CipherProcess.StartInfo.FileName = "CryptoSoft.exe";
+        CipherProcess.StartInfo.Arguments = $"\"{src}\" \"{target}\"";
+        CipherProcess.StartInfo.UseShellExecute = false;
+        CipherProcess.StartInfo.CreateNoWindow = true;
+        CipherProcess.Start();
+    }
 
     /// <summary>
     /// Recursively counts files and updates the file list and total size.
@@ -99,47 +145,4 @@ public class CommonSaveCommand
 
         return count;
     }
-
-    public void CheckProcess(string name_process)
-    {
-        Process[] localByName = Process.GetProcessesByName(name_process);
-        if(localByName.Length > 0)
-        {
-            foreach(var process in localByName)
-            {
-                MessageBox.Show($"Le processus {name_process} est en cours d'exécution. Veuillez fermer toutes ses instances pour reprendre la sauvegarde.", "Processus en cours d'exécution", MessageBoxButton.OK, MessageBoxImage.Information);
-                process.WaitForExit();
-            }
-            MessageBox.Show($"Tous les processus de {name_process} on été fermés, reprise de la sauvegarde", "Reprise sauvegarde", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-    }
-
-    /// <summary>
-    /// Creates the directory structure in the target directory.
-    /// </summary>
-    public void SetTree(string sourceDir, string destDir)
-    {
-        Directory.CreateDirectory(destDir);
-
-        var directoryInfo = new DirectoryInfo(sourceDir);
-        foreach (DirectoryInfo subDir in directoryInfo.GetDirectories())
-        {
-            var destSubDirPath = Path.Combine(destDir, subDir.Name);
-            Directory.CreateDirectory(destSubDirPath);
-            SetTree(subDir.FullName, destSubDirPath);
-        }
-    }
-    public void CipherOrDecipher(string src, string target)
-    {
-        //string applicationPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CryptoSoft.exe");
-        Process CipherProcess = new Process();
-        //CipherProcess.StartInfo.FileName = applicationPath;
-        CipherProcess.StartInfo.FileName = "CryptoSoft.exe";
-        CipherProcess.StartInfo.Arguments = $"\"{src}\" \"{target}\"";
-        CipherProcess.StartInfo.UseShellExecute = false;
-        CipherProcess.StartInfo.CreateNoWindow = true;
-        CipherProcess.Start();
-    }
-
 }

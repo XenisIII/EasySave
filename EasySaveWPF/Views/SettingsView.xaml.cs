@@ -16,7 +16,7 @@ public partial class SettingsView : UserControl, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 
-    public SettingsView(SaveProcess saveProcess)
+    public SettingsView(SaveProcessViewModel saveProcess)
     {
         this.DataContext = saveProcess;
         InitializeComponent();

@@ -5,21 +5,33 @@ namespace EasySaveWPF.Models;
 /// </summary>
 public class LogVarModel
 {
-    // Name of the backup operation.
+    /// <summary>
+    /// Name of the backup operation.
+    /// </summary>
     public required string Name { get; set; }
 
-    // Path of the source directory from which files were backed up.
+    /// <summary>
+    /// Path of the source directory from which files were backed up.
+    /// </summary>
     public required string SourcePath { get; set; }
 
-    // Path of the target directory to which files were backed up.
+    /// <summary>
+    /// Path of the target directory to which files were backed up.
+    /// </summary>
     public required string TargetPath { get; set; }
 
-    // Total size of all files transferred during the backup, in bytes.
+    /// <summary>
+    /// Total size of all files transferred during the backup, in bytes.
+    /// </summary>
     public required long FilesSize { get; set; }
 
-    // Time taken to transfer files as a string. Could be in any time format (e.g., "2 minutes", "30 seconds").
+    /// <summary>
+    /// Time taken to transfer files as a string. Could be in any time format (e.g., "2 minutes", "30 seconds").
+    /// </summary>
     public required string FileTransferTime { get; set; }
 
-    // Timestamp of when the backup operation was completed.
+    /// <summary>
+    /// Timestamp of when the backup operation was completed.
+    /// </summary>
     public required string Time { get; set; }
 }

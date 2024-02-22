@@ -1,4 +1,5 @@
-﻿using EasySaveWPF.Services.Common;
+﻿using EasySaveWPF.Common;
+
 
 // Defines the namespace for the StatsRTModel, indicating it's part of the models related to real-time statistics.
 namespace EasySaveWPF.Models;
@@ -9,16 +10,24 @@ namespace EasySaveWPF.Models;
 /// </summary>
 public class StatsRTModel : ObservableObject
 {
-    // Backing field for the State property.
+    /// <summary>
+    /// Backing field for the State property.
+    /// </summary>
     private string _state;
 
-    // Name of the save operation.
+    /// <summary>
+    /// Name of the save operation.
+    /// </summary>
     public string SaveName { get; set; }
 
-    // The source directory path from which files are being backed up.
+    /// <summary>
+    /// The source directory path from which files are being backed up.
+    /// </summary>
     public string SourceFilePath { get; set; }
 
-    // The target directory path where files are being saved.
+    /// <summary>
+    /// The target directory path where files are being saved.
+    /// </summary>
     public string TargetFilePath { get; set; }
 
     /// <summary>
@@ -27,19 +36,33 @@ public class StatsRTModel : ObservableObject
     /// </summary>
     public string State
     {
-        get => this._state;
-        set => this.SetProperty(ref this._state, value);
+        get => _state;
+        set
+        {
+            if (_state == value) return;
+
+            _state = value;
+            OnPropertyChanged(nameof(State));
+        }
     }
 
-    // The total number of files that need to be copied.
+    /// <summary>
+    /// The total number of files that need to be copied.
+    /// </summary>
     public int TotalFilesToCopy { get; set; }
 
-    // The total size of all files to be copied, in bytes.
+    /// <summary>
+    /// The total size of all files to be copied, in bytes.
+    /// </summary>
     public long TotalFilesSize { get; set; }
 
-    // The number of files left to copy to complete the backup operation.
+    /// <summary>
+    /// The number of files left to copy to complete the backup operation.
+    /// </summary>
     public int NbFilesLeftToDo { get; set; }
 
-    // The progress of the backup operation, represented as a percentage.
+    /// <summary>
+    /// The progress of the backup operation, represented as a percentage.
+    /// </summary>
     public int Progress { get; set; }
 }

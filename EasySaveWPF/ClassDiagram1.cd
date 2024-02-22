@@ -8,7 +8,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="EasySave.ViewModels.SaveProcess">
+  <Class Name="EasySave.ViewModels.SaveProcessViewModel">
     <Position X="16" Y="3" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAQAEAAAAAAAIAQAAABBAAAAAAAAAAAAAAAAAA=</HashCode>

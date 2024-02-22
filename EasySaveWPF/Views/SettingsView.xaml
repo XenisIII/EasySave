@@ -33,7 +33,7 @@
         </GroupBox>
 
         <Button 
-            Command="{Binding _ApplyChanges}"
+            Command="{Binding ApplyChangesCommand}"
             Content="{ext:Loc Key='SettingsViewApply'}" 
             Grid.Row="2" 
             Margin="0,10,10,11" 

@@ -4,7 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ext="clr-namespace:EasySaveWPF.Services"
-			 xmlns:converters="clr-namespace:EasySaveWPF.Services"
+			 xmlns:converters="clr-namespace:EasySaveWPF.Converters"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 	
@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
 
         <!-- List view for Backups -->
-        <ListView Grid.Column="0" Grid.Row="1" ItemsSource="{Binding SaveList.SaveList}" Margin="10">
+        <ListView Grid.Column="0" Grid.Row="1" ItemsSource="{Binding BackupJobs}" Margin="10">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{ext:Loc Key='HomeViewName'}">
@@ -46,7 +46,7 @@
                     <GridViewColumn Header="{ext:Loc Key='HomeViewSrc'}" DisplayMemberBinding="{Binding SourcePath}"/>
                     <GridViewColumn Header="{ext:Loc Key='HomeViewDest'}" DisplayMemberBinding="{Binding TargetPath}"/>
                     <GridViewColumn Header="{ext:Loc Key='HomeViewType'}" DisplayMemberBinding="{Binding Type}"/>
-                    <GridViewColumn Header="{ext:Loc Key='HomeViewExtension'}" DisplayMemberBinding="{Binding Ext}"/>
+                    <GridViewColumn Header="{ext:Loc Key='HomeViewExtension'}" DisplayMemberBinding="{Binding Extensions}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -54,8 +54,8 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Grid.Row="1" Margin="10">
             <Button Content="{ext:Loc Key='HomeViewAdd'}" Click="AddNewBackup" Margin="5"/>
-            <Button Content="{ext:Loc Key='HomeViewDelete'}" Command="{Binding _DeleteSave}" Margin="5"/>
-            <Button Content="{ext:Loc Key='HomeViewExecute'}" Command="{Binding ExecuteSave}" Margin="5"/>
+            <Button Content="{ext:Loc Key='HomeViewDelete'}" Command="{Binding DeleteSaveCommand}" Margin="5"/>
+            <Button Content="{ext:Loc Key='HomeViewExecute'}" Command="{Binding ExecuteSaveCommand}" Margin="5"/>
             <Button Content="{ext:Loc Key='HomeViewLogs'}" Click="OpenLogsDirectory" Margin="5"/>
         </StackPanel>
 
