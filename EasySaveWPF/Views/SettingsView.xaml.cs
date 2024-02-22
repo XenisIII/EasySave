@@ -16,12 +16,32 @@ public partial class SettingsView : UserControl, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 
+    private readonly string _langCode = Properties.Settings.Default.Language; 
+    private readonly string _logType = Properties.Settings.Default.LogType;
+
     public SettingsView(SaveProcess saveProcess)
     {
         this.DataContext = saveProcess;
         InitializeComponent();
-        // Set DataContext for data binding
-        //this.DataContext = this;
+
+        if (_langCode == "en-US")
+        {
+            languageComboBox1.SelectedItem = 0;
+        }
+        else
+        {
+            languageComboBox1.SelectedIndex = 1;
+        }
+
+        if (_logType == "xml")
+        {
+            logTypeChange.SelectedItem = 0;
+        }
+        else
+        {
+            logTypeChange.SelectedIndex = 1;
+        }
+        
     }
 
     // Add properties to bind with your UI elements, these should notify the UI when changed
@@ -58,18 +78,6 @@ public partial class SettingsView : UserControl, INotifyPropertyChanged
     private void ChangeLanguage(string cultureCode)
     {
             LocalizationService.SetCulture(cultureCode);
-            // Refresh the UI strings by raising the PropertyChanged event for each localized property
-            RefreshLocalizedStrings();
-    }
-
-    private void RefreshLocalizedStrings()
-    {
-        // Refresh all properties that are bound to UI elements that use localized strings
-        // This could be done by raising PropertyChanged for each property or by a more global UI refresh method
-        // Example:
-        OnPropertyChanged("LocalizedProperty1");
-        OnPropertyChanged("LocalizedProperty2");
-        // Continue for all properties that need refreshing...
     }
 
     private void logTypeChange_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -81,7 +89,4 @@ public partial class SettingsView : UserControl, INotifyPropertyChanged
     {
 
     }
-
-    // Implement LogFormatChanged and LanguageSelectionChanged as needed, potentially using the properties above
-    // ...
 }

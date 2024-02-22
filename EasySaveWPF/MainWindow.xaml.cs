@@ -8,13 +8,17 @@ public partial class MainWindow : Window
 {
     public LogStatsRTViewModel? _logStatsRTVM { get; }
     public SaveProcess? _SaveProcessVM { get; }
+
+    string langCode = Properties.Settings.Default.Language;
     public MainWindow()
     {
         _logStatsRTVM = new LogStatsRTViewModel();
         _SaveProcessVM = new SaveProcess(_logStatsRTVM);
+        LocalizationService.SetCulture(langCode);
         InitializeComponent();
         ContentFrame.Content = new HomeView(_SaveProcessVM);
 
+        
         LocalizationService.CultureChanged += OnCultureChanged;
     }
 

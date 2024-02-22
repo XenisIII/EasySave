@@ -7,6 +7,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>EasySave.ico</ApplicationIcon>
+    <Version>2.0.4</Version>
+    <Authors>ARMENIO/EZZAROUAL/HOUZE</Authors>
+    <Description>Backup solution</Description>
+    <Copyright>CESI 2024</Copyright>
+    <AssemblyVersion>2.0.4</AssemblyVersion>
+    <FileVersion>2.0.4569</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,6 +38,21 @@
     <Resource Include="EasySave.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

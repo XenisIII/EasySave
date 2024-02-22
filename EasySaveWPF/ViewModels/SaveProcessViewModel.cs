@@ -71,7 +71,8 @@ namespace EasySaveWPF.ViewModels
             get => _ProcessMetier;
             set => _ProcessMetier = value;
         }
-        private string _Language;
+
+        private string _Language; //= Properties.Settings.Default.Language;
         public string Language
         {
             get => _Language;
@@ -231,17 +232,21 @@ namespace EasySaveWPF.ViewModels
 
         public void ApplySettingsChanges(object parameter)
         {
-            string language_code = "fr-FR";
+            string language_code = "en-US";
             logStatsRTViewModel.Type = _LogType;
+            Properties.Settings.Default.LogType = _LogType;
             switch (_Language)
             {
                 case "English":
                     language_code = "en-US";
+                    Properties.Settings.Default.Language = "en-US"; 
                     break;
                 case "Français":
                     language_code = "fr-FR";
+                    Properties.Settings.Default.Language = "fr-FR";
                     break;
             }
+            Properties.Settings.Default.Save();
             LocalizationService.SetCulture(language_code);
             MessageBox.Show($"Changements appliqués avec succès!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
         }
