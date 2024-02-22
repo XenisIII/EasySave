@@ -47,10 +47,14 @@ public class LogStatsRTViewModel
     /// Handles state changes by writing real-time stats.
     /// </summary>
     /// <param name="state">The backup model with updated state.</param>
-    private void HandleStateChangeAsync(StatsRTModel state)
+    /*private void HandleStateChangeAsync(StatsRTModel state)
     {
         var task = Task.Run(async () => await WriteStatsRT.WriteRealTimeStatsAsync(state, LogDirPath, Type));
         task.Wait();
+    }*/
+    private async void HandleStateChangeAsync(StatsRTModel state)
+    {
+        await WriteStatsRT.WriteRealTimeStatsAsync(state, LogDirPath, Type);
     }
 
     /// <summary>

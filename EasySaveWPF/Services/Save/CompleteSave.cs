@@ -28,28 +28,32 @@ public class CompleteSave : CommonSaveCommand
         SetTree(save.SourcePath, save.TargetPath);
 
         // Copies each file from the source to the target, updating stats for each file.
-        int counter = 0;
         foreach (string element in SourcePathAllFiles)
         {
             if (process != null)
             {
                 CheckProcess(process);
             }
-            // Simulate stats update delay (replace with async/await in the future).
-            //Thread.Sleep(10);
-            SetInfosInStatsRTModel(save, element.Replace(save.SourcePath, ""));
-
-            string fileExtension = Path.GetExtension(element);
-            string[] allowedExtensions = save.Extensions.Split(';');
-
-            if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)))
+            if (save.Extensions != null && save.Extensions != "")
             {
-                string target = element.Replace(save.SourcePath, save.TargetPath);
-                string filename = Path.GetFileName(target);
-                string encryptedFilename = $".encrypted.{filename}";
-                string targetDirectory = target.Substring(0, target.Length - filename.Length);
-                target = Path.Combine(targetDirectory, encryptedFilename);
-                CipherOrDecipher(element, target);
+                // Simulate stats update delay (replace with async/await in the future).
+                //Thread.Sleep(10);
+                SetInfosInStatsRTModel(save, element.Replace(save.SourcePath, ""));
+                string fileExtension = Path.GetExtension(element);
+                string[] allowedExtensions = save.Extensions.Split(';');
+                if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)) || save.Extensions == ".*")
+                {
+                    string target = element.Replace(save.SourcePath, save.TargetPath);
+                    string filename = Path.GetFileName(target);
+                    string encryptedFilename = $".encrypted.{filename}";
+                    string targetDirectory = target.Substring(0, target.Length - filename.Length);
+                    target = Path.Combine(targetDirectory, encryptedFilename);
+                    CipherOrDecipher(element, target);
+                }
+                else
+                {
+                    File.Copy(element, element.Replace(save.SourcePath, save.TargetPath), true);
+                }
             }
             else
             {
@@ -58,14 +62,6 @@ public class CompleteSave : CommonSaveCommand
 
             //Thread.Sleep(10);
             UpdateFinishedFileSave();
-
-            counter++;
-
-            if (SourcePathAllFiles.Count == counter)
-            {
-                MessageBox.Show($"La sauvegarde {save.Name} est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-
         }
     }
 }

@@ -99,55 +99,82 @@ public class SaveProcessViewModel : ObservableObject
     /// </summary>
     public void ExecuteSaveProcess()
     {
-        foreach (var createSave in CheckedItems)
+        var _ = ExecuteSaveProcessAsync();
+    }
+
+    public async Task ExecuteSaveProcessAsync()
+    {
+        long totalfilessize = 0;
+        int timetoencrypt = 0;
+        int errors = 0;
+        var saveTasks = new List<Task>();
+
+        foreach (var save in CheckedItems)
         {
-            //Must be replace in oother version
-            //Thread.Sleep(100);
-            var stopwatch = new Stopwatch();
-            //var save = this.SaveList.SaveList[saveIndex];
-            switch (createSave.Type)
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                case "Complete":
-                    var completeSave = new CompleteSave(createSave);
+                //save.Status = "In Progress";
+                save.Status = LocalizationService.GetString("SaveInProgress");
+            });
 
-                    logStatsRTViewModel.NewWork(completeSave.StatsRTModel);
+            // Créer une nouvelle tâche pour chaque sauvegarde
+            var saveTask = Task.Run(() =>
+            {
+                var stopwatch = new Stopwatch();
+                stopwatch.Start();
 
-                    stopwatch.Start();
-                    completeSave.Execute(createSave, ProcessMetier);
-                    stopwatch.Stop();
+                switch (save.Type)
+                {
+                    case "Complete":
+                        var save1 = new CompleteSave(save);
+                        //save.Status = "In Progress";
+                        logStatsRTViewModel.NewWork(save1.StatsRTModel);
+                        save1.Execute(save, _processMetier);
+                        totalfilessize = save1.StatsRTModel.TotalFilesSize;
+                        timetoencrypt = save1.ExitCode;
+                        errors = save1.EncryptionErrors;
+                        break;
+                    case "Differential":
+                        var save2 = new DifferentialSave(save);
+                        //save.Status = "In Progress";
+                        logStatsRTViewModel.NewWork(save2.StatsRTModel);
+                        save2.Execute(save, _processMetier);
+                        totalfilessize = save2.StatsRTModel.TotalFilesSize;
+                        timetoencrypt = save2.ExitCode;
+                        errors = save2.EncryptionErrors;
+                        break;
+                }
 
-                    var timeElapsed = stopwatch.Elapsed;
+                stopwatch.Stop();
+                var elapsedTime = stopwatch.Elapsed;
+                var elapsedTimeFormatted = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    elapsedTime.Hours, elapsedTime.Minutes, elapsedTime.Seconds,
+                    elapsedTime.Milliseconds / 10);
 
-                    var elapsedTimeFormatted = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                      timeElapsed.Hours, timeElapsed.Minutes, timeElapsed.Seconds,
-                      timeElapsed.Milliseconds / 10);
+                this.SetLogModel(save.Name, save.SourcePath, save.TargetPath,
+                    totalfilessize, elapsedTimeFormatted, timetoencrypt, errors);
 
-                    SetLogModel(createSave.Name, createSave.SourcePath, createSave.TargetPath,
-                      completeSave.StatsRTModel.TotalFilesSize, elapsedTimeFormatted);
-                    break;
-                case "Differential":
-                    var differentialSave = new DifferentialSave(createSave);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    //save.Status = "Completed";
+                    save.Status = LocalizationService.GetString("SaveFinished");
+                });
+                MessageBox.Show($"La sauvegarde {save.Name} est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            });
 
-                    logStatsRTViewModel.NewWork(differentialSave.StatsRTModel);
-
-                    stopwatch.Start();
-                    differentialSave.Execute(createSave, ProcessMetier);
-                    stopwatch.Stop();
-
-                    var timeElapsed1 = stopwatch.Elapsed;
-                    var elapsedTimeFormatted1 =
-                      $"{timeElapsed1.Hours:00}:{timeElapsed1.Minutes:00}:{timeElapsed1.Seconds:00}.{timeElapsed1.Milliseconds / 10:00}";
-                    SetLogModel(createSave.Name, createSave.SourcePath, createSave.TargetPath,
-                      differentialSave.StatsRTModel.TotalFilesSize, elapsedTimeFormatted1);
-                    break;
-            }
+            saveTasks.Add(saveTask);
         }
+
+        // Attendre que toutes les tâches de sauvegarde soient terminées
+        await Task.WhenAll(saveTasks);
+
+        MessageBox.Show($"Toutes les sauvegardes sont terminées", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     /// <summary>
     /// Sets and updates the log model with backup process details.
     /// </summary>
-    public void SetLogModel(string name, string sourcePath, string targetPath, long filesSize, string fileTransferTime)
+    public void SetLogModel(string name, string sourcePath, string targetPath, long filesSize, string fileTransferTime, int timetoencrypt, int nbErrors)
     {
         var model = new LogVarModel()
         {
@@ -156,11 +183,13 @@ public class SaveProcessViewModel : ObservableObject
             TargetPath = targetPath,
             FilesSize = filesSize,
             FileTransferTime = fileTransferTime,
-            Time = DateTime.Now.ToString("yyyyMMdd_HHmmss")
+            Time = DateTime.Now.ToString("yyyyMMdd_HHmmss"),
+            Encryption = $"{timetoencrypt} ms",
+            EncryptionErrors = nbErrors.ToString(),
         };
 
         // Update current state.
-        CurrentLogModel = model;
+        this.CurrentLogModel = model;
 
         logStatsRTViewModel.WriteLog(this.CurrentLogModel);
     }

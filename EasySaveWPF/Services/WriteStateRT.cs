@@ -2,11 +2,13 @@ using System.Text.Json;
 using System.Xml.Serialization;
 using System.IO;
 using EasySaveWPF.Models;
+using System.Threading;
 
 namespace EasySaveWPF.Services;
 
 public class WriteStatsRT
 {
+    private static readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
     public List<StatsRTModel> StatsList { get; set; } = new List<StatsRTModel>();
 
     public void WriteLogsSync(LogVarModel logModel, string logDirPath, string format)
@@ -44,23 +46,29 @@ public class WriteStatsRT
         var dateNow = $"{DateTime.Now:yyyyMMdd}";
         StatsRTModel data = new(stats);
 
-        if (format.ToLower() == "xml")
+        string filePath = format.ToLower() == "xml"
+            ? Path.Combine(statsDirectory, $"{dateNow}_Stats.xml")
+            : Path.Combine(statsDirectory, $"{dateNow}_Stats.json");
+
+        // Acquire the semaphore before accessing the shared file
+        await semaphore.WaitAsync();
+        try
         {
-            //List<StatsRTModel> statsList = ReadFromXmlFile<List<StatsRTModel>>(filePath) ?? new List<StatsRTModel>();
             StatsList.Add(data);
 
-            string filePath = Path.Combine(statsDirectory, $"{dateNow}_Stats.xml");
-
-            await WriteToXmlFileAsync(filePath, StatsList);
+            if (format.ToLower() == "xml")
+            {
+                await WriteToXmlFileAsync(filePath, StatsList);
+            }
+            else
+            {
+                await WriteToJsonFileAsync(filePath, StatsList);
+            }
         }
-        else
+        finally
         {
-            //List<StatsRTModel> statsList = ReadFromJsonFile<List<StatsRTModel>>(filePath) ?? new List<StatsRTModel>();
-            StatsList.Add(data);
-
-            string filePath = Path.Combine(statsDirectory, $"{dateNow}_Stats.json");
-
-            await WriteToJsonFileAsync(filePath, StatsList);
+            // Release the semaphore after the file access is complete
+            semaphore.Release();
         }
     }
 

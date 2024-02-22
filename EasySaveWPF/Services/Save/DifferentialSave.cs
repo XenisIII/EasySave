@@ -26,8 +26,6 @@ public class DifferentialSave : CommonSaveCommand
         // Prepare directory structure at target location.
         SetTree(save.SourcePath, save.TargetPath);
 
-        int counter = 0;
-
         foreach (string file in SourcePathAllFiles)
         {
             if (process is not null)
@@ -47,13 +45,6 @@ public class DifferentialSave : CommonSaveCommand
             }
 
             UpdateFinishedFileSave();
-
-            counter++;
-
-            if (SourcePathAllFiles.Count == counter)
-            {
-                MessageBox.Show($"La sauvegarde {save.Name} est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
         }
     }
 
@@ -114,7 +105,7 @@ public class DifferentialSave : CommonSaveCommand
         if (File.Exists(targetFile) && CalculateFileHash(element) == CalculateFileHash(targetFile))
         {
             // Vérifie si l'extension du fichier fait partie des extensions à chiffrer, si oui : chiffrer
-            if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)))
+            if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)) || save.Extensions == ".*")
             {
                 string filename = Path.GetFileName(element);
                 string targetDirectory = element.Replace(save.SourcePath, save.TargetPath).Replace(filename, "");
@@ -146,7 +137,7 @@ public class DifferentialSave : CommonSaveCommand
                 }
             }
             // Vérifie si l'extension du fichier fait partie des extensions à chiffrer, si oui : copier et chiffrer
-            if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)))
+            if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)) || save.Extensions == ".*")
             {
                 string filename1 = Path.GetFileName(targetFile);
                 string encryptedFilename = $".encrypted.{filename1}";
@@ -156,11 +147,11 @@ public class DifferentialSave : CommonSaveCommand
 
                 CipherOrDecipher(element, targetFile);
 
-                MessageBoxResult result = MessageBox.Show($"Le fichier {element.Replace(save.SourcePath, save.TargetPath)} existait dans le dossier de destination mais non chiffré et dans une version différente. Voulez-vous supprimer ce fichier?", "Fichier existant : version différente non chiffrée", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                /*MessageBoxResult result = MessageBox.Show($"Le fichier {element.Replace(save.SourcePath, save.TargetPath)} existait dans le dossier de destination mais non chiffré et dans une version différente. Voulez-vous supprimer ce fichier?", "Fichier existant : version différente non chiffrée", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
                     File.Delete(element.Replace(save.SourcePath, save.TargetPath));
-                }
+                }*/
             }
             // Sinon copier uniquement
             else
