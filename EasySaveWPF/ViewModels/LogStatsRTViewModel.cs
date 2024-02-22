@@ -14,9 +14,6 @@ public class LogStatsRTViewModel
     private static readonly string LogDirPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "PS-Logs");
 
-    // Current backup model being monitored.
-    private StatsRTModel _currentStatsRTModel;
-
     public WriteStatsRT WriteStatsRT { get; } = new WriteStatsRT();
     public string Type { get; set; } = "xml";
 
@@ -27,12 +24,11 @@ public class LogStatsRTViewModel
     public void NewWork(StatsRTModel statsRTModel)
     {
         // Detach event handler from the current model if it exists.
-        if (_currentStatsRTModel is not null)
-            _currentStatsRTModel.PropertyChanged -= OnStatsRTModelPropertyChanged;
+        if (statsRTModel is not null)
+            statsRTModel.PropertyChanged -= OnStatsRTModelPropertyChanged;
 
         // Attach the new backup model and set up property change notification.
-        _currentStatsRTModel = statsRTModel ?? throw new ArgumentNullException(nameof(statsRTModel));
-        _currentStatsRTModel.PropertyChanged += OnStatsRTModelPropertyChanged;
+        statsRTModel!.PropertyChanged += OnStatsRTModelPropertyChanged;
     }
 
     /// <summary>
@@ -40,17 +36,22 @@ public class LogStatsRTViewModel
     /// </summary>
     private void OnStatsRTModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
+        var statsRTModel = sender as StatsRTModel;
+
         // Handle state changes specifically.
         if (e.PropertyName == nameof(StatsRTModel.State))
-            HandleStateChange(_currentStatsRTModel);
+            HandleStateChangeAsync(statsRTModel!);
     }
 
     /// <summary>
     /// Handles state changes by writing real-time stats.
     /// </summary>
     /// <param name="state">The backup model with updated state.</param>
-    private void HandleStateChange(StatsRTModel state) =>
-        WriteStatsRT.WriteRealTimeStats(state, LogDirPath, Type);
+    private void HandleStateChangeAsync(StatsRTModel state)
+    {
+        var task = Task.Run(async () => await WriteStatsRT.WriteRealTimeStatsAsync(state, LogDirPath, Type));
+        task.Wait();
+    }
 
     /// <summary>
     /// Writes log information synchronously.

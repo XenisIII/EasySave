@@ -10,6 +10,21 @@ namespace EasySaveWPF.Models;
 /// </summary>
 public class StatsRTModel : ObservableObject
 {
+    public StatsRTModel()
+    {
+    }
+
+    public StatsRTModel(StatsRTModel statsRT)
+    {
+        SaveName = statsRT.SaveName;
+        SourceFilePath = statsRT.SourceFilePath;
+        TargetFilePath = statsRT.TargetFilePath;
+        State = statsRT.State;
+        TotalFilesToCopy = statsRT.TotalFilesToCopy;
+        TotalFilesSize = statsRT.TotalFilesSize;
+        NbFilesLeftToDo = statsRT.NbFilesLeftToDo;
+        Progress = statsRT.Progress;
+    }
     /// <summary>
     /// Backing field for the State property.
     /// </summary>
@@ -34,6 +49,7 @@ public class StatsRTModel : ObservableObject
     /// The current state of the backup operation (e.g., "In Progress", "Completed").
     /// Notifies observers when the value changes.
     /// </summary>
+    //public string State { get; set; }
     public string State
     {
         get => _state;

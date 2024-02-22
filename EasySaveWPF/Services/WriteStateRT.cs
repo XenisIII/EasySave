@@ -37,29 +37,30 @@ public class WriteStatsRT
         }
     }
 
-    public void WriteRealTimeStats(StatsRTModel stats, string statsDirectory, string format)
+    public async Task WriteRealTimeStatsAsync(StatsRTModel stats, string statsDirectory, string format)
     {
         CreateDirectoryIfNotExists(statsDirectory);
 
         var dateNow = $"{DateTime.Now:yyyyMMdd}";
+        StatsRTModel data = new(stats);
 
         if (format.ToLower() == "xml")
         {
             //List<StatsRTModel> statsList = ReadFromXmlFile<List<StatsRTModel>>(filePath) ?? new List<StatsRTModel>();
-            StatsList.Add(stats);
+            StatsList.Add(data);
 
             string filePath = Path.Combine(statsDirectory, $"{dateNow}_Stats.xml");
 
-            WriteToXmlFile(filePath, StatsList);
+            await WriteToXmlFileAsync(filePath, StatsList);
         }
         else
         {
             //List<StatsRTModel> statsList = ReadFromJsonFile<List<StatsRTModel>>(filePath) ?? new List<StatsRTModel>();
-            StatsList.Add(stats);
+            StatsList.Add(data);
 
             string filePath = Path.Combine(statsDirectory, $"{dateNow}_Stats.json");
 
-            WriteToJsonFile(filePath, StatsList);
+            await WriteToJsonFileAsync(filePath, StatsList);
         }
     }
 
@@ -72,8 +73,8 @@ public class WriteStatsRT
         serializer.Serialize(stream, data);
     }
 
-    //private Task WriteToXmlFileAsync<T>(string filePath, T data)
-    //    => Task.Run(() => WriteToXmlFile(filePath, data));
+    private Task WriteToXmlFileAsync<T>(string filePath, T data)
+        => Task.Run(() => WriteToXmlFile(filePath, data));
 
     private static T? ReadFromXmlFile<T>(string filePath)
     {
@@ -93,12 +94,12 @@ public class WriteStatsRT
         File.WriteAllText(filePath, json);
     }
 
-    //private static async Task WriteToJsonFileAsync<T>(string filePath, T data)
-    //{
-    //    await using var stream = File.Create(filePath);
+    private static async Task WriteToJsonFileAsync<T>(string filePath, T data)
+    {
+        await using var stream = File.Create(filePath);
 
-    //    await JsonSerializer.SerializeAsync(stream, data, new JsonSerializerOptions { WriteIndented = true });
-    //}
+        await JsonSerializer.SerializeAsync(stream, data, new JsonSerializerOptions { WriteIndented = true });
+    }
 
     private static T? ReadFromJsonFile<T>(string filePath)
     {
