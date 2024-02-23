@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using EasySaveWPF.Models;
 using EasySaveWPF.Services;
@@ -13,6 +14,8 @@ public class LogStatsRTViewModel
     // Directory path where logs are stored.
     private static readonly string LogDirPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "PS-Logs");
+    
+    public ObservableCollection<StatsRTModel> Logs { get; } = new ObservableCollection<StatsRTModel>();
 
     public WriteStatsRT WriteStatsRT { get; } = new WriteStatsRT();
     public string Type { get; set; } = "xml";

@@ -71,7 +71,7 @@ namespace EasySaveWPF.Views
                 }
             });
         }
-
+    
         private async Task DeserializeJsonLog(string filePath)
         {
             string jsonContent = await File.ReadAllTextAsync(filePath); // Async file read
