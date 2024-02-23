@@ -30,7 +30,7 @@ public class WriteStatsRT
             serializedData = JsonSerializer.Serialize(logModel, new JsonSerializerOptions { WriteIndented = true });
         }
 
-        AppendToFileAsync(filePath, serializedData).Wait();
+        AppendToFile(filePath, serializedData);
     }
 
     public async Task WriteRealTimeStatsAsync(StatsRTModel stats, string statsDirectory, string format)
@@ -63,13 +63,13 @@ public class WriteStatsRT
         }
     }
 
-    /*private void AppendToFile(string filePath, string content)
+    private void AppendToFile(string filePath, string content)
     {
         using var streamWriter = File.AppendText(filePath);
         streamWriter.WriteLine(content);
-    }*/
+    }
 
-    private async Task AppendToFileAsync(string filePath, string content)
+    /*private async Task AppendToFileAsync(string filePath, string content)
     {
         await semaphore.WaitAsync();
         try
@@ -83,7 +83,7 @@ public class WriteStatsRT
         {
             semaphore.Release();
         }
-    }
+    }*/
 
     /*private async Task _AppendToFileAsync(string filePath, string content)
     {
@@ -100,10 +100,10 @@ public class WriteStatsRT
     }*/
 
 
-/*private Task AppendToFileAsync(string filePath, string content)
+private Task AppendToFileAsync(string filePath, string content)
 {
     return Task.Run(() => AppendToFile(filePath, content));
-}*/
+}
 
 /*private static void WriteToXmlFile<T>(string filePath, T data)
 {
