@@ -57,6 +57,7 @@ public class CompleteSave : CommonSaveCommand
             }
             else
             {
+                SetInfosInStatsRTModel(save, element.Replace(save.SourcePath, ""));
                 File.Copy(element, element.Replace(save.SourcePath, save.TargetPath), true);
             }
 

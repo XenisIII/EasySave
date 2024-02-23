@@ -14,115 +14,148 @@ public class WriteStatsRT
     public void WriteLogsSync(LogVarModel logModel, string logDirPath, string format)
     {
         CreateDirectoryIfNotExists(logDirPath);
-
         var dateNow = $"{DateTime.Now:yyyyMMdd}";
+        string filePath = Path.Combine(logDirPath, $"{dateNow}_Log.txt");
 
+        string serializedData;
         if (format.ToLower() == "xml")
         {
-            string filePath = Path.Combine(logDirPath, $"{dateNow}_Log.xml");
-
-            List<LogVarModel> logs = ReadFromXmlFile<List<LogVarModel>>(filePath) ?? [];
-
-            logs.Add(logModel);
-
-            WriteToXmlFile(filePath, logs);
+            var serializer = new XmlSerializer(typeof(LogVarModel));
+            using var writer = new StringWriter();
+            serializer.Serialize(writer, logModel);
+            serializedData = writer.ToString();
         }
         else
         {
-            string filePath = Path.Combine(logDirPath, $"{dateNow}_Log.json");
-
-            List<LogVarModel> logs = ReadFromJsonFile<List<LogVarModel>>(filePath) ?? [];
-
-            logs.Add(logModel);
-
-            WriteToJsonFile(filePath, logs);
+            serializedData = JsonSerializer.Serialize(logModel, new JsonSerializerOptions { WriteIndented = true });
         }
+
+        AppendToFileAsync(filePath, serializedData).Wait();
     }
 
     public async Task WriteRealTimeStatsAsync(StatsRTModel stats, string statsDirectory, string format)
     {
         CreateDirectoryIfNotExists(statsDirectory);
-
         var dateNow = $"{DateTime.Now:yyyyMMdd}";
-        StatsRTModel data = new(stats);
+        string filePath = Path.Combine(statsDirectory, $"{dateNow}_Stats.txt");
 
-        string filePath = format.ToLower() == "xml"
-            ? Path.Combine(statsDirectory, $"{dateNow}_Stats.xml")
-            : Path.Combine(statsDirectory, $"{dateNow}_Stats.json");
-
-        // Acquire the semaphore before accessing the shared file
         await semaphore.WaitAsync();
         try
         {
-            StatsList.Add(data);
-
+            string serializedData;
             if (format.ToLower() == "xml")
             {
-                await WriteToXmlFileAsync(filePath, StatsList);
+                var serializer = new XmlSerializer(typeof(StatsRTModel));
+                using var writer = new StringWriter();
+                serializer.Serialize(writer, stats);
+                serializedData = writer.ToString();
             }
             else
             {
-                await WriteToJsonFileAsync(filePath, StatsList);
+                serializedData = JsonSerializer.Serialize(stats, new JsonSerializerOptions { WriteIndented = true });
             }
+
+            await AppendToFileAsync(filePath, serializedData);
         }
         finally
         {
-            // Release the semaphore after the file access is complete
             semaphore.Release();
         }
     }
 
-    private static void WriteToXmlFile<T>(string filePath, T data)
+    /*private void AppendToFile(string filePath, string content)
     {
-        using var stream = File.Create(filePath);
+        using var streamWriter = File.AppendText(filePath);
+        streamWriter.WriteLine(content);
+    }*/
 
-        var serializer = new XmlSerializer(typeof(T));
-
-        serializer.Serialize(stream, data);
-    }
-
-    private Task WriteToXmlFileAsync<T>(string filePath, T data)
-        => Task.Run(() => WriteToXmlFile(filePath, data));
-
-    private static T? ReadFromXmlFile<T>(string filePath)
+    private async Task AppendToFileAsync(string filePath, string content)
     {
-        if (!File.Exists(filePath)) return default(T);
-
-        using var stream = File.OpenRead(filePath);
-
-        var serializer = new XmlSerializer(typeof(T));
-
-        return (T?)serializer.Deserialize(stream);
-    }
-
-    private static void WriteToJsonFile<T>(string filePath, T data)
-    {
-        string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
-
-        File.WriteAllText(filePath, json);
-    }
-
-    private static async Task WriteToJsonFileAsync<T>(string filePath, T data)
-    {
-        await using var stream = File.Create(filePath);
-
-        await JsonSerializer.SerializeAsync(stream, data, new JsonSerializerOptions { WriteIndented = true });
-    }
-
-    private static T? ReadFromJsonFile<T>(string filePath)
-    {
-        if (!File.Exists(filePath)) return default(T);
-
-        string json = File.ReadAllText(filePath);
-
-        return JsonSerializer.Deserialize<T>(json);
-    }
-
-    private static void CreateDirectoryIfNotExists(string logDirPath)
-    {
-        if (!Directory.Exists(logDirPath))
+        await semaphore.WaitAsync();
+        try
         {
-            Directory.CreateDirectory(logDirPath);
+            using (var streamWriter = File.AppendText(filePath))
+            {
+                await streamWriter.WriteLineAsync(content);
+            }
+        }
+        finally
+        {
+            semaphore.Release();
         }
     }
+
+    /*private async Task _AppendToFileAsync(string filePath, string content)
+    {
+        await semaphore.WaitAsync();
+        try
+        {
+            using var streamWriter = File.AppendText(filePath);
+            streamWriter.WriteLine(content);
+        }
+        finally
+        {
+            semaphore.Release();
+        }
+    }*/
+
+
+/*private Task AppendToFileAsync(string filePath, string content)
+{
+    return Task.Run(() => AppendToFile(filePath, content));
+}*/
+
+/*private static void WriteToXmlFile<T>(string filePath, T data)
+{
+    using var stream = File.Create(filePath);
+
+    var serializer = new XmlSerializer(typeof(T));
+
+    serializer.Serialize(stream, data);
+}*/
+
+/*private Task WriteToXmlFileAsync<T>(string filePath, T data)
+    => Task.Run(() => WriteToXmlFile(filePath, data));
+
+private static T? ReadFromXmlFile<T>(string filePath)
+{
+    if (!File.Exists(filePath)) return default(T);
+
+    using var stream = File.OpenRead(filePath);
+
+    var serializer = new XmlSerializer(typeof(T));
+
+    return (T?)serializer.Deserialize(stream);
+}*/
+
+/*private static void WriteToJsonFile<T>(string filePath, T data)
+{
+    string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+
+    File.WriteAllText(filePath, json);
+}*/
+
+/*private static async Task WriteToJsonFileAsync<T>(string filePath, T data)
+{
+    await using var stream = File.Create(filePath);
+
+    await JsonSerializer.SerializeAsync(stream, data, new JsonSerializerOptions { WriteIndented = true });
+}*/
+
+/*private static T? ReadFromJsonFile<T>(string filePath)
+{
+    if (!File.Exists(filePath)) return default(T);
+
+    string json = File.ReadAllText(filePath);
+
+    return JsonSerializer.Deserialize<T>(json);
+}*/
+
+private static void CreateDirectoryIfNotExists(string logDirPath)
+{
+    if (!Directory.Exists(logDirPath))
+    {
+        Directory.CreateDirectory(logDirPath);
+    }
+}
 }

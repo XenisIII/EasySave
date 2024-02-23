@@ -42,7 +42,7 @@ public class SaveProcessViewModel : ObservableObject
     // Represents the current log for ongoing save task.
     public LogVarModel CurrentLogModel { get; set; }
 
-    private string _logType;
+    private string _logType = "xml";
     public string LogType
     {
         get => _logType;
@@ -68,7 +68,7 @@ public class SaveProcessViewModel : ObservableObject
         }
     }
 
-    private string _language;
+    private string _language = "Français";
     public string Language
     {
         get => _language;
