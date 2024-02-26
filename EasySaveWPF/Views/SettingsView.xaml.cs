@@ -2,6 +2,7 @@
 using System.Windows;
 using EasySaveWPF.Services;
 using System.ComponentModel;
+using System.Windows.Input;
 using EasySaveWPF.ViewModels; // Required for INotifyPropertyChanged
 
 namespace EasySaveWPF.Views;
@@ -80,6 +81,11 @@ public partial class SettingsView : UserControl, INotifyPropertyChanged
     private void languageComboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
 
+    }
+    
+    private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+    {
+        e.Handled = !e.Text.All(char.IsDigit);
     }
 
     // Implement LogFormatChanged and LanguageSelectionChanged as needed, potentially using the properties above
