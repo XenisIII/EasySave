@@ -2,6 +2,8 @@
 using System.IO;
 using System.Diagnostics;
 using System.Windows;
+using static EasySaveWPF.ViewModels.SaveProcessViewModel;
+using System.Collections.ObjectModel;
 
 namespace EasySaveWPF.Services.Save;
 
@@ -165,5 +167,39 @@ public abstract class CommonSaveCommand
             count += CountAndSetListPathFiles(subDirectory, sourcePathAllFiles);
 
         return count;
+    }
+
+    public void CheckPlayPauseStop(BackupJobModel save)
+    {
+        if (save.PauseResume)
+        {
+            while (save.PauseResume)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    save.Status = "Paused";
+                });
+                Thread.Sleep(1000);
+            }
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                save.Status = LocalizationService.GetString("SaveInProgress");
+            });
+        }
+
+        if (save.Stop)
+        {
+            save.Stop = false;
+            return;
+        }
+    }
+
+    public void Sort(List<string> ExtensionsPriority)
+    {
+        var listeTriee = SourcePathAllFiles.OrderByDescending(path =>
+        {
+            var extension = Path.GetExtension(path);
+            return ExtensionsPriority.Contains(extension);
+        }).ToList();
     }
 }

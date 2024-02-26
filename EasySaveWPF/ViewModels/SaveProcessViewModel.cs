@@ -7,6 +7,7 @@ using System.Windows;
 using EasySaveWPF.Services.Save;
 using EasySaveWPF.Common;
 using System.IO;
+using System.ComponentModel;
 
 namespace EasySaveWPF.ViewModels;
 
@@ -26,6 +27,7 @@ public class SaveProcessViewModel : ObservableObject
         PauseRC = new RelayCommand(Pause, CanPause);
         ResumeRC = new RelayCommand(Resume, CanPlay);
         StopRC = new RelayCommand(Stop);
+        InitializeExtensions();
     }
 
     // Holds all configured save tasks.
@@ -88,6 +90,30 @@ public class SaveProcessViewModel : ObservableObject
         }
     }
 
+    public class FileExtension
+    {
+        public string Extension { get; set; }
+        public bool IsSelected { get; set; }
+    }
+
+    public ObservableCollection<FileExtension> ExtensionsPriority { get; set; } = new ObservableCollection<FileExtension>();
+
+    public void InitializeExtensions()
+    {
+        // Clear existing items in the collection
+        ExtensionsPriority.Clear();
+
+        ExtensionsPriority.Add(new FileExtension { Extension = ".doc", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".docx", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".pdf", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".txt", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".jpg", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".png", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".xlsx", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".xls", IsSelected = false });
+
+    }
+
     /*private bool _Complete;
     public bool Complete
     {
@@ -133,8 +159,7 @@ public class SaveProcessViewModel : ObservableObject
                 switch (save.Type)
                 {
                     case "Complete":
-                        var save1 = new CompleteSave(save);
-                        //save.Status = "In Progress";
+                        var save1 = new CompleteSave(save, ExtensionsPriority);
                         logStatsRTViewModel.NewWork(save1.StatsRTModel);
                         save1.Execute(save, _processMetier);
                         totalfilessize = save1.StatsRTModel.TotalFilesSize;
@@ -142,8 +167,7 @@ public class SaveProcessViewModel : ObservableObject
                         errors = save1.EncryptionErrors;
                         break;
                     case "Differential":
-                        var save2 = new DifferentialSave(save);
-                        //save.Status = "In Progress";
+                        var save2 = new DifferentialSave(save, ExtensionsPriority);
                         logStatsRTViewModel.NewWork(save2.StatsRTModel);
                         save2.Execute(save, _processMetier);
                         totalfilessize = save2.StatsRTModel.TotalFilesSize;

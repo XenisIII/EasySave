@@ -49,21 +49,23 @@
         </GroupBox>
 
         <!-- Extensions de fichiers -->
-        <GroupBox x:Name="onTopExtTextBox" Header="Extensions de fichiers" Grid.Row="4" Margin="10" ToolTip="Sélectionnez les extensions de fichiers à inclure dans la sauvegarde.">
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="auto" HorizontalAlignment="Center">
-                <WrapPanel ToolTip="Cocher les types de fichiers à sauvegarder.">
-                    <CheckBox Content=".doc" Margin="5"/>
-                    <CheckBox Content=".docx" Margin="5"/>
-                    <CheckBox Content=".pdf" Margin="5"/>
-                    <CheckBox Content=".txt" Margin="5"/>
-                    <CheckBox Content=".jpg" Margin="5"/>
-                    <CheckBox Content=".png" Margin="5"/>
-                    <CheckBox Content=".xlsx" Margin="5"/>
-                    <CheckBox Content=".xls" Margin="5"/>
-                    <!-- Ajoutez d'autres extensions de fichiers selon les besoins -->
-                </WrapPanel>
+        <GroupBox Header="Extensions de fichiers" Grid.Row="4" Margin="10" ToolTip="Sélectionnez les extensions de fichiers à inclure dans la sauvegarde.">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl ItemsSource="{Binding ExtensionsPriority}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Content="{Binding Extension}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="5"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </ScrollViewer>
         </GroupBox>
+
 
         <!-- Bouton Appliquer -->
         <Button Command="{Binding ApplyChangesCommand}"
