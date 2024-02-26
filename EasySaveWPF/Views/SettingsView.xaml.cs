@@ -16,13 +16,36 @@ public partial class SettingsView : UserControl, INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
+    
+    private readonly string _langCode = Properties.Settings.Default.Language; 
+    private readonly string _logType = Properties.Settings.Default.LogType;
 
     public SettingsView(SaveProcessViewModel saveProcess)
     {
         this.DataContext = saveProcess;
         InitializeComponent();
-        // Set DataContext for data binding
-        //this.DataContext = this;
+        
+        if (_langCode == "en-US")
+        {
+            languageComboBox1.SelectedItem = 0;
+        }
+        else
+        {
+            languageComboBox1.SelectedIndex = 1;
+        }
+
+        if (_logType == "xml")
+        {
+            logTypeChange.SelectedItem = 0;
+        }
+        else
+        {
+            logTypeChange.SelectedIndex = 1;
+        }
+        
+        masterProcessTextBox.Text = Properties.Settings.Default.masterProcess;
+        //onTopExtTextBox.Text = Properties.Settings.Default.onTopExt;
+        fileSizeTextBox.Text = Properties.Settings.Default.fileSize;
     }
 
     // Add properties to bind with your UI elements, these should notify the UI when changed

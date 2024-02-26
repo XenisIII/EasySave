@@ -36,19 +36,20 @@
 
         <!-- Processus Métier -->
         <GroupBox Header="{ext:Loc Key='SettingsViewProcess'}" Grid.Row="2" Margin="10" ToolTip="Définissez le chemin vers le logiciel métier.">
-            <TextBox Grid.Row="2" TextWrapping="Wrap" Text="{Binding ProcessMetier}" HorizontalAlignment="Center" Width="164" ToolTip="Entrez le chemin complet du logiciel métier."/>
+            <TextBox x:Name="masterProcessTextBox" Grid.Row="2" TextWrapping="Wrap" Text="{Binding ProcessMetier}" HorizontalAlignment="Center" Width="164" ToolTip="Entrez le chemin complet du logiciel métier."/>
         </GroupBox>
         
         <!-- Taille Maximale (Ko) -->
         <GroupBox Header="Taille Maximale (Ko)" Grid.Row="3" Margin="10" ToolTip="Définissez la taille maximale des fichiers à sauvegarder.">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBox Width="120" Margin="5" PreviewTextInput="NumberValidationTextBox" ToolTip="Entrez la taille maximale des fichiers en Ko."/>
+                <TextBox x:Name="fileSizeTextBox" Width="120" Margin="5" PreviewTextInput="NumberValidationTextBox" 
+                         ToolTip="Entrez la taille maximale des fichiers en Ko."/>
                 <TextBlock Text="Ko" VerticalAlignment="Center" Margin="5,0,0,0"/>
             </StackPanel>
         </GroupBox>
 
         <!-- Extensions de fichiers -->
-        <GroupBox Header="Extensions de fichiers" Grid.Row="4" Margin="10" ToolTip="Sélectionnez les extensions de fichiers à inclure dans la sauvegarde.">
+        <GroupBox x:Name="onTopExtTextBox" Header="Extensions de fichiers" Grid.Row="4" Margin="10" ToolTip="Sélectionnez les extensions de fichiers à inclure dans la sauvegarde.">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="auto" HorizontalAlignment="Center">
                 <WrapPanel ToolTip="Cocher les types de fichiers à sauvegarder.">
                     <CheckBox Content=".doc" Margin="5"/>
