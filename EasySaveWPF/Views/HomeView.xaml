@@ -7,8 +7,8 @@
 			 xmlns:converters="clr-namespace:EasySaveWPF.Converters"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-	
-	<UserControl.Resources>
+
+    <UserControl.Resources>
         <!-- Convertisseur pour la visibilité de la CheckBox basée sur la sélection et l'état de la CheckBox -->
         <converters:SelectionAndCheckConverter x:Key="SelectionAndCheckConverter" />
     </UserControl.Resources>
@@ -60,7 +60,15 @@
             <Button Content="{ext:Loc Key='HomeViewExecute'}" Command="{Binding ExecuteSaveCommand}" Margin="5"/>
             <Button Content="{ext:Loc Key='HomeViewLogs'}" Click="OpenLogsDirectory" Margin="5"/>
         </StackPanel>
-
+        <Button Command="{Binding ResumeRC}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,135,56,0" Grid.Row="1" VerticalAlignment="Top" Width="19">
+            <Image Source="../Icons/Play.png" Width="auto" Height="auto"/>
+        </Button>
+        <Button Command="{Binding PauseRC}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,135,35,0" Grid.Row="1" VerticalAlignment="Top" Width="19">
+            <Image Source="../Icons/Pause.png" Width="auto" Height="auto"/>
+        </Button>
+        <Button Command="{Binding StopRC}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,135,14,0" Grid.Row="1" VerticalAlignment="Top" Width="19">
+            <Image Source="../Icons/Stop.png" Width="auto" Height="auto"/>
+        </Button>
         <!-- No Backups Message -->
         <!--<TextBlock Grid.ColumnSpan="2" Text="Pas de sauvegarde enregistrée" Visibility="{Binding Backups.Count, Converter={StaticResource EmptyCollectionToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>-->
     </Grid>

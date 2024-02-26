@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using EasySaveWPF.Services.Save;
 using EasySaveWPF.Common;
+using System.IO;
 
 namespace EasySaveWPF.ViewModels;
 
@@ -21,7 +22,10 @@ public class SaveProcessViewModel : ObservableObject
         ApplyChangesCommand = new RelayCommand(ApplySettingsChanges);
         DeleteSaveCommand = new RelayCommand(DeleteSaveFunc);
         ExecuteSaveCommand = new RelayCommand(ExecuteSaveProcess);
-        CheckBoxChangedCommand = new RelayCommand<BackupJobModel>(HandleCheckBoxChanged);
+        CheckBoxChangedCommand = new RelayCommand<BackupJobModel>(HandleCheckBoxChanged);   
+        PauseRC = new RelayCommand(Pause, CanPause);
+        ResumeRC = new RelayCommand(Resume, CanPlay);
+        StopRC = new RelayCommand(Stop);
     }
 
     // Holds all configured save tasks.
@@ -29,6 +33,9 @@ public class SaveProcessViewModel : ObservableObject
     public ICommand? ExecuteSaveCommand { get; set; }
     public ICommand? ApplyChangesCommand { get; set; }
     public ICommand CheckBoxChangedCommand { get; }
+    public ICommand PauseRC { get; }
+    public ICommand ResumeRC { get; }
+    public ICommand StopRC { get; }
 
     /// <summary>
     /// A list containing instances of BackupJobModel, each representing a unique backup job configuration.
@@ -167,6 +174,7 @@ public class SaveProcessViewModel : ObservableObject
 
         // Attendre que toutes les tâches de sauvegarde soient terminées
         await Task.WhenAll(saveTasks);
+        saveTasks.Clear();
 
         MessageBox.Show($"Toutes les sauvegardes sont terminées", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
     }
@@ -192,6 +200,33 @@ public class SaveProcessViewModel : ObservableObject
         this.CurrentLogModel = model;
 
         logStatsRTViewModel.WriteLog(this.CurrentLogModel);
+    }
+
+    public void Pause()
+    {
+        var itemsToRemove = CheckedItems.ToList();
+        foreach (var item in itemsToRemove)
+        {
+            item.PauseResume = true;
+        }
+    }
+
+    public void Resume()
+    {
+        var itemsToRemove = CheckedItems.ToList();
+        foreach (var item in itemsToRemove)
+        {
+            item.PauseResume = false;
+        }
+    }
+
+    public void Stop()
+    {
+        var itemsToRemove = CheckedItems.ToList();
+        foreach (var item in itemsToRemove)
+        {
+            item.Stop = true;
+        }
     }
 
     /// <summary>
@@ -248,4 +283,33 @@ public class SaveProcessViewModel : ObservableObject
             CheckedItems.Remove(save);
         }
     }
+
+    public bool CanPlay()
+    {
+        bool canPlay = true;
+        var itemsToRemove = CheckedItems.ToList();
+        foreach (var item in itemsToRemove)
+        {
+            if(!item.PauseResume)
+            {
+                canPlay = false;
+            }
+        }
+        return canPlay;
+    }
+
+    public bool CanPause()
+    {
+        bool canPause = true;
+        var itemsToRemove = CheckedItems.ToList();
+        foreach (var item in itemsToRemove)
+        {
+            if (item.PauseResume)
+            {
+                canPause = false;
+            }
+        }
+        return canPause;
+    }
+
 }

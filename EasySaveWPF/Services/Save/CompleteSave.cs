@@ -30,6 +30,27 @@ public class CompleteSave : CommonSaveCommand
         // Copies each file from the source to the target, updating stats for each file.
         foreach (string element in SourcePathAllFiles)
         {
+            if(save.PauseResume)
+            {
+                while (save.PauseResume)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        save.Status = "Paused";
+                    });
+                    Thread.Sleep(1000);
+                }
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    save.Status = LocalizationService.GetString("SaveInProgress");
+                });
+            }
+            
+            if (save.Stop)
+            {
+                save.Stop = false;
+                return;
+            }
             if (process != null)
             {
                 CheckProcess(process);

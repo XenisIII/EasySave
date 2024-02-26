@@ -12,6 +12,9 @@
   <ItemGroup>
     <None Remove="CryptoSoft.exe" />
     <None Remove="EasySave.png" />
+    <None Remove="Icons\Pause.png" />
+    <None Remove="Icons\Play.png" />
+    <None Remove="Icons\Stop.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +32,15 @@
 
   <ItemGroup>
     <Resource Include="EasySave.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Pause.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Play.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Stop.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
