@@ -238,7 +238,7 @@
     <value>Auteurs :</value>
   </data>
   <data name="SettingsViewProcess" xml:space="preserve">
-    <value>Processus maître :</value>
+    <value>Processus métier :</value>
   </data>
   <data name="HomeViewExtension" xml:space="preserve">
     <value>Extensions à chiffrer</value>

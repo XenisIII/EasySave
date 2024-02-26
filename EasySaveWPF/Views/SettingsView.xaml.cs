@@ -2,6 +2,7 @@
 using System.Windows;
 using EasySaveWPF.Services;
 using System.ComponentModel;
+using System.Windows.Input;
 using EasySaveWPF.ViewModels; // Required for INotifyPropertyChanged
 
 namespace EasySaveWPF.Views;
@@ -15,13 +16,36 @@ public partial class SettingsView : UserControl, INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
+    
+    private readonly string _langCode = Properties.Settings.Default.Language; 
+    private readonly string _logType = Properties.Settings.Default.LogType;
 
     public SettingsView(SaveProcessViewModel saveProcess)
     {
         this.DataContext = saveProcess;
         InitializeComponent();
-        // Set DataContext for data binding
-        //this.DataContext = this;
+        
+        if (_langCode == "en-US")
+        {
+            languageComboBox1.SelectedItem = 0;
+        }
+        else
+        {
+            languageComboBox1.SelectedIndex = 1;
+        }
+
+        if (_logType == "xml")
+        {
+            logTypeChange.SelectedItem = 0;
+        }
+        else
+        {
+            logTypeChange.SelectedIndex = 1;
+        }
+        
+        masterProcessTextBox.Text = Properties.Settings.Default.masterProcess;
+        //onTopExtTextBox.Text = Properties.Settings.Default.onTopExt;
+        fileSizeTextBox.Text = Properties.Settings.Default.fileSize;
     }
 
     // Add properties to bind with your UI elements, these should notify the UI when changed
@@ -80,6 +104,11 @@ public partial class SettingsView : UserControl, INotifyPropertyChanged
     private void languageComboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
 
+    }
+    
+    private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+    {
+        e.Handled = !e.Text.All(char.IsDigit);
     }
 
     // Implement LogFormatChanged and LanguageSelectionChanged as needed, potentially using the properties above
