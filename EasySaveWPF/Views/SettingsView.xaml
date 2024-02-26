@@ -18,7 +18,7 @@
         <!-- Log file format selection -->
         <GroupBox Header="{ext:Loc Key='SettingsViewLogType'}" Grid.Row="0" Margin="10,10,10,10">
             <ComboBox Name="logTypeChange" Width="150" Margin="5" SelectionChanged="logTypeChange_SelectionChanged" SelectedValue="{Binding LogType}" SelectedValuePath="Content">
-                <ComboBoxItem Content="xml" IsSelected="True"/>
+                <ComboBoxItem Content="xml"/>
                 <ComboBoxItem Content="json"/>
             </ComboBox>
         </GroupBox>
@@ -26,7 +26,7 @@
         <!-- Language selection -->
         <GroupBox Header="{ext:Loc Key='SettingsViewLanguage'}" Grid.Row="1" Margin="10,10,10,133">
             <ComboBox x:Name="languageComboBox1" Width="150" Margin="5" SelectionChanged="languageComboBox1_SelectionChanged" SelectedValue="{Binding Language}" SelectedValuePath="Content">
-                <ComboBoxItem Content="English" IsSelected="True"/>
+                <ComboBoxItem Content="English"/>
                 <ComboBoxItem Content="Français"/>
                 <!-- Add more languages as needed -->
             </ComboBox>

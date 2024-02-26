@@ -28,44 +28,62 @@ public class CompleteSave : CommonSaveCommand
         SetTree(save.SourcePath, save.TargetPath);
 
         // Copies each file from the source to the target, updating stats for each file.
-        int counter = 0;
         foreach (string element in SourcePathAllFiles)
         {
+            if(save.PauseResume)
+            {
+                while (save.PauseResume)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        save.Status = "Paused";
+                    });
+                    Thread.Sleep(1000);
+                }
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    save.Status = LocalizationService.GetString("SaveInProgress");
+                });
+            }
+            
+            if (save.Stop)
+            {
+                save.Stop = false;
+                return;
+            }
             if (process != null)
             {
                 CheckProcess(process);
             }
-            // Simulate stats update delay (replace with async/await in the future).
-            //Thread.Sleep(10);
-            SetInfosInStatsRTModel(save, element.Replace(save.SourcePath, ""));
-
-            string fileExtension = Path.GetExtension(element);
-            string[] allowedExtensions = save.Extensions.Split(';');
-
-            if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)))
+            if (save.Extensions != null && save.Extensions != "")
             {
-                string target = element.Replace(save.SourcePath, save.TargetPath);
-                string filename = Path.GetFileName(target);
-                string encryptedFilename = $".encrypted.{filename}";
-                string targetDirectory = target.Substring(0, target.Length - filename.Length);
-                target = Path.Combine(targetDirectory, encryptedFilename);
-                CipherOrDecipher(element, target);
+                // Simulate stats update delay (replace with async/await in the future).
+                //Thread.Sleep(10);
+                SetInfosInStatsRTModel(save, element.Replace(save.SourcePath, ""));
+                string fileExtension = Path.GetExtension(element);
+                string[] allowedExtensions = save.Extensions.Split(';');
+                if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)) || save.Extensions == ".*")
+                {
+                    string target = element.Replace(save.SourcePath, save.TargetPath);
+                    string filename = Path.GetFileName(target);
+                    string encryptedFilename = $".encrypted.{filename}";
+                    string targetDirectory = target.Substring(0, target.Length - filename.Length);
+                    target = Path.Combine(targetDirectory, encryptedFilename);
+                    CipherOrDecipher(element, target);
+                }
+                else
+                {
+                    File.Copy(element, element.Replace(save.SourcePath, save.TargetPath), true);
+                }
             }
             else
             {
+                SetInfosInStatsRTModel(save, element.Replace(save.SourcePath, ""));
                 File.Copy(element, element.Replace(save.SourcePath, save.TargetPath), true);
             }
 
             //Thread.Sleep(10);
             UpdateFinishedFileSave();
-
-            counter++;
-
-            if (SourcePathAllFiles.Count == counter)
-            {
-                MessageBox.Show($"La sauvegarde {save.Name} est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-
         }
     }
 }

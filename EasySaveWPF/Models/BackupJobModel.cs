@@ -1,4 +1,5 @@
 using EasySaveWPF.Common;
+using EasySaveWPF.Services;
 
 namespace EasySaveWPF.Models;
 
@@ -66,6 +67,43 @@ public class BackupJobModel : ObservableObject
 
             _extensions = value;
             OnPropertyChanged(nameof(Extensions));
+        }
+    }
+    private string _Status = LocalizationService.GetString("SaveCreatedStatus");
+    public string Status
+    {
+        get => _Status;
+        set
+        {
+            if (_Status == value) return;
+
+            _Status = value;
+            OnPropertyChanged(nameof(Status));
+        }
+    }
+
+    private bool _PauseResume = false;
+    public bool PauseResume
+    {
+        get => _PauseResume;
+        set
+        {
+            if (_PauseResume == value) return;
+
+            _PauseResume = value;
+            OnPropertyChanged(nameof(PauseResume));
+        }
+    }
+    private bool _Stop = false;
+    public bool Stop
+    {
+        get => _Stop;
+        set
+        {
+            if (_Stop == value) return;
+
+            _Stop = value;
+            OnPropertyChanged(nameof(Stop));
         }
     }
 }
