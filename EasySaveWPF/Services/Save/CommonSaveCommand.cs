@@ -196,9 +196,9 @@ public abstract class CommonSaveCommand
 
     public void Sort(List<string> ExtensionsPriority)
     {
-        var listeTriee = SourcePathAllFiles.OrderByDescending(path =>
+        SourcePathAllFiles = SourcePathAllFiles.OrderByDescending(path =>
         {
-            var extension = Path.GetExtension(path);
+            var extension = Path.GetExtension(path).ToLower();
             return ExtensionsPriority.Contains(extension);
         }).ToList();
     }

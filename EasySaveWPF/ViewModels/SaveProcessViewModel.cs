@@ -103,6 +103,7 @@ public class SaveProcessViewModel : ObservableObject
         // Clear existing items in the collection
         ExtensionsPriority.Clear();
 
+        ExtensionsPriority.Add(new FileExtension { Extension = ".exe", IsSelected = false });
         ExtensionsPriority.Add(new FileExtension { Extension = ".doc", IsSelected = false });
         ExtensionsPriority.Add(new FileExtension { Extension = ".docx", IsSelected = false });
         ExtensionsPriority.Add(new FileExtension { Extension = ".pdf", IsSelected = false });
@@ -111,6 +112,11 @@ public class SaveProcessViewModel : ObservableObject
         ExtensionsPriority.Add(new FileExtension { Extension = ".png", IsSelected = false });
         ExtensionsPriority.Add(new FileExtension { Extension = ".xlsx", IsSelected = false });
         ExtensionsPriority.Add(new FileExtension { Extension = ".xls", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".mp4", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".mkv", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".mp3", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".avi", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".av1", IsSelected = false });
 
     }
 

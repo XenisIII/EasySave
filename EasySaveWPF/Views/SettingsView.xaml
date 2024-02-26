@@ -49,7 +49,7 @@
         </GroupBox>
 
         <!-- Extensions de fichiers -->
-        <GroupBox Header="Extensions de fichiers" Grid.Row="4" Margin="10" ToolTip="Sélectionnez les extensions de fichiers à inclure dans la sauvegarde.">
+        <GroupBox Header="Extensions de fichiers à Prioriser" Grid.Row="4" Margin="10" ToolTip="Sélectionnez les extensions de fichiers à inclure dans la sauvegarde.">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                 <ItemsControl ItemsSource="{Binding ExtensionsPriority}">
                     <ItemsControl.ItemsPanel>
