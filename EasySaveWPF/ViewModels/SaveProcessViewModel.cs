@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using EasySaveWPF.Services.Save;
 using EasySaveWPF.Common;
+using System.IO;
+using System.ComponentModel;
 
 namespace EasySaveWPF.ViewModels;
 
@@ -21,7 +23,11 @@ public class SaveProcessViewModel : ObservableObject
         ApplyChangesCommand = new RelayCommand(ApplySettingsChanges);
         DeleteSaveCommand = new RelayCommand(DeleteSaveFunc);
         ExecuteSaveCommand = new RelayCommand(ExecuteSaveProcess);
-        CheckBoxChangedCommand = new RelayCommand<BackupJobModel>(HandleCheckBoxChanged);
+        CheckBoxChangedCommand = new RelayCommand<BackupJobModel>(HandleCheckBoxChanged);   
+        PauseRC = new RelayCommand(Pause, CanPause);
+        ResumeRC = new RelayCommand(Resume, CanPlay);
+        StopRC = new RelayCommand(Stop);
+        InitializeExtensions();
     }
 
     // Holds all configured save tasks.
@@ -29,6 +35,9 @@ public class SaveProcessViewModel : ObservableObject
     public ICommand? ExecuteSaveCommand { get; set; }
     public ICommand? ApplyChangesCommand { get; set; }
     public ICommand CheckBoxChangedCommand { get; }
+    public ICommand PauseRC { get; }
+    public ICommand ResumeRC { get; }
+    public ICommand StopRC { get; }
 
     /// <summary>
     /// A list containing instances of BackupJobModel, each representing a unique backup job configuration.
@@ -81,6 +90,36 @@ public class SaveProcessViewModel : ObservableObject
         }
     }
 
+    public class FileExtension
+    {
+        public string Extension { get; set; }
+        public bool IsSelected { get; set; }
+    }
+
+    public ObservableCollection<FileExtension> ExtensionsPriority { get; set; } = new ObservableCollection<FileExtension>();
+
+    public void InitializeExtensions()
+    {
+        // Clear existing items in the collection
+        ExtensionsPriority.Clear();
+
+        ExtensionsPriority.Add(new FileExtension { Extension = ".exe", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".doc", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".docx", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".pdf", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".txt", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".jpg", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".png", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".xlsx", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".xls", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".mp4", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".mkv", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".mp3", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".avi", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".av1", IsSelected = false });
+
+    }
+
     /*private bool _Complete;
     public bool Complete
     {
@@ -126,8 +165,7 @@ public class SaveProcessViewModel : ObservableObject
                 switch (save.Type)
                 {
                     case "Complete":
-                        var save1 = new CompleteSave(save);
-                        //save.Status = "In Progress";
+                        var save1 = new CompleteSave(save, ExtensionsPriority);
                         logStatsRTViewModel.NewWork(save1.StatsRTModel);
                         save1.Execute(save, _processMetier);
                         totalfilessize = save1.StatsRTModel.TotalFilesSize;
@@ -135,8 +173,7 @@ public class SaveProcessViewModel : ObservableObject
                         errors = save1.EncryptionErrors;
                         break;
                     case "Differential":
-                        var save2 = new DifferentialSave(save);
-                        //save.Status = "In Progress";
+                        var save2 = new DifferentialSave(save, ExtensionsPriority);
                         logStatsRTViewModel.NewWork(save2.StatsRTModel);
                         save2.Execute(save, _processMetier);
                         totalfilessize = save2.StatsRTModel.TotalFilesSize;
@@ -167,6 +204,7 @@ public class SaveProcessViewModel : ObservableObject
 
         // Attendre que toutes les tâches de sauvegarde soient terminées
         await Task.WhenAll(saveTasks);
+        saveTasks.Clear();
 
         MessageBox.Show($"Toutes les sauvegardes sont terminées", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
     }
@@ -192,6 +230,33 @@ public class SaveProcessViewModel : ObservableObject
         this.CurrentLogModel = model;
 
         logStatsRTViewModel.WriteLog(this.CurrentLogModel);
+    }
+
+    public void Pause()
+    {
+        var itemsToRemove = CheckedItems.ToList();
+        foreach (var item in itemsToRemove)
+        {
+            item.PauseResume = true;
+        }
+    }
+
+    public void Resume()
+    {
+        var itemsToRemove = CheckedItems.ToList();
+        foreach (var item in itemsToRemove)
+        {
+            item.PauseResume = false;
+        }
+    }
+
+    public void Stop()
+    {
+        var itemsToRemove = CheckedItems.ToList();
+        foreach (var item in itemsToRemove)
+        {
+            item.Stop = true;
+        }
     }
 
     /// <summary>
@@ -248,4 +313,33 @@ public class SaveProcessViewModel : ObservableObject
             CheckedItems.Remove(save);
         }
     }
+
+    public bool CanPlay()
+    {
+        bool canPlay = true;
+        var itemsToRemove = CheckedItems.ToList();
+        foreach (var item in itemsToRemove)
+        {
+            if(!item.PauseResume)
+            {
+                canPlay = false;
+            }
+        }
+        return canPlay;
+    }
+
+    public bool CanPause()
+    {
+        bool canPause = true;
+        var itemsToRemove = CheckedItems.ToList();
+        foreach (var item in itemsToRemove)
+        {
+            if (item.PauseResume)
+            {
+                canPause = false;
+            }
+        }
+        return canPause;
+    }
+
 }

@@ -1,6 +1,8 @@
+using System.Collections.ObjectModel;
 using System.IO; // Required for File operations
 using System.Windows;
 using EasySaveWPF.Models;
+using static EasySaveWPF.ViewModels.SaveProcessViewModel;
 
 namespace EasySaveWPF.Services.Save;
 
@@ -13,9 +15,16 @@ public class CompleteSave : CommonSaveCommand
     /// Initializes a new complete save operation based on the provided save configuration.
     /// </summary>
     /// <param name="save">The save configuration.</param>
-    public CompleteSave(BackupJobModel save)
+    public CompleteSave(BackupJobModel save, ObservableCollection<FileExtension> ExtensionsPriority)
     {
         Init(save);
+        var selectedExtensions = ExtensionsPriority.Where(extension => extension.IsSelected == true)
+                                           .Select(extension => extension.Extension)
+                                           .ToList();
+        if (selectedExtensions is not null) 
+        {
+            Sort(selectedExtensions);
+        }
     }
 
     /// <summary>
@@ -30,6 +39,7 @@ public class CompleteSave : CommonSaveCommand
         // Copies each file from the source to the target, updating stats for each file.
         foreach (string element in SourcePathAllFiles)
         {
+            CheckPlayPauseStop(save);
             if (process != null)
             {
                 CheckProcess(process);
