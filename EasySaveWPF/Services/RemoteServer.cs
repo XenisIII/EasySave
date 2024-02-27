@@ -4,17 +4,20 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
+namespace EasySaveWPF.Services;
 public class RemoteServer
 {
-    private static readonly List<Socket> clients = new List<Socket>();
+    private readonly List<Socket> clients = new List<Socket>();
 
-    private static async Task AccepterConnexionsAsync(Socket listener)
+    private async Task AccepterConnexionsAsync(Socket listener)
     {
         while (true)
         {
             Socket client = await listener.AcceptAsync();
-            Console.WriteLine("Client connecté depuis : " + client.RemoteEndPoint);
+            MessageBox.Show($"Client connecté depuis :  {client.RemoteEndPoint}", "Connected", MessageBoxButton.OK, MessageBoxImage.Information);
+
             lock (clients)
             {
                 clients.Add(client);
@@ -23,7 +26,7 @@ public class RemoteServer
         }
     }
 
-    private static async Task EcouterReseauAsync(Socket client)
+    private async Task EcouterReseauAsync(Socket client)
     {
         byte[] buffer = new byte[1024];
 
@@ -50,7 +53,7 @@ public class RemoteServer
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Erreur lors de la communication avec le client : " + ex.Message);
+            MessageBox.Show($"Erreur lors de la communication avec le client : {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         finally
         {
@@ -62,7 +65,7 @@ public class RemoteServer
         }
     }
 
-    private static async Task EnvoyerMessageAsync(string message)
+    private async Task EnvoyerMessageAsync(string message)
     {
         byte[] data = Encoding.UTF8.GetBytes(message);
         List<Task> sendTasks = new List<Task>();
@@ -78,7 +81,7 @@ public class RemoteServer
         await Task.WhenAll(sendTasks);
     }
 
-    public static async Task StartServerAsync()
+    public async Task StartServerAsync()
     {
         IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
         IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 53032);
@@ -104,7 +107,7 @@ public class RemoteServer
         }
     }
 
-    public static async Task Main(string[] args)
+    public async Task Init()
     {
         await StartServerAsync();
     }

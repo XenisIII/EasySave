@@ -95,7 +95,7 @@ public abstract class CommonSaveCommand
     public string? GetPathFile(string name)
         => SourcePathAllFiles.FirstOrDefault(path => path.EndsWith(name));
 
-    public void CheckProcess(string name_process)
+    public void CheckProcess(string name_process, BackupJobModel save)
     {
         Process[] localByName = Process.GetProcessesByName(name_process);
 
@@ -106,6 +106,10 @@ public abstract class CommonSaveCommand
 
         foreach (var process in localByName)
         {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                save.Status = "Paused";
+            });
             MessageBox.Show($"Le processus {name_process} est en cours d'exécution. Veuillez fermer toutes ses instances pour reprendre la sauvegarde.", "Processus en cours d'exécution", MessageBoxButton.OK, MessageBoxImage.Information);
             process.WaitForExit();
         }
@@ -169,7 +173,7 @@ public abstract class CommonSaveCommand
         return count;
     }
 
-    public void CheckPlayPauseStop(BackupJobModel save)
+    public bool CheckPlayPauseStop(BackupJobModel save)
     {
         if (save.PauseResume)
         {
@@ -190,8 +194,9 @@ public abstract class CommonSaveCommand
         if (save.Stop)
         {
             save.Stop = false;
-            return;
+            return true;
         }
+        return false;
     }
 
     public void Sort(List<string> ExtensionsPriority)

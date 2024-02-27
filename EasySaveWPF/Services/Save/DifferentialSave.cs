@@ -37,10 +37,19 @@ public class DifferentialSave : CommonSaveCommand
 
         foreach (string file in SourcePathAllFiles)
         {
-            CheckPlayPauseStop(save);
+            bool stop = CheckPlayPauseStop(save);
+            if (stop)
+            {
+                return;
+            }
             if (process is not null)
             {
-                CheckProcess(process);
+                CheckProcess(process, save);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    //save.Status = "In Progress";
+                    save.Status = LocalizationService.GetString("SaveInProgress");
+                });
             }
 
             SetInfosInStatsRTModel(save, file.Replace(save.SourcePath, ""));
