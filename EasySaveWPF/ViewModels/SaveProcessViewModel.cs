@@ -117,6 +117,8 @@ public class SaveProcessViewModel : ObservableObject
         ExtensionsPriority.Add(new FileExtension { Extension = ".mp3", IsSelected = false });
         ExtensionsPriority.Add(new FileExtension { Extension = ".avi", IsSelected = false });
         ExtensionsPriority.Add(new FileExtension { Extension = ".av1", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".wav", IsSelected = false });
+        ExtensionsPriority.Add(new FileExtension { Extension = ".mov", IsSelected = false });
 
     }
 
