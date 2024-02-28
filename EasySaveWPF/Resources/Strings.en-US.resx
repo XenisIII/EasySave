@@ -255,4 +255,7 @@
   <data name="SaveInProgress" xml:space="preserve">
     <value>In progress</value>
   </data>
+  <data name="SaveProgress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
 </root>

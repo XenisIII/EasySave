@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.IO; // Required for File operations
 using System.Windows;
 using EasySaveWPF.Models;
+using EasySaveWPF.ViewModels;
 using static EasySaveWPF.ViewModels.SaveProcessViewModel;
 
 namespace EasySaveWPF.Services.Save;
@@ -11,6 +12,7 @@ namespace EasySaveWPF.Services.Save;
 /// </summary>
 public class CompleteSave : CommonSaveCommand
 {
+    public SaveProcessViewModel saveProcessViewModel { get; set; }
     /// <summary>
     /// Initializes a new complete save operation based on the provided save configuration.
     /// </summary>
@@ -82,6 +84,9 @@ public class CompleteSave : CommonSaveCommand
 
             //Thread.Sleep(10);
             UpdateFinishedFileSave();
+            save.Progress = StatsRTModel.Progress;
         }
+        StatsRTModel.Progress = 100;
+        save.Progress = StatsRTModel.Progress;
     }
 }

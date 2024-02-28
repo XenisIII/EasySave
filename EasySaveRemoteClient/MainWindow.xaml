@@ -1,16 +1,60 @@
 ﻿<Window x:Class="EasySaveRemoteClient.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EasySaveRemoteClient"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel>
-        <TextBlock Text="Backup Status:" />
-        <TextBlock x:Name="StatusTextBlock" />
-        <Button Content="Pause" Command="{Binding PauseCommand}" />
-        <Button Content="Stop" Command="{Binding StopCommand}" />
-        <Button Content="Resume" Command="{Binding ResumeCommand}" />
-    </StackPanel>
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ext="clr-namespace:EasySaveRemoteClient.Services"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <!-- This column will expand to fill the space -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- This column will size to its content -->
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- List view for Backups -->
+        <ListView Grid.Column="0" Grid.Row="1" ItemsSource="{Binding BackupJobs}" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="MainWindow">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="SourcePath" DisplayMemberBinding="{Binding SourcePath}"/>
+                    <GridViewColumn Header="TargetPath" DisplayMemberBinding="{Binding TargetPath}"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}"/>
+                    <GridViewColumn Header="Extensions" DisplayMemberBinding="{Binding Extensions}"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
+                    <GridViewColumn Header="Progression" DisplayMemberBinding="{Binding Progress}"/>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Grid.Row="1" Margin="10">
+        </StackPanel>
+        <Button Command="" Grid.Column="1" HorizontalAlignment="Right" Margin="0,135,56,0" Grid.Row="1" VerticalAlignment="Top" Width="19">
+
+        </Button>
+        <Button Command="" Grid.Column="1" HorizontalAlignment="Right" Margin="0,135,35,0" Grid.Row="1" VerticalAlignment="Top" Width="19">
+
+        </Button>
+        <Button Command="" Grid.Column="1" HorizontalAlignment="Right" Margin="0,135,14,0" Grid.Row="1" VerticalAlignment="Top" Width="19">
+
+        </Button>
+        <!-- No Backups Message -->
+        <!--<TextBlock Grid.ColumnSpan="2" Text="Pas de sauvegarde enregistrée" Visibility="{Binding Backups.Count, Converter={StaticResource EmptyCollectionToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>-->
+    </Grid>
 </Window>

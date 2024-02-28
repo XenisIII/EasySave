@@ -106,4 +106,17 @@ public class BackupJobModel : ObservableObject
             OnPropertyChanged(nameof(Stop));
         }
     }
+    private int _Progress;
+    public int Progress
+    {
+        get => _Progress;
+        set
+        {
+            if (_Progress == value) return;
+
+            _Progress = value;
+            OnPropertyChanged(nameof(Progress));
+
+        }
+    }
 }

@@ -8,7 +8,7 @@ namespace EasySaveWPF;
 public partial class MainWindow : Window
 {
     public SaveProcessViewModel SaveProcessVM { get; } = new SaveProcessViewModel();
-    public RemoteServer Server { get; } = new RemoteServer();
+    //public RemoteServer Server { get; } = new RemoteServer();
 
     public MainWindow()
     {
@@ -17,7 +17,7 @@ public partial class MainWindow : Window
         ContentFrame.Content = new HomeView(SaveProcessVM);
 
         LocalizationService.CultureChanged += OnCultureChanged;
-        Task.Run(() => Server.Init());
+        //Task.Run(() => Server.Init());
     }
 
 

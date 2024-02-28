@@ -64,7 +64,10 @@ public class DifferentialSave : CommonSaveCommand
             }
 
             UpdateFinishedFileSave();
+            save.Progress = StatsRTModel.Progress;
         }
+        StatsRTModel.Progress = 100;
+        save.Progress = StatsRTModel.Progress;
     }
 
     private void ExecuteSave(BackupJobModel save, string element)

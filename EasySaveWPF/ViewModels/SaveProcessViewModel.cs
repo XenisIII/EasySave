@@ -8,6 +8,7 @@ using EasySaveWPF.Services.Save;
 using EasySaveWPF.Common;
 using System.IO;
 using System.ComponentModel;
+using EasySaveWPF;
 
 namespace EasySaveWPF.ViewModels;
 
@@ -150,6 +151,7 @@ public class SaveProcessViewModel : ObservableObject
 
         foreach (var save in CheckedItems)
         {
+            save.PropertyChanged += Save_PropertyChanged;
             Application.Current.Dispatcher.Invoke(() =>
             {
                 //save.Status = "In Progress";
@@ -207,6 +209,16 @@ public class SaveProcessViewModel : ObservableObject
         saveTasks.Clear();
 
         MessageBox.Show($"Toutes les sauvegardes sont terminées", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void Save_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(BackupJobModel.Status) || e.PropertyName == nameof(BackupJobModel.Progress))
+        {
+            var saveModel = sender as BackupJobModel;
+
+            App.ServerSocketService.SendAsync(BackupJobs);
+        }
     }
 
     /// <summary>
