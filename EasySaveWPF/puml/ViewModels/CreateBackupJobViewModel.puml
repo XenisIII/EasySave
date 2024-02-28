@@ -1,0 +1,18 @@
+@startuml
+class CreateBackupJobViewModel {
+    + CreateBackupJobViewModel(saveProcessViewModel:SaveProcessViewModel)
+    + Browse(propertyName:string) : void
+    + Create() : void
+    + CanCreate() : bool
+    + ResetTempValues() : void
+    - ResetCreateBackupJobForm() : void
+    - ArePathsValid() : bool
+}
+ObservableObject <|-- CreateBackupJobViewModel
+CreateBackupJobViewModel --> "_saveProcessViewModel" SaveProcessViewModel
+CreateBackupJobViewModel o-> "_backupJob" BackupJobModel
+CreateBackupJobViewModel --> "BackupJob" BackupJobModel
+CreateBackupJobViewModel --> "BrowsePathCommand" ICommand
+CreateBackupJobViewModel --> "CreateSaveCommand" ICommand
+CreateBackupJobViewModel --> "ResetValuesCommand" ICommand
+@enduml

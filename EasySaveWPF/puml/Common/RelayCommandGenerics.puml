@@ -1,0 +1,14 @@
+@startuml
+class "RelayCommand`1"<T> {
+    + RelayCommand(execute:Action<T>, canExecute:Predicate<T>)
+    + CanExecute(parameter:object) : bool
+    + Execute(parameter:object) : void
+}
+class "Action`1"<T> {
+}
+class "Predicate`1"<T> {
+}
+ICommand <|-- "RelayCommand`1"
+"RelayCommand`1" --> "_execute<T>" "Action`1"
+"RelayCommand`1" --> "_canExecute<T>" "Predicate`1"
+@enduml

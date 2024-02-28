@@ -1,0 +1,7 @@
+@startuml
+class CreateSaveView <<partial>> {
+    + CreateSaveView(createBackupJobViewModel:CreateBackupJobViewModel)
+    - CancelButton_Click(sender:object, e:RoutedEventArgs) : void
+}
+Window <|-- CreateSaveView
+@enduml

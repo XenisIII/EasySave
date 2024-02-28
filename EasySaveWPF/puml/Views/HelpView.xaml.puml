@@ -1,0 +1,6 @@
+@startuml
+class HelpView <<partial>> {
+    + HelpView()
+}
+UserControl <|-- HelpView
+@enduml

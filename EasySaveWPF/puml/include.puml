@@ -1,0 +1,29 @@
+@startuml
+!include .\\.\App.xaml.puml
+!include .\\.\AssemblyInfo.puml
+!include .\\.\MainWindow.xaml.puml
+!include .\\.\Common\ObservableObject.puml
+!include .\\.\Common\RelayCommand.puml
+!include .\\.\Common\RelayCommandGenerics.puml
+!include .\\.\Converters\SelectionAndCheckConverter.puml
+!include .\\.\Models\BackupJobModel.puml
+!include .\\.\Models\LogVarModel.puml
+!include .\\.\Models\StatsRTModel.puml
+!include .\\.\Properties\Settings.Designer.puml
+!include .\\.\Services\LocalizationService.puml
+!include .\\.\Services\LocExtension.puml
+!include .\\.\Services\RemoteServer.puml
+!include .\\.\Services\WriteStateRT.puml
+!include .\\.\ViewModels\CreateBackupJobViewModel.puml
+!include .\\.\ViewModels\LogStatsRTViewModel.puml
+!include .\\.\ViewModels\SaveProcessViewModel.puml
+!include .\\.\Views\AboutView.xaml.puml
+!include .\\.\Views\CreateSaveView.xaml.puml
+!include .\\.\Views\HelpView.xaml.puml
+!include .\\.\Views\HomeView.xaml.puml
+!include .\\.\Views\LogView.xaml.puml
+!include .\\.\Views\SettingsView.xaml.puml
+!include .\\.\Services\Save\CommonSaveCommand.puml
+!include .\\.\Services\Save\CompleteSave.puml
+!include .\\.\Services\Save\DifferentialSave.puml
+@enduml

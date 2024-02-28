@@ -1,0 +1,13 @@
+@startuml
+class SettingsView <<partial>> {
+    +  <<event>> PropertyChanged : PropertyChangedEventHandler 
+    - <<readonly>> _langCode : string
+    - <<readonly>> _logType : string
+    + SettingsView(saveProcess:SaveProcessViewModel)
+    - ApplyChanges_Click(sender:object, e:RoutedEventArgs) : void
+    - NumberValidationTextBox(sender:object, e:TextCompositionEventArgs) : void
+}
+UserControl <|-- SettingsView
+INotifyPropertyChanged <|-- SettingsView
+SettingsView --> "_logStatsRTVM" LogStatsRTViewModel
+@enduml

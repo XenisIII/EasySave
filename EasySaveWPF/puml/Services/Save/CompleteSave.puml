@@ -1,0 +1,7 @@
+@startuml
+class CompleteSave {
+    + CompleteSave(save:BackupJobModel)
+    + Execute(save:BackupJobModel, process:string) : void
+}
+CommonSaveCommand <|-- CompleteSave
+@enduml

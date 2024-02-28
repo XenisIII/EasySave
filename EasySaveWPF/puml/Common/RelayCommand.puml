@@ -1,0 +1,11 @@
+@startuml
+class RelayCommand {
+    - <<readonly>> canExecute : Func<bool>?
+    + RelayCommand(execute:Action)
+    + RelayCommand(execute:Action, canExecute:Func<bool>)
+    + CanExecute(parameter:object?) : bool
+    + Execute(parameter:object?) : void
+}
+ICommand <|-- RelayCommand
+RelayCommand --> "execute" Action
+@enduml

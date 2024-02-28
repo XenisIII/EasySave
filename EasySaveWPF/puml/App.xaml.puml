@@ -1,0 +1,8 @@
+@startuml
+class App <<partial>> {
+    # <<override>> OnStartup(e:StartupEventArgs) : void
+    # <<override>> OnExit(e:ExitEventArgs) : void
+}
+Application <|-- App
+App o-> "_mutex" Mutex
+@enduml

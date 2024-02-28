@@ -44,14 +44,5 @@ public partial class HomeView : UserControl
 
         createSaveWindow.ShowDialog();
     }
-
-    private void Execute_Click(object sender, RoutedEventArgs e)
-    {
-        // Load the About view
-        var mainWindow = Application.Current.MainWindow as MainWindow;
-
-        // Créer une instance de LogView et naviguer vers elle
-        mainWindow?.ContentFrame.Navigate(new LogView("xml")); // ou "json", selon le type de log
-    }
 }
 

@@ -1,0 +1,11 @@
+@startuml
+class HomeView <<partial>> {
+    - {static} <<readonly>> LogDirPath : string
+    + HomeView(saveProcess:SaveProcessViewModel)
+    + OpenLogsDirectory(sender:object, e:RoutedEventArgs) : void
+    + AddNewBackup(sender:object, e:RoutedEventArgs) : void
+    - Execute_Click(sender:object, e:RoutedEventArgs) : void
+}
+UserControl <|-- HomeView
+HomeView --> "_saveProcessViewModel" SaveProcessViewModel
+@enduml

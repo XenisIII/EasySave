@@ -1,0 +1,12 @@
+@startuml
+class LogVarModel {
+    + <<required>> Name : string <<get>> <<set>>
+    + <<required>> SourcePath : string <<get>> <<set>>
+    + <<required>> TargetPath : string <<get>> <<set>>
+    + <<required>> FilesSize : long <<get>> <<set>>
+    + <<required>> FileTransferTime : string <<get>> <<set>>
+    + <<required>> Time : string <<get>> <<set>>
+    + <<required>> Encryption : string <<get>> <<set>>
+    + <<required>> EncryptionErrors : string <<get>> <<set>>
+}
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class ObservableObject {
+    +  <<event>> PropertyChanged : PropertyChangedEventHandler? 
+    # <<virtual>> OnPropertyChanged(propertyName:string) : void
+}
+INotifyPropertyChanged <|-- ObservableObject
+@enduml

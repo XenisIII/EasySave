@@ -1,0 +1,7 @@
+@startuml
+class SelectionAndCheckConverter {
+    + Convert(values:object[], targetType:Type, parameter:object, culture:CultureInfo) : object
+    + ConvertBack(value:object, targetTypes:Type[], parameter:object, culture:CultureInfo) : object[]
+}
+IMultiValueConverter <|-- SelectionAndCheckConverter
+@enduml

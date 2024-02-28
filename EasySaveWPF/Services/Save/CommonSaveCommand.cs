@@ -82,7 +82,6 @@ public abstract class CommonSaveCommand
     {
         if (!Directory.Exists(path))
         {
-            Console.WriteLine("Specified path does not exist.");
             return 0;
         }
 
@@ -110,11 +109,12 @@ public abstract class CommonSaveCommand
             {
                 save.Status = "Paused";
             });
-            MessageBox.Show($"Le processus {name_process} est en cours d'exécution. Veuillez fermer toutes ses instances pour reprendre la sauvegarde.", "Processus en cours d'exécution", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(LocalizationService.GetString("CSCProcessRunning1") + $"{name_process}" + LocalizationService.GetString("CSCProcessRunning2"), LocalizationService.GetString("CSCProcessRunningCapt"), MessageBoxButton.OK, MessageBoxImage.Information);
+
             process.WaitForExit();
         }
 
-        MessageBox.Show($"Tous les processus de {name_process} on été fermés, reprise de la sauvegarde", "Reprise sauvegarde", MessageBoxButton.OK, MessageBoxImage.Information);
+        MessageBox.Show(LocalizationService.GetString("CSCAllProcessClosed1") + $"{name_process}" + LocalizationService.GetString("CSCAllProcessClosed2"), LocalizationService.GetString("CSCAllProcessClosedCapt"), MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     /// <summary>

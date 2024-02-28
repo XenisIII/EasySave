@@ -1,0 +1,13 @@
+@startuml
+class WriteStatsRT {
+    + WriteLogsSync(logModel:LogVarModel, logDirPath:string, format:string) : void
+    + <<async>> WriteRealTimeStatsAsync(stats:StatsRTModel, statsDirectory:string, format:string) : Task
+    - AppendToFile(filePath:string, content:string) : void
+    - AppendToFileAsync(filePath:string, content:string) : Task
+    - {static} CreateDirectoryIfNotExists(logDirPath:string) : void
+}
+class "List`1"<T> {
+}
+WriteStatsRT o-> "semaphore" SemaphoreSlim
+WriteStatsRT o-> "StatsList<StatsRTModel>" "List`1"
+@enduml

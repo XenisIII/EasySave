@@ -1,0 +1,6 @@
+@startuml
+class AboutView <<partial>> {
+    + AboutView()
+}
+UserControl <|-- AboutView
+@enduml

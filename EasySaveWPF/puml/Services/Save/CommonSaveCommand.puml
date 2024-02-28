@@ -1,0 +1,23 @@
+@startuml
+abstract class CommonSaveCommand {
+    - Sizes : long
+    - _exitCode : int = 0
+    + ExitCode : int <<get>> <<set>>
+    - _encryptionErrors : int = 0
+    + EncryptionErrors : int <<get>> <<set>>
+    + Init(save:BackupJobModel) : void
+    + SetInfosInStatsRTModel(save:BackupJobModel, fileName:string) : void
+    + UpdateFinishedFileSave() : void
+    + VerifyFilesToCopy(path:string) : int
+    + GetPathFile(name:string) : string?
+    + CheckProcess(name_process:string) : void
+    + SetTree(sourceDir:string, destDir:string) : void
+    + CipherOrDecipher(src:string, target:string) : void
+    - CountAndSetListPathFiles(directory:DirectoryInfo, sourcePathAllFiles:List<string>) : int
+}
+class "List`1"<T> {
+}
+CommonSaveCommand --> "_statsRTModel" StatsRTModel
+CommonSaveCommand --> "SourcePathAllFiles<string>" "List`1"
+CommonSaveCommand --> "StatsRTModel" StatsRTModel
+@enduml

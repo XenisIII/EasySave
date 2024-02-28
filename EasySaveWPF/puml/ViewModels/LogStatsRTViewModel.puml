@@ -1,0 +1,11 @@
+@startuml
+class LogStatsRTViewModel {
+    - {static} <<readonly>> LogDirPath : string
+    + Type : string <<get>> <<set>> = "xml"
+    + NewWork(statsRTModel:StatsRTModel) : void
+    - OnStatsRTModelPropertyChanged(sender:object?, e:PropertyChangedEventArgs) : void
+    - <<async>> HandleStateChangeAsync(state:StatsRTModel) : void
+    + WriteLog(log:LogVarModel) : void
+}
+LogStatsRTViewModel o-> "WriteStatsRT" WriteStatsRT
+@enduml
