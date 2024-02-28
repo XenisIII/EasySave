@@ -160,16 +160,16 @@ public class SaveProcessViewModel : ObservableObject
                     //save.Status = "Completed";
                     save.Status = LocalizationService.GetString("SaveFinished");
                 });
-                MessageBox.Show($"La sauvegarde {save.Name} est finie", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(LocalizationService.GetString("SPVMSaveFinished1") + $"{save.Name}" + LocalizationService.GetString("SPVMSaveFinished2") , "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             });
 
             saveTasks.Add(saveTask);
         }
 
-        // Attendre que toutes les t�ches de sauvegarde soient termin�es
+        // Attendre que toutes les tâches de sauvegarde soient terminées
         await Task.WhenAll(saveTasks);
 
-        MessageBox.Show($"Toutes les sauvegardes sont termin�es", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+        MessageBox.Show(LocalizationService.GetString("SPVMAllSaveFinished"), "Information", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     /// <summary>
@@ -240,7 +240,7 @@ public class SaveProcessViewModel : ObservableObject
                 break;
         }
         LocalizationService.SetCulture(language_code);
-        MessageBox.Show($"Changements appliqués avec succès!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+        MessageBox.Show(LocalizationService.GetString("SVPMLangChang"), LocalizationService.GetString("SVPMLangChangCapt"), MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void HandleCheckBoxChanged(BackupJobModel save)

@@ -14,6 +14,11 @@ public partial class CreateSaveView : Window
 
         InitializeComponent();
     }
+    
+    private void SaveQuitButton_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e)
     {

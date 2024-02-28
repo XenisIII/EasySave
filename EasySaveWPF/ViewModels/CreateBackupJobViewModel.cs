@@ -4,6 +4,7 @@ using Microsoft.Win32;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using EasySaveWPF.Services;
 
 namespace EasySaveWPF.ViewModels;
 
@@ -67,7 +68,7 @@ public class CreateBackupJobViewModel : ObservableObject
     {
         if (!ArePathsValid())
         {
-            MessageBox.Show("Un ou plusieurs chemins spécifiés n'existent pas.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(LocalizationService.GetString("CBJVMUnknownPath"), LocalizationService.GetString("CBJVMUnknownPathCapt"), MessageBoxButton.OK, MessageBoxImage.Error);
         }
         else
         {

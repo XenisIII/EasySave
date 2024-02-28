@@ -57,7 +57,7 @@ public class DifferentialSave : CommonSaveCommand
 
         if (File.Exists(encryptedTargetFile))
         {
-            MessageBoxResult result = MessageBox.Show("Le fichier que vous souhaitez sauvegarder existe déjà en fichier chiffré. Voulez-vous le sauvegarder tel quel ou effectuer le processus de sauvegarde différentielle sur le fichier chiffré? Le fichier sera sauvegardé chiffré.", "Fichier chiffré existant", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show(LocalizationService.GetString("DiffSaveCipherFile"), LocalizationService.GetString("DiffSaveCipherFileCaption"), MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {

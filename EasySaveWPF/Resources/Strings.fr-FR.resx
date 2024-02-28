@@ -291,4 +291,49 @@
   <data name="SettingsViewFileExtensions" xml:space="preserve">
     <value>Extensions des fichiers à prioriser</value>
   </data>
+  <data name="SPVMSaveFinished1" xml:space="preserve">
+    <value>La sauvegarde </value>
+  </data>
+  <data name="SVPMAllSaveFinished" xml:space="preserve">
+    <value>Toutes les sauvegardes sont terminées</value>
+  </data>
+  <data name="SPVMSaveFinished2" xml:space="preserve">
+    <value> est finie</value>
+  </data>
+  <data name="SVPMLangChang" xml:space="preserve">
+    <value>Changements appliqués avec succès!</value>
+  </data>
+  <data name="CBJVMUnknownPath" xml:space="preserve">
+    <value>Un ou plusieurs chemins spécifiés n'existent pas.</value>
+  </data>
+  <data name="CBJVMUnknownPathCapt" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="SVPMLangChangCapt" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="DiffSaveCipherFile" xml:space="preserve">
+    <value>Le fichier que vous souhaitez sauvegarder existe déjà en fichier chiffré. Voulez-vous le sauvegarder tel quel ou effectuer le processus de sauvegarde différentielle sur le fichier chiffré? Le fichier sera sauvegardé chiffré.</value>
+  </data>
+  <data name="DiffSaveCipherFileCaption" xml:space="preserve">
+    <value>Fichier chiffré existant</value>
+  </data>
+  <data name="CSCProcessRunning1" xml:space="preserve">
+    <value>Le processus </value>
+  </data>
+  <data name="CSCProcessRunning2" xml:space="preserve">
+    <value> est en cours d'exécution. Veuillez fermer toutes ses instances pour reprendre la sauvegarde.</value>
+  </data>
+  <data name="CSCProcessRunningCapt" xml:space="preserve">
+    <value>Processus en cours d'exécution</value>
+  </data>
+  <data name="CSCAllProcessClosed1" xml:space="preserve">
+    <value>Tous les processus de </value>
+  </data>
+  <data name="CSCAllProcessClosed2" xml:space="preserve">
+    <value> on été fermés, reprise de la sauvegarde</value>
+  </data>
+  <data name="CSCAllProcessClosedCapt" xml:space="preserve">
+    <value>Reprise sauvegarde</value>
+  </data>
 </root>
