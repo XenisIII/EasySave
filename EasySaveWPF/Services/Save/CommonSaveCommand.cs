@@ -2,6 +2,8 @@
 using System.IO;
 using System.Diagnostics;
 using System.Windows;
+using static EasySaveWPF.ViewModels.SaveProcessViewModel;
+using System.Collections.ObjectModel;
 
 namespace EasySaveWPF.Services.Save;
 
@@ -92,7 +94,7 @@ public abstract class CommonSaveCommand
     public string? GetPathFile(string name)
         => SourcePathAllFiles.FirstOrDefault(path => path.EndsWith(name));
 
-    public void CheckProcess(string name_process)
+    public void CheckProcess(string name_process, BackupJobModel save)
     {
         Process[] localByName = Process.GetProcessesByName(name_process);
 
@@ -103,7 +105,12 @@ public abstract class CommonSaveCommand
 
         foreach (var process in localByName)
         {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                save.Status = "Paused";
+            });
             MessageBox.Show(LocalizationService.GetString("CSCProcessRunning1") + $"{name_process}" + LocalizationService.GetString("CSCProcessRunning2"), LocalizationService.GetString("CSCProcessRunningCapt"), MessageBoxButton.OK, MessageBoxImage.Information);
+
             process.WaitForExit();
         }
 
@@ -164,5 +171,40 @@ public abstract class CommonSaveCommand
             count += CountAndSetListPathFiles(subDirectory, sourcePathAllFiles);
 
         return count;
+    }
+
+    public bool CheckPlayPauseStop(BackupJobModel save)
+    {
+        if (save.PauseResume)
+        {
+            while (save.PauseResume)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    save.Status = "Paused";
+                });
+                Thread.Sleep(1000);
+            }
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                save.Status = LocalizationService.GetString("SaveInProgress");
+            });
+        }
+
+        if (save.Stop)
+        {
+            save.Stop = false;
+            return true;
+        }
+        return false;
+    }
+
+    public void Sort(List<string> ExtensionsPriority)
+    {
+        SourcePathAllFiles = SourcePathAllFiles.OrderByDescending(path =>
+        {
+            var extension = Path.GetExtension(path).ToLower();
+            return ExtensionsPriority.Contains(extension);
+        }).ToList();
     }
 }

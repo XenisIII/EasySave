@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasySaveWPF", "EasySaveWPF.csproj", "{36547BDF-9D21-4D54-838A-BC196C2F62F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasySaveWPF", "EasySaveWPF.csproj", "{36547BDF-9D21-4D54-838A-BC196C2F62F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasySaveRemoteClient", "..\EasySaveRemoteClient\EasySaveRemoteClient.csproj", "{7B9BDC80-CBA2-485B-A018-2A3719E0E700}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasySaveRemoteClient", "..\EasySaveRemoteClient\EasySaveRemoteClient.csproj", "{7B9BDC80-CBA2-485B-A018-2A3719E0E700}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

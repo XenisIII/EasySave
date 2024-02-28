@@ -1,17 +1,36 @@
+
 ﻿using System;
 using System.Configuration;
 using System.Data;
 using System.Threading;
 using System.Windows;
 using EasySaveWPF.Services;
+using System.Diagnostics;
+using System.Windows.Threading;
 
-namespace EasySaveWPF
+
+
+namespace EasySaveWPF;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
+    public static ServerSocketService ServerSocketService { get; } = new ServerSocketService();
+
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Occurs when the application is loading.
     /// </summary>
-    public partial class App : Application
+    private void OnStartup(object sender, StartupEventArgs e)
     {
+        ServerSocketService.Connect();
+        _ = ServerSocketService.AcceptConnectionAsync();
+    }
+
+    private void OnExit(object sender, ExitEventArgs e)
+    {
+
         private static Mutex _mutex = null;
 
         protected override void OnStartup(StartupEventArgs e)
@@ -29,6 +48,18 @@ namespace EasySaveWPF
                 Application.Current.Shutdown(); // Ferme l'application actuelle
                 return;
             }
+
+        ServerSocketService.Disconnect();
+    }
+
+    private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    {
+        ServerSocketService.Disconnect();
+
+        Debug.WriteLine(e.Exception.Message);
+
+        MessageBox.Show("Internal error.");
+    }
 
             base.OnStartup(e);
 

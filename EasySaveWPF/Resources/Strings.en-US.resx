@@ -255,6 +255,7 @@
   <data name="SaveInProgress" xml:space="preserve">
     <value>In progress</value>
   </data>
+
   <data name="ToolTipLogTypeSelection" xml:space="preserve">
     <value>Choose the log file format.</value>
   </data>
@@ -290,6 +291,9 @@
   </data>
     <data name="SettingsViewFileExtensions" xml:space="preserve">
       <value>Extensions of files to prioritize</value>
+  </data>
+  <data name="SaveProgress" xml:space="preserve">
+    <value>Progress</value>
   </data>
 
 </root>

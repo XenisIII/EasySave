@@ -50,19 +50,22 @@
 
         <!-- Extensions de fichiers -->
         <GroupBox Header="{ext:Loc Key='SettingsViewFileExtensions'}" Grid.Row="4" Margin="10" ToolTip="{ext:Loc Key='ToolTipFileExtensions'}">
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="auto" HorizontalAlignment="Center">
-                <WrapPanel ToolTip="{ext:Loc Key='ToolTipFileExtensions2'}">
-                    <CheckBox Content=".doc" Margin="5"/>
-                    <CheckBox Content=".docx" Margin="5"/>
-                    <CheckBox Content=".pdf" Margin="5"/>
-                    <CheckBox Content=".txt" Margin="5"/>
-                    <CheckBox Content=".jpg" Margin="5"/>
-                    <CheckBox Content=".png" Margin="5"/>
-                    <CheckBox Content=".xlsx" Margin="5"/>
-                    <CheckBox Content=".xls" Margin="5"/>
-                </WrapPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl ItemsSource="{Binding ExtensionsPriority}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Content="{Binding Extension}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="5"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </ScrollViewer>
         </GroupBox>
+
 
         <!-- Bouton Appliquer -->
         <Button Command="{Binding ApplyChangesCommand}"

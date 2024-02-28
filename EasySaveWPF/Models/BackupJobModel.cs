@@ -81,4 +81,42 @@ public class BackupJobModel : ObservableObject
             OnPropertyChanged(nameof(Status));
         }
     }
+
+    private bool _PauseResume = false;
+    public bool PauseResume
+    {
+        get => _PauseResume;
+        set
+        {
+            if (_PauseResume == value) return;
+
+            _PauseResume = value;
+            OnPropertyChanged(nameof(PauseResume));
+        }
+    }
+    private bool _Stop = false;
+    public bool Stop
+    {
+        get => _Stop;
+        set
+        {
+            if (_Stop == value) return;
+
+            _Stop = value;
+            OnPropertyChanged(nameof(Stop));
+        }
+    }
+    private int _Progress;
+    public int Progress
+    {
+        get => _Progress;
+        set
+        {
+            if (_Progress == value) return;
+
+            _Progress = value;
+            OnPropertyChanged(nameof(Progress));
+
+        }
+    }
 }

@@ -1,23 +1,23 @@
-﻿using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.IO;
+using System.Diagnostics;
+using EasySaveRemoteClient.ViewModels;
 
 namespace EasySaveRemoteClient;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class MainWindow : Window
 {
+    public ClientViewModel clientViewModelMain { get; set; } = new ClientViewModel();
     public MainWindow()
     {
+        this.DataContext = clientViewModelMain;
         InitializeComponent();
+        
+    }
+
+    private void Execute_Click(object sender, RoutedEventArgs e)
+    {
     }
 }
+

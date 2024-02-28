@@ -73,6 +73,7 @@ public class CreateBackupJobViewModel : ObservableObject
         else
         {
             _saveProcessViewModel.BackupJobs.Add(BackupJob);
+            _ = App.ServerSocketService.SendAsync(_saveProcessViewModel.BackupJobs);
         }
 
         ResetCreateBackupJobForm();

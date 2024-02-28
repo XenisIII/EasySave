@@ -335,5 +335,8 @@
   </data>
   <data name="CSCAllProcessClosedCapt" xml:space="preserve">
     <value>Reprise sauvegarde</value>
+
+  <data name="SaveProgress" xml:space="preserve">
+    <value>Progression</value>
   </data>
 </root>

@@ -2,6 +2,8 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Windows;
 using EasySaveWPF.Models;
+using static EasySaveWPF.ViewModels.SaveProcessViewModel;
+using System.Collections.ObjectModel;
 
 namespace EasySaveWPF.Services.Save;
 
@@ -13,9 +15,16 @@ public class DifferentialSave : CommonSaveCommand
     /// <summary>
     /// Initializes differential backup with given settings.
     /// </summary>
-    public DifferentialSave(BackupJobModel save)
+    public DifferentialSave(BackupJobModel save, ObservableCollection<FileExtension> ExtensionsPriority)
     {
         Init(save);
+        var selectedExtensions = ExtensionsPriority.Where(extension => extension.IsSelected == true)
+                                           .Select(extension => extension.Extension)
+                                           .ToList();
+        if (selectedExtensions is not null)
+        {
+            Sort(selectedExtensions);
+        }
     }
 
     /// <summary>
@@ -28,9 +37,19 @@ public class DifferentialSave : CommonSaveCommand
 
         foreach (string file in SourcePathAllFiles)
         {
+            bool stop = CheckPlayPauseStop(save);
+            if (stop)
+            {
+                return;
+            }
             if (process is not null)
             {
-                CheckProcess(process);
+                CheckProcess(process, save);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    //save.Status = "In Progress";
+                    save.Status = LocalizationService.GetString("SaveInProgress");
+                });
             }
 
             SetInfosInStatsRTModel(save, file.Replace(save.SourcePath, ""));
@@ -45,7 +64,10 @@ public class DifferentialSave : CommonSaveCommand
             }
 
             UpdateFinishedFileSave();
+            save.Progress = StatsRTModel.Progress;
         }
+        StatsRTModel.Progress = 100;
+        save.Progress = StatsRTModel.Progress;
     }
 
     private void ExecuteSave(BackupJobModel save, string element)

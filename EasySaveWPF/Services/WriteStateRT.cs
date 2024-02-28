@@ -14,7 +14,8 @@ public class WriteStatsRT
     {
         CreateDirectoryIfNotExists(logDirPath);
         var dateNow = $"{DateTime.Now:yyyyMMdd}";
-        var filePath = Path.Combine(logDirPath, $"{dateNow}_Log.txt");
+
+        string filePath = Path.Combine(logDirPath, $"{dateNow}_Log_{format}.txt");
 
         string serializedData;
         if (format.ToLower() == "xml")
@@ -36,7 +37,8 @@ public class WriteStatsRT
     {
         CreateDirectoryIfNotExists(statsDirectory);
         var dateNow = $"{DateTime.Now:yyyyMMdd}";
-        var filePath = Path.Combine(statsDirectory, $"{dateNow}_Stats.txt");
+
+        string filePath = Path.Combine(statsDirectory, $"{dateNow}_Stats_{format}.txt");
 
         await semaphore.WaitAsync();
         try
@@ -64,8 +66,15 @@ public class WriteStatsRT
 
     private void AppendToFile(string filePath, string content)
     {
-        using var streamWriter = File.AppendText(filePath);
-        streamWriter.WriteLine(content);
+        try
+        {
+            using var streamWriter = File.AppendText(filePath);
+            streamWriter.WriteLine(content);
+        }
+        catch(Exception ex)
+        {
+
+        }
     }
 
     private Task AppendToFileAsync(string filePath, string content)

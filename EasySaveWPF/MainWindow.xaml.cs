@@ -8,17 +8,21 @@ namespace EasySaveWPF;
 public partial class MainWindow : Window
 {
     public SaveProcessViewModel SaveProcessVM { get; } = new SaveProcessViewModel();
+    //public RemoteServer Server { get; } = new RemoteServer();
 
     public MainWindow()
     {
         InitializeComponent();
-
+        
         ContentFrame.Content = new HomeView(SaveProcessVM);
 
         LocalizationService.CultureChanged += OnCultureChanged;
+        //Task.Run(() => Server.Init());
     }
 
+
     public void Home_Click(object sender, RoutedEventArgs e)
+
     {
         // Load the Home view
         ContentFrame.Navigate(new HomeView(SaveProcessVM));

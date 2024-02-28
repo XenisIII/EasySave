@@ -1,6 +1,9 @@
+using System.Collections.ObjectModel;
 using System.IO; // Required for File operations
 using System.Windows;
 using EasySaveWPF.Models;
+using EasySaveWPF.ViewModels;
+using static EasySaveWPF.ViewModels.SaveProcessViewModel;
 
 namespace EasySaveWPF.Services.Save;
 
@@ -9,13 +12,21 @@ namespace EasySaveWPF.Services.Save;
 /// </summary>
 public class CompleteSave : CommonSaveCommand
 {
+    public SaveProcessViewModel saveProcessViewModel { get; set; }
     /// <summary>
     /// Initializes a new complete save operation based on the provided save configuration.
     /// </summary>
     /// <param name="save">The save configuration.</param>
-    public CompleteSave(BackupJobModel save)
+    public CompleteSave(BackupJobModel save, ObservableCollection<FileExtension> ExtensionsPriority)
     {
         Init(save);
+        var selectedExtensions = ExtensionsPriority.Where(extension => extension.IsSelected == true)
+                                           .Select(extension => extension.Extension)
+                                           .ToList();
+        if (selectedExtensions is not null) 
+        {
+            Sort(selectedExtensions);
+        }
     }
 
     /// <summary>
@@ -30,9 +41,19 @@ public class CompleteSave : CommonSaveCommand
         // Copies each file from the source to the target, updating stats for each file.
         foreach (string element in SourcePathAllFiles)
         {
+            bool stop = CheckPlayPauseStop(save);
+            if (stop)
+            {
+                return;
+            }
             if (process != null)
             {
-                CheckProcess(process);
+                CheckProcess(process, save);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    //save.Status = "In Progress";
+                    save.Status = LocalizationService.GetString("SaveInProgress");
+                });
             }
             if (save.Extensions != null && save.Extensions != "")
             {
@@ -63,6 +84,9 @@ public class CompleteSave : CommonSaveCommand
 
             //Thread.Sleep(10);
             UpdateFinishedFileSave();
+            save.Progress = StatsRTModel.Progress;
         }
+        StatsRTModel.Progress = 100;
+        save.Progress = StatsRTModel.Progress;
     }
 }
