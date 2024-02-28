@@ -42,75 +42,10 @@ public partial class SettingsView : UserControl, INotifyPropertyChanged
         {
             logTypeChange.SelectedIndex = 1;
         }
-        
-        masterProcessTextBox.Text = Properties.Settings.Default.masterProcess;
-        //onTopExtTextBox.Text = Properties.Settings.Default.onTopExt;
-        fileSizeTextBox.Text = Properties.Settings.Default.fileSize;
-    }
-
-    // Add properties to bind with your UI elements, these should notify the UI when changed
-    private string _selectedLanguage = "en-US"; // Default language
-    public string SelectedLanguage
-    {
-        get { return _selectedLanguage; }
-        set
-        {
-            if (_selectedLanguage != value)
-            {
-                _selectedLanguage = value;
-                OnPropertyChanged(nameof(SelectedLanguage));
-                // Optionally, change the language as soon as a new one is selected
-                ChangeLanguage(_selectedLanguage);
-            }
-        }
-    }
-
-    // Add properties for other settings as needed...
-
-    private void ApplyChanges_Click(object sender, RoutedEventArgs e)
-    {
-        // Apply the selected settings
-        ChangeLanguage(SelectedLanguage);
-        // Apply other settings...
-    }
-
-    private void LogFormatChanged(object sender, RoutedEventArgs e)
-    {
-        // Handle log format changes...
-    }   
-
-    private void ChangeLanguage(string cultureCode)
-    {
-            LocalizationService.SetCulture(cultureCode);
-            // Refresh the UI strings by raising the PropertyChanged event for each localized property
-            RefreshLocalizedStrings();
-    }
-
-    private void RefreshLocalizedStrings()
-    {
-        // Refresh all properties that are bound to UI elements that use localized strings
-        // This could be done by raising PropertyChanged for each property or by a more global UI refresh method
-        // Example:
-        OnPropertyChanged("LocalizedProperty1");
-        OnPropertyChanged("LocalizedProperty2");
-        // Continue for all properties that need refreshing...
-    }
-
-    private void logTypeChange_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
-    }
-
-    private void languageComboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
     }
     
     private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
     {
         e.Handled = !e.Text.All(char.IsDigit);
     }
-
-    // Implement LogFormatChanged and LanguageSelectionChanged as needed, potentially using the properties above
-    // ...
 }

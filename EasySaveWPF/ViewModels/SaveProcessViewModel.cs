@@ -42,7 +42,7 @@ public class SaveProcessViewModel : ObservableObject
     // Represents the current log for ongoing save task.
     public LogVarModel CurrentLogModel { get; set; }
 
-    private string _logType = "xml";
+    private string _logType = Properties.Settings.Default.LogType;
     public string LogType
     {
         get => _logType;
@@ -55,7 +55,7 @@ public class SaveProcessViewModel : ObservableObject
         }
     }
 
-    private string _processMetier;
+    private string _processMetier = Properties.Settings.Default.masterProcess;
     public string ProcessMetier
     {
         get => _processMetier;
@@ -68,7 +68,7 @@ public class SaveProcessViewModel : ObservableObject
         }
     }
 
-    private string _language = "Français";
+    private string _language = "FranÃ§ais";
     public string Language
     {
         get => _language;
@@ -81,18 +81,19 @@ public class SaveProcessViewModel : ObservableObject
         }
     }
 
-    /*private bool _Complete;
-    public bool Complete
+    private long _nKo = Properties.Settings.Default.fileSize;
+    
+    public long NKo
     {
-        get => _Complete;
-        set => _Complete = value;
+        get => _nKo;
+        set
+        {
+            if (_nKo == value) return;
+
+            _nKo = value;
+            OnPropertyChanged(nameof(NKo));
+        }
     }
-    private bool _Differential;
-    public bool Differential
-    {
-        get => _Differential;
-        set => _Differential = value;
-    }*/
 
     /// <summary>
     /// Executes the save process.
@@ -117,7 +118,7 @@ public class SaveProcessViewModel : ObservableObject
                 save.Status = LocalizationService.GetString("SaveInProgress");
             });
 
-            // Créer une nouvelle tâche pour chaque sauvegarde
+            // CrÃ©er une nouvelle tÃ¢che pour chaque sauvegarde
             var saveTask = Task.Run(() =>
             {
                 var stopwatch = new Stopwatch();
@@ -165,10 +166,10 @@ public class SaveProcessViewModel : ObservableObject
             saveTasks.Add(saveTask);
         }
 
-        // Attendre que toutes les tâches de sauvegarde soient terminées
+        // Attendre que toutes les tï¿½ches de sauvegarde soient terminï¿½es
         await Task.WhenAll(saveTasks);
 
-        MessageBox.Show($"Toutes les sauvegardes sont terminées", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+        MessageBox.Show($"Toutes les sauvegardes sont terminï¿½es", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     /// <summary>
@@ -199,19 +200,19 @@ public class SaveProcessViewModel : ObservableObject
     /// </summary>
     public void DeleteSaveFunc()
     {
-        // Créer une copie de la liste CheckedItems pour éviter les modifications pendant l'itération
+        // CrÃ©er une copie de la liste CheckedItems pour Ã©viter les modifications pendant l'itÃ©ration
         var itemsToRemove = CheckedItems.ToList();
 
         foreach (var item in itemsToRemove)
         {
-            // Supprimer chaque élément coché de la liste principale
+            // Supprimer chaque Ã©lÃ©ment cochÃ© de la liste principale
             BackupJobs.Remove(item);
         }
 
-        // Vider CheckedItems après la suppression des éléments de la liste principale
+        // Vider CheckedItems aprÃ¨s la suppression des Ã©lÃ©ments de la liste principale
         CheckedItems.Clear();
 
-        // Notifier que la liste principale a changé, si nécessaire
+        // Notifier que la liste principale a changÃ©, si nÃ©cessaire
         //OnPropertyChanged(nameof(SaveList.SaveList));
         /*whichSaveToDelete.Sort();
         whichSaveToDelete.Reverse();
@@ -222,19 +223,24 @@ public class SaveProcessViewModel : ObservableObject
 
     public void ApplySettingsChanges()
     {
-        string language_code = "fr-FR";
         logStatsRTViewModel.Type = LogType;
+        Properties.Settings.Default.LogType = LogType;
+        Properties.Settings.Default.masterProcess = ProcessMetier;
+        Properties.Settings.Default.fileSize = NKo;
+        Properties.Settings.Default.Save();
+        
+        string language_code = "fr-FR";
         switch (Language)
         {
             case "English":
                 language_code = "en-US";
                 break;
-            case "Français":
+            case "FranÃ§ais":
                 language_code = "fr-FR";
                 break;
         }
         LocalizationService.SetCulture(language_code);
-        MessageBox.Show($"Changements appliqués avec succès!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+        MessageBox.Show($"Changements appliquÃ©s avec succÃ¨s!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void HandleCheckBoxChanged(BackupJobModel save)

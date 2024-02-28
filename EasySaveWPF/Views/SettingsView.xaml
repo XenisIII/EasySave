@@ -20,7 +20,7 @@
 
         <!-- Log file format selection -->
         <GroupBox Header="{ext:Loc Key='SettingsViewLogType'}" Grid.Row="0" Margin="10" ToolTip="Choisissez le format de fichier pour les logs.">
-            <ComboBox Name="logTypeChange" Width="150" Margin="5" SelectionChanged="logTypeChange_SelectionChanged" SelectedValue="{Binding LogType}" SelectedValuePath="Content" ToolTip="Sélectionnez XML ou JSON pour le format de log.">
+            <ComboBox Name="logTypeChange" Width="150" Margin="5" SelectedValue="{Binding LogType}" SelectedValuePath="Content" ToolTip="Sélectionnez XML ou JSON pour le format de log.">
                 <ComboBoxItem Content="xml"/>
                 <ComboBoxItem Content="json"/>
             </ComboBox>
@@ -28,7 +28,7 @@
 
         <!-- Language selection -->
         <GroupBox Header="{ext:Loc Key='SettingsViewLanguage'}" Grid.Row="1" Margin="10" ToolTip="Sélectionnez la langue de l'application.">
-            <ComboBox x:Name="languageComboBox1" Width="150" Margin="5" SelectionChanged="languageComboBox1_SelectionChanged" SelectedValue="{Binding Language}" SelectedValuePath="Content" ToolTip="Choisissez entre l'anglais et le français.">
+            <ComboBox x:Name="languageComboBox1" Width="150" Margin="5" SelectedValue="{Binding Language}" SelectedValuePath="Content" ToolTip="Choisissez entre l'anglais et le français.">
                 <ComboBoxItem Content="English"/>
                 <ComboBoxItem Content="Français"/>
             </ComboBox>
@@ -43,7 +43,7 @@
         <GroupBox Header="Taille Maximale (Ko)" Grid.Row="3" Margin="10" ToolTip="Définissez la taille maximale des fichiers à sauvegarder.">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBox x:Name="fileSizeTextBox" Width="120" Margin="5" PreviewTextInput="NumberValidationTextBox" 
-                         ToolTip="Entrez la taille maximale des fichiers en Ko."/>
+                         ToolTip="Entrez la taille maximale des fichiers en Ko." Text="{Binding NKo}"/>
                 <TextBlock Text="Ko" VerticalAlignment="Center" Margin="5,0,0,0"/>
             </StackPanel>
         </GroupBox>
