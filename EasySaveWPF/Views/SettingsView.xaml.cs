@@ -10,12 +10,7 @@ namespace EasySaveWPF.Views;
 public partial class SettingsView : UserControl, INotifyPropertyChanged
 {
     private LogStatsRTViewModel _logStatsRTVM;
-    // Implement INotifyPropertyChanged to update the UI when the language changes
     public event PropertyChangedEventHandler PropertyChanged;
-    protected void OnPropertyChanged(string name)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-    }
     
     private readonly string _langCode = Properties.Settings.Default.Language; 
     private readonly string _logType = Properties.Settings.Default.LogType;

@@ -38,8 +38,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
             <Button Command="{Binding ResetValuesCommand}" Content="{ext:Loc Key='CreateSaveViewCancel'}" Margin="5" Click="CancelButton_Click"/>
-            <Button Command="{Binding CreateSaveCommand}" Content="{ext:Loc Key='CreateSaveViewSaveQuit'}" Margin="5" Click="SaveQuitButton_Click" />
-            <Button Command="{Binding CreateSaveCommand}" Content="{ext:Loc Key='CreateSaveViewSaveCreate'}" Margin="5" Click="SaveCreateButton_Click"/>
+            <Button Command="{Binding CreateSaveCommand}" Content="{ext:Loc Key='CreateSaveViewSaveQuit'}" Margin="5" />
         </StackPanel>
     </Grid>
 </Window>

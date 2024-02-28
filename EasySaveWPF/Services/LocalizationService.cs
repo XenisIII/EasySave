@@ -28,6 +28,7 @@ public static class LocalizationService
         CultureInfo.CurrentCulture = culture;
 
         Properties.Settings.Default.Language = cultureCode;
+        Properties.Settings.Default.Save();
 
         CultureChanged?.Invoke();
     }
