@@ -1,0 +1,8 @@
+@startuml
+class LocalizationService <<static>> {
+    + {static}  <<event>> CultureChanged : CultureChangedHandler? 
+    + {static} SetCulture(cultureCode:string) : void
+    + {static} GetString(name:string) : string
+}
+LocalizationService o-> "resourceManager" ResourceManager
+@enduml

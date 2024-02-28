@@ -238,7 +238,7 @@
     <value>Authors :</value>
   </data>
   <data name="SettingsViewProcess" xml:space="preserve">
-    <value>Master Process :</value>
+    <value>Master Process</value>
   </data>
   <data name="HomeViewExtension" xml:space="preserve">
     <value>Extensions to cipher</value>
@@ -255,4 +255,41 @@
   <data name="SaveInProgress" xml:space="preserve">
     <value>In progress</value>
   </data>
+  <data name="ToolTipLogTypeSelection" xml:space="preserve">
+    <value>Choose the log file format.</value>
+  </data>
+  <data name="ToolTipLanguageSelection" xml:space="preserve">
+    <value>Select the application's language.</value>
+  </data>
+    <data name="ToolTipMasterProcessPath" xml:space="preserve">
+      <value>Enter the full path of the master process.</value>
+  </data>
+    <data name="ToolTipMaxFileSize" xml:space="preserve">
+      <value>Set the maximum size for files to be backed up in parallel (allows for better processing performance).</value>
+  </data>
+    <data name="ToolTipFileExtensions" xml:space="preserve">
+      <value>Select the file extensions to be prioritized in the backup.</value>
+  </data>
+  <data name="ToolTipLogTypeSelection2" xml:space="preserve">
+    <value>Select XML or JSON for the log format.</value>
+  </data>
+    <data name="ToolTipLanguageSelection2" xml:space="preserve">
+      <value>Choose between English and French.</value>
+  </data>
+    <data name="ToolTipMaxFileSize2" xml:space="preserve">
+      <value>Check the types of files to encrypt.</value>
+  </data>
+    <data name="ToolTipMasterProcessPath2" xml:space="preserve">
+      <value>Enter the full path of the master process.</value>
+  </data>
+  <data name="ToolTipFileExtensions2" xml:space="preserve">
+    <value>Check the types of files to prioratize.</value>
+  </data>
+    <data name="SettingsViewMaxFileSizes" xml:space="preserve">
+      <value>File Size</value>
+  </data>
+    <data name="SettingsViewFileExtensions" xml:space="preserve">
+      <value>Extensions of files to prioritize</value>
+  </data>
+
 </root>

@@ -1,0 +1,16 @@
+@startuml
+class LogView <<partial>> {
+    - _logType : string
+    - {static} <<readonly>> LogDirPath : string
+    + LogView(logType:string)
+    - OnLogFileChanged(sender:object, e:FileSystemEventArgs) : void
+    - <<async>> DeserializeXmlLog(filePath:string) : Task
+    - <<async>> DeserializeJsonLog(filePath:string) : Task
+    - UpdateUI(logEntries:List<StatsRTModel>) : void
+}
+class "ObservableCollection`1"<T> {
+}
+Page <|-- LogView
+LogView o-> "_logs<string>" "ObservableCollection`1"
+LogView o-> "_watcher" FileSystemWatcher
+@enduml

@@ -18,7 +18,7 @@ public partial class MainWindow : Window
         LocalizationService.CultureChanged += OnCultureChanged;
     }
 
-    private void Home_Click(object sender, RoutedEventArgs e)
+    public void Home_Click(object sender, RoutedEventArgs e)
     {
         // Load the Home view
         ContentFrame.Navigate(new HomeView(SaveProcessVM));

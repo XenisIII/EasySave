@@ -19,39 +19,39 @@
         </Grid.RowDefinitions>
 
         <!-- Log file format selection -->
-        <GroupBox Header="{ext:Loc Key='SettingsViewLogType'}" Grid.Row="0" Margin="10" ToolTip="Choisissez le format de fichier pour les logs.">
-            <ComboBox Name="logTypeChange" Width="150" Margin="5" SelectedValue="{Binding LogType}" SelectedValuePath="Content" ToolTip="Sélectionnez XML ou JSON pour le format de log.">
+        <GroupBox Header="{ext:Loc Key='SettingsViewLogType'}" Grid.Row="0" Margin="10" ToolTip="{ext:Loc Key='ToolTipLogTypeSelection'}">
+            <ComboBox Name="logTypeChange" Width="150" Margin="5" SelectedValue="{Binding LogType}" SelectedValuePath="Content" ToolTip="{ext:Loc Key='ToolTipLogTypeSelection2'}">
                 <ComboBoxItem Content="xml"/>
                 <ComboBoxItem Content="json"/>
             </ComboBox>
         </GroupBox>
 
         <!-- Language selection -->
-        <GroupBox Header="{ext:Loc Key='SettingsViewLanguage'}" Grid.Row="1" Margin="10" ToolTip="Sélectionnez la langue de l'application.">
-            <ComboBox x:Name="languageComboBox1" Width="150" Margin="5" SelectedValue="{Binding Language}" SelectedValuePath="Content" ToolTip="Choisissez entre l'anglais et le français.">
+        <GroupBox Header="{ext:Loc Key='SettingsViewLanguage'}" Grid.Row="1" Margin="10" ToolTip="{ext:Loc Key='ToolTipLanguageSelection'}">
+            <ComboBox x:Name="languageComboBox1" Width="150" Margin="5" SelectedValue="{Binding Language}" SelectedValuePath="Content" ToolTip="{ext:Loc Key='ToolTipLanguageSelection2'}">
                 <ComboBoxItem Content="English"/>
                 <ComboBoxItem Content="Français"/>
             </ComboBox>
         </GroupBox>
 
         <!-- Processus Métier -->
-        <GroupBox Header="{ext:Loc Key='SettingsViewProcess'}" Grid.Row="2" Margin="10" ToolTip="Définissez le chemin vers le logiciel métier.">
-            <TextBox x:Name="masterProcessTextBox" Grid.Row="2" TextWrapping="Wrap" Text="{Binding ProcessMetier}" HorizontalAlignment="Center" Width="164" ToolTip="Entrez le chemin complet du logiciel métier."/>
+        <GroupBox Header="{ext:Loc Key='SettingsViewProcess'}" Grid.Row="2" Margin="10" ToolTip="{ext:Loc Key='ToolTipMasterProcessPath'}">
+            <TextBox x:Name="masterProcessTextBox" Grid.Row="2" TextWrapping="Wrap" Text="{Binding ProcessMetier}" HorizontalAlignment="Center" Width="164" ToolTip="{ext:Loc Key='ToolTipMasterProcessPath2'}"/>
         </GroupBox>
         
         <!-- Taille Maximale (Ko) -->
-        <GroupBox Header="Taille Maximale (Ko)" Grid.Row="3" Margin="10" ToolTip="Définissez la taille maximale des fichiers à sauvegarder.">
+        <GroupBox Header="{ext:Loc Key='SettingsViewMaxFileSizes'}" Grid.Row="3" Margin="10" ToolTip="{ext:Loc Key='ToolTipMaxFileSize'}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBox x:Name="fileSizeTextBox" Width="120" Margin="5" PreviewTextInput="NumberValidationTextBox" 
-                         ToolTip="Entrez la taille maximale des fichiers en Ko." Text="{Binding NKo}"/>
+                         ToolTip="{ext:Loc Key='ToolTipMaxFileSize'}" Text="{Binding NKo}"/>
                 <TextBlock Text="Ko" VerticalAlignment="Center" Margin="5,0,0,0"/>
             </StackPanel>
         </GroupBox>
 
         <!-- Extensions de fichiers -->
-        <GroupBox x:Name="onTopExtTextBox" Header="Extensions de fichiers" Grid.Row="4" Margin="10" ToolTip="Sélectionnez les extensions de fichiers à inclure dans la sauvegarde.">
+        <GroupBox Header="{ext:Loc Key='SettingsViewFileExtensions'}" Grid.Row="4" Margin="10" ToolTip="{ext:Loc Key='ToolTipFileExtensions'}">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="auto" HorizontalAlignment="Center">
-                <WrapPanel ToolTip="Cocher les types de fichiers à sauvegarder.">
+                <WrapPanel ToolTip="{ext:Loc Key='ToolTipFileExtensions2'}">
                     <CheckBox Content=".doc" Margin="5"/>
                     <CheckBox Content=".docx" Margin="5"/>
                     <CheckBox Content=".pdf" Margin="5"/>
@@ -60,7 +60,6 @@
                     <CheckBox Content=".png" Margin="5"/>
                     <CheckBox Content=".xlsx" Margin="5"/>
                     <CheckBox Content=".xls" Margin="5"/>
-                    <!-- Ajoutez d'autres extensions de fichiers selon les besoins -->
                 </WrapPanel>
             </ScrollViewer>
         </GroupBox>
@@ -68,6 +67,7 @@
         <!-- Bouton Appliquer -->
         <Button Command="{Binding ApplyChangesCommand}"
                 Content="{ext:Loc Key='SettingsViewApply'}" 
+                Click="ApplyChanges_Click"
                 Grid.Row="6" 
                 Margin="10" 
                 HorizontalAlignment="Right" 

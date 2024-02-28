@@ -68,7 +68,7 @@ public class SaveProcessViewModel : ObservableObject
         }
     }
 
-    private string _language = "Français";
+    private string _language;
     public string Language
     {
         get => _language;

@@ -1,0 +1,17 @@
+@startuml
+class BackupJobModel {
+    - _name : string = ""
+    + Name : string <<get>> <<set>>
+    - _sourcePath : string = ""
+    + SourcePath : string <<get>> <<set>>
+    - _targetPath : string = ""
+    + TargetPath : string <<get>> <<set>>
+    - _type : string = "Complete"
+    + Type : string <<get>> <<set>>
+    - _extensions : string = ""
+    + Extensions : string <<get>> <<set>>
+    - _Status : string
+    + Status : string <<get>> <<set>>
+}
+ObservableObject <|-- BackupJobModel
+@enduml

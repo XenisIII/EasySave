@@ -1,0 +1,10 @@
+@startuml
+class LocExtension {
+    + Key : string <<get>> <<set>>
+    + LocExtension()
+    + LocExtension(key:string)
+    + <<override>> ProvideValue(serviceProvider:IServiceProvider) : object
+}
+MarkupExtension <|-- LocExtension
+LocExtension o-> "resourceManager" ResourceManager
+@enduml

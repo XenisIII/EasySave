@@ -22,7 +22,7 @@ public partial class SettingsView : UserControl, INotifyPropertyChanged
         
         if (_langCode == "en-US")
         {
-            languageComboBox1.SelectedItem = 0;
+            languageComboBox1.SelectedIndex = 0;
         }
         else
         {
@@ -31,12 +31,18 @@ public partial class SettingsView : UserControl, INotifyPropertyChanged
 
         if (_logType == "xml")
         {
-            logTypeChange.SelectedItem = 0;
+            logTypeChange.SelectedIndex = 0;
         }
         else
         {
             logTypeChange.SelectedIndex = 1;
         }
+    }
+
+    private void ApplyChanges_Click(object sender, RoutedEventArgs e)
+    {
+        var mainWindow = Application.Current.MainWindow as MainWindow;
+        mainWindow?.Home_Click(this, new RoutedEventArgs());  
     }
     
     private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)

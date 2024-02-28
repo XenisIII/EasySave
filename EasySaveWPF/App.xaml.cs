@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using System.Threading;
 using System.Windows;
+using EasySaveWPF.Services;
 
 namespace EasySaveWPF
 {
@@ -31,7 +32,7 @@ namespace EasySaveWPF
 
             base.OnStartup(e);
 
-            // Continuez avec l'initialisation de votre application ici, si nécessaire
+            LocalizationService.SetCulture(EasySaveWPF.Properties.Settings.Default.Language);
         }
 
         protected override void OnExit(ExitEventArgs e)

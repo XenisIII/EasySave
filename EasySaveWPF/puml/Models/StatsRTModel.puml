@@ -1,0 +1,16 @@
+@startuml
+class StatsRTModel {
+    + StatsRTModel()
+    + StatsRTModel(statsRT:StatsRTModel)
+    - _state : string
+    + SaveName : string <<get>> <<set>>
+    + SourceFilePath : string <<get>> <<set>>
+    + TargetFilePath : string <<get>> <<set>>
+    + State : string <<get>> <<set>>
+    + TotalFilesToCopy : int <<get>> <<set>>
+    + TotalFilesSize : long <<get>> <<set>>
+    + NbFilesLeftToDo : int <<get>> <<set>>
+    + Progress : int <<get>> <<set>>
+}
+ObservableObject <|-- StatsRTModel
+@enduml

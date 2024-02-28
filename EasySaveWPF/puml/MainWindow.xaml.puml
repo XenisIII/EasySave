@@ -1,0 +1,12 @@
+@startuml
+class MainWindow <<partial>> {
+    + MainWindow()
+    + Home_Click(sender:object, e:RoutedEventArgs) : void
+    - Settings_Click(sender:object, e:RoutedEventArgs) : void
+    - About_Click(sender:object, e:RoutedEventArgs) : void
+    - Help_Click(sender:object, e:RoutedEventArgs) : void
+    - OnCultureChanged() : void
+}
+Window <|-- MainWindow
+MainWindow o-> "SaveProcessVM" SaveProcessViewModel
+@enduml

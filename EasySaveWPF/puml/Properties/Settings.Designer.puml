@@ -1,0 +1,12 @@
+@startuml
+class Settings <<sealed>> <<partial>> {
+    + LogType : string <<get>> <<set>>
+    + Language : string <<get>> <<set>>
+    + onBoardingScreen : string <<get>> <<set>>
+    + masterProcess : string <<get>> <<set>>
+    + onTopExt : string <<get>> <<set>>
+    + fileSize : long <<get>> <<set>>
+}
+Settings o-> "defaultInstance" Settings
+Settings --> "Default" Settings
+@enduml

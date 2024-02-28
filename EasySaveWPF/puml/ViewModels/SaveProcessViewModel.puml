@@ -1,0 +1,30 @@
+@startuml
+class SaveProcessViewModel {
+    + SaveProcessViewModel()
+    - _logType : string
+    + LogType : string <<get>> <<set>>
+    - _processMetier : string
+    + ProcessMetier : string <<get>> <<set>>
+    - _language : string
+    + Language : string <<get>> <<set>>
+    - _nKo : long
+    + NKo : long <<get>> <<set>>
+    + ExecuteSaveProcess() : void
+    + <<async>> ExecuteSaveProcessAsync() : Task
+    + SetLogModel(name:string, sourcePath:string, targetPath:string, filesSize:long, fileTransferTime:string, timetoencrypt:int, nbErrors:int) : void
+    + DeleteSaveFunc() : void
+    + ApplySettingsChanges() : void
+    - HandleCheckBoxChanged(save:BackupJobModel) : void
+}
+class "ObservableCollection`1"<T> {
+}
+ObservableObject <|-- SaveProcessViewModel
+SaveProcessViewModel o-> "logStatsRTViewModel" LogStatsRTViewModel
+SaveProcessViewModel --> "DeleteSaveCommand" ICommand
+SaveProcessViewModel --> "ExecuteSaveCommand" ICommand
+SaveProcessViewModel --> "ApplyChangesCommand" ICommand
+SaveProcessViewModel --> "CheckBoxChangedCommand" ICommand
+SaveProcessViewModel o-> "BackupJobs<BackupJobModel>" "ObservableCollection`1"
+SaveProcessViewModel o-> "CheckedItems<BackupJobModel>" "ObservableCollection`1"
+SaveProcessViewModel --> "CurrentLogModel" LogVarModel
+@enduml

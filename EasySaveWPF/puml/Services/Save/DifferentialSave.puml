@@ -1,0 +1,10 @@
+@startuml
+class DifferentialSave {
+    + DifferentialSave(save:BackupJobModel)
+    + Execute(save:BackupJobModel, process:string) : void
+    - ExecuteSave(save:BackupJobModel, element:string) : void
+    - ExecuteSaveByExtension(save:BackupJobModel, element:string) : void
+    - {static} CalculateFileHash(filePath:string) : string
+}
+CommonSaveCommand <|-- DifferentialSave
+@enduml

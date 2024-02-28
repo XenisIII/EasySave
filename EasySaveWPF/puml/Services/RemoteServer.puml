@@ -1,0 +1,12 @@
+@startuml
+class RemoteServer {
+    - {static} <<async>> AccepterConnexionsAsync(listener:Socket) : Task
+    - {static} <<async>> EcouterReseauAsync(client:Socket) : Task
+    - {static} <<async>> EnvoyerMessageAsync(message:string) : Task
+    + {static} <<async>> StartServerAsync() : Task
+    + {static} <<async>> Main(args:string[]) : Task
+}
+class "List`1"<T> {
+}
+RemoteServer o-> "clients<Socket>" "List`1"
+@enduml
