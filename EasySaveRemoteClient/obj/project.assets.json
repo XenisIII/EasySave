@@ -8,23 +8,23 @@
     "net8.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\aphou\\.nuget\\packages\\": {},
+    "C:\\Users\\Arenz\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aphou\\source\\repos\\Programmation-Systeme\\EasySaveRemoteClient\\EasySaveRemoteClient.csproj",
+      "projectUniqueName": "C:\\Users\\Arenz\\Documents\\CESI\\A3\\Informatique\\2- Programmation système\\EasySave-Projet\\version WPF\\EasySaveRemoteClient\\EasySaveRemoteClient.csproj",
       "projectName": "EasySaveRemoteClient",
-      "projectPath": "C:\\Users\\aphou\\source\\repos\\Programmation-Systeme\\EasySaveRemoteClient\\EasySaveRemoteClient.csproj",
-      "packagesPath": "C:\\Users\\aphou\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aphou\\source\\repos\\Programmation-Systeme\\EasySaveRemoteClient\\obj\\",
+      "projectPath": "C:\\Users\\Arenz\\Documents\\CESI\\A3\\Informatique\\2- Programmation système\\EasySave-Projet\\version WPF\\EasySaveRemoteClient\\EasySaveRemoteClient.csproj",
+      "packagesPath": "C:\\Users\\Arenz\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Arenz\\Documents\\CESI\\A3\\Informatique\\2- Programmation système\\EasySave-Projet\\version WPF\\EasySaveRemoteClient\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\aphou\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Arenz\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -69,7 +69,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

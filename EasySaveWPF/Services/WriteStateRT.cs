@@ -76,87 +76,10 @@ public class WriteStatsRT
         }
     }
 
-    /*private async Task AppendToFileAsync(string filePath, string content)
-    {
-        await semaphore.WaitAsync();
-        try
-        {
-            using (var streamWriter = File.AppendText(filePath))
-            {
-                await streamWriter.WriteLineAsync(content);
-            }
-        }
-        finally
-        {
-            semaphore.Release();
-        }
-    }*/
-
-    /*private async Task _AppendToFileAsync(string filePath, string content)
-    {
-        await semaphore.WaitAsync();
-        try
-        {
-            using var streamWriter = File.AppendText(filePath);
-            streamWriter.WriteLine(content);
-        }
-        finally
-        {
-            semaphore.Release();
-        }
-    }*/
-
-
 private Task AppendToFileAsync(string filePath, string content)
 {
     return Task.Run(() => AppendToFile(filePath, content));
 }
-
-/*private static void WriteToXmlFile<T>(string filePath, T data)
-{
-    using var stream = File.Create(filePath);
-
-    var serializer = new XmlSerializer(typeof(T));
-
-    serializer.Serialize(stream, data);
-}*/
-
-/*private Task WriteToXmlFileAsync<T>(string filePath, T data)
-    => Task.Run(() => WriteToXmlFile(filePath, data));
-
-private static T? ReadFromXmlFile<T>(string filePath)
-{
-    if (!File.Exists(filePath)) return default(T);
-
-    using var stream = File.OpenRead(filePath);
-
-    var serializer = new XmlSerializer(typeof(T));
-
-    return (T?)serializer.Deserialize(stream);
-}*/
-
-/*private static void WriteToJsonFile<T>(string filePath, T data)
-{
-    string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
-
-    File.WriteAllText(filePath, json);
-}*/
-
-/*private static async Task WriteToJsonFileAsync<T>(string filePath, T data)
-{
-    await using var stream = File.Create(filePath);
-
-    await JsonSerializer.SerializeAsync(stream, data, new JsonSerializerOptions { WriteIndented = true });
-}*/
-
-/*private static T? ReadFromJsonFile<T>(string filePath)
-{
-    if (!File.Exists(filePath)) return default(T);
-
-    string json = File.ReadAllText(filePath);
-
-    return JsonSerializer.Deserialize<T>(json);
-}*/
 
 private static void CreateDirectoryIfNotExists(string logDirPath)
 {
