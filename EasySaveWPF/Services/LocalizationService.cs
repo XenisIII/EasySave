@@ -1,43 +1,47 @@
-using System.Globalization;
-using System.Resources;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
 
-namespace EasySaveWPF.Services;
-
-/// <summary>
-/// Provides localization services for the application, allowing for dynamic language changes.
-/// </summary>
-public static class LocalizationService
+class Program
 {
-    /// <summary>
-    /// Manages resource strings for localization.
-    /// </summary>
-    private static ResourceManager resourceManager =
-        new ResourceManager("EasySaveWPF.Resources.Strings", typeof(LocalizationService).Assembly);
-
-    public delegate void CultureChangedHandler();
-    public static event CultureChangedHandler? CultureChanged;
-
-    /// <summary>
-    /// Sets the application's culture to the specified culture code.
-    /// </summary>
-    /// <param name="cultureCode">The culture code to set the application to (e.g., "en-US", "fr-FR").</param>
-    public static void SetCulture(string cultureCode)
+    static void Main()
     {
-        CultureInfo culture = new CultureInfo(cultureCode);
-        CultureInfo.CurrentUICulture = culture;
-        CultureInfo.CurrentCulture = culture;
+        // Ouvrir l'explorateur de fichiers sur C:\Windows
+        LaunchProcess("explorer.exe", @"C:\Windows");
 
-        Properties.Settings.Default.Language = cultureCode;
-        Properties.Settings.Default.Save();
+        // Attendre 2 secondes avant de continuer
+        Thread.Sleep(2000);
 
-        CultureChanged?.Invoke();
+        // Créer un fichier texte temporaire et l'ouvrir dans Notepad
+        string tempFilePath = CreateTempFile();
+        LaunchProcess("notepad.exe", tempFilePath);
     }
 
-    /// <summary>
-    /// Retrieves a localized string by its name.
-    /// </summary>
-    /// <param name="name">The name of the string resource.</param>
-    /// <returns>The localized string.</returns>
-    public static string GetString(string name) 
-        => resourceManager.GetString(name, CultureInfo.CurrentUICulture);
+    static void LaunchProcess(string fileName, string arguments)
+    {
+        try
+        {
+            Process process = new Process();
+            process.StartInfo.FileName = fileName;
+            process.StartInfo.Arguments = arguments;
+            process.Start();
+            Console.WriteLine($"Processus {fileName} avec arguments '{arguments}' n° {process.Id} est lancé.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erreur lors du lancement de {fileName} avec arguments '{arguments}': {ex.Message}");
+        }
+    }
+
+    static string CreateTempFile()
+    {
+        // Chemin du fichier temporaire
+        string tempFile = Path.GetTempFileName();
+
+        // Ajouter du contenu au fichier temporaire
+        File.WriteAllText(tempFile, "Ceci est un fichier texte temporaire ouvert dans Notepad.");
+
+        return tempFile;
+    }
 }
