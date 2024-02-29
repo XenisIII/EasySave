@@ -1,0 +1,9 @@
+C:\Users\EZZAROUAL Nadia\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.Resources.Strings.resources
+C:\Users\EZZAROUAL Nadia\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.Resources.Strings.en.resources
+C:\Users\EZZAROUAL Nadia\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.Resources.Strings.fr.resources
+C:\Users\EZZAROUAL Nadia\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.csproj.GenerateResource.cache
+C:\Users\EZZAROUAL Nadia\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\EZZAROUAL Nadia\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.AssemblyInfoInputs.cache
+C:\Users\EZZAROUAL Nadia\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.AssemblyInfo.cs
+C:\Users\EZZAROUAL Nadia\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.csproj.CoreCompileInputs.cache
+C:\Users\EZZAROUAL Nadia\Source\Repos\XenisIII\Programmation-Systeme\EasySave\obj\Debug\net8.0\EasySave.sourcelink.json

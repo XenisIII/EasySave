@@ -1,72 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json;
-using System.Windows;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
 
-namespace EasySaveWPF.Services
+class Program
 {
-    public class ServerSocketService
+    static void Main(string[] args)
     {
-        public Socket? Listener { get; private set; }
-        public Socket? Handler { get; private set; }
-        public IPEndPoint? HandlerIPEndPoint { get; private set; }
+        string tempFilePath = CreateTempFile();
+        Process process = LaunchProcess("notepad.exe", tempFilePath);
 
-        public void Connect()
+        // Ajouter un EventHandler pour gérer l'événement de sortie du processus
+        process.EnableRaisingEvents = true; // Nécessaire pour que l'événement Exited soit déclenché
+        process.Exited += new EventHandler(Process_Exited);
+
+        // Attendre 2 secondes avant de continuer (simplement pour l'exemple)
+        Console.WriteLine("Attente de 2 secondes avant de vérifier l'état du processus...");
+        Thread.Sleep(2000);
+
+        // Vérifier si le processus est toujours actif
+        if (!process.HasExited)
         {
-            if (Listener is not null) throw new InvalidOperationException(
-                message: $"The server is already connected.");
-
-            // Define the server endpoint
-            IPEndPoint iPEndPoint = new(
-                address: IPAddress.Parse("127.0.0.1"),
-                port: 9050);
-
-            // Create a new TCP socket
-            Listener = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-            // Bind the socket to the server endpoint
-            Listener.Bind(iPEndPoint);
-
-            // Listens for incoming connections.
-            Listener.Listen(10);
+            Console.WriteLine("Le processus fils est toujours actif.");
+        }
+        else
+        {
+            Console.WriteLine("Le processus fils a déjà quitté.");
         }
 
-        public async Task AcceptConnectionAsync()
-        {
-            // Accept incoming connection from the client
-            if (Listener is null) throw new InvalidOperationException(
-                message: $"Cannot accept client connection. You should connect to the server before.");
-
-            Handler = await Listener.AcceptAsync();
-            MessageBox.Show($"Client connecté depuis :  {Handler.RemoteEndPoint}", "Connected", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            // Retrieves the client's IP address (and port)
-            HandlerIPEndPoint = (IPEndPoint?)Handler.RemoteEndPoint;
-        }
-
-        public async Task SendAsync<T>(T message)
-        {
-            if (Handler is null) throw new InvalidOperationException(
-                message: $"Cannot send message to {nameof(Handler)}. The client is not connected to the server");
-
-            // Encodes the message in byte[]
-            var serializedMessage = JsonSerializer.Serialize(message);
-            byte[] data = Encoding.UTF8.GetBytes(serializedMessage);
-
-            // Send message to the client
-            await Handler.SendAsync(data, SocketFlags.None);
-        }
-
-        public void Disconnect()
-        {
-            Listener?.Close();
-            Listener?.Dispose();
-        }
+        // Attendre que l'utilisateur ferme Notepad (pour l'exemple)
+        Console.WriteLine("Appuyez sur une touche pour quitter une fois que Notepad est fermé...");
+        Console.ReadKey();
     }
 
+    static Process LaunchProcess(string fileName, string arguments)
+    {
+        Process process = new Process();
+        process.StartInfo.FileName = fileName;
+        process.StartInfo.Arguments = arguments;
+        process.Start();
+        Console.WriteLine($"Processus {fileName} avec arguments '{arguments}' n° {process.Id} est lancé.");
+        return process;
+    }
+
+    static string CreateTempFile()
+    {
+        string tempFile = Path.GetTempFileName();
+        File.WriteAllText(tempFile, "Ceci est un fichier texte temporaire ouvert dans Notepad.");
+        return tempFile;
+    }
+
+    // Gestionnaire d'événements pour la sortie du processus
+    private static void Process_Exited(object sender, EventArgs e)
+    {
+        Console.WriteLine("Le processus fils a terminé son exécution.");
+    }
 }
+
