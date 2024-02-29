@@ -1,42 +1,33 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Diagnostics;
 
-namespace EasySaveWPF.Common;
-
-public class RelayCommand : ICommand
+class Program
 {
-    private readonly Action execute;
-
-    private readonly Func<bool>? canExecute;
-
-    public RelayCommand(Action execute)
+    static void Main()
     {
-        ArgumentNullException.ThrowIfNull(execute);
+        Process processExplorer;
+        Process processNotepad;
 
-        this.execute = execute;
-    }
+        // Lancer explorer.exe et afficher son ID
+        try
+        {
+            processExplorer = Process.Start("explorer.exe");
+            Console.WriteLine($"Processus explorer n° {processExplorer.Id} est lancé.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erreur lors du lancement d'Explorer.exe : {ex.Message}");
+        }
 
-    public RelayCommand(Action execute, Func<bool> canExecute)
-    {
-        ArgumentNullException.ThrowIfNull(execute);
-        ArgumentNullException.ThrowIfNull(canExecute);
-
-        this.execute = execute;
-        this.canExecute = canExecute;
-    }
-
-    public bool CanExecute(object? parameter)
-    {
-        return canExecute?.Invoke() != false;
-    }
-
-    public void Execute(object? parameter)
-    {
-        execute();
-    }
-
-    public event EventHandler? CanExecuteChanged
-    {
-        add { CommandManager.RequerySuggested += value; }
-        remove { CommandManager.RequerySuggested -= value; }
+        // Lancer notepad.exe et afficher son ID
+        try
+        {
+            processNotepad = Process.Start("notepad.exe");
+            Console.WriteLine($"Processus notepad n° {processNotepad.Id} est lancé.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erreur lors du lancement de Notepad.exe : {ex.Message}");
+        }
     }
 }
