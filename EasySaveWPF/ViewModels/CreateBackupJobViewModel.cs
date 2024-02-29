@@ -1,10 +1,13 @@
-﻿using EasySaveWPF.Common;
+﻿using System.Collections.ObjectModel;
+using EasySaveWPF.Common;
 using EasySaveWPF.Models;
 using Microsoft.Win32;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using EasySaveWPF.Services;
+using System.Text.Json;
+
 
 namespace EasySaveWPF.ViewModels;
 
@@ -73,10 +76,41 @@ public class CreateBackupJobViewModel : ObservableObject
         else
         {
             _saveProcessViewModel.BackupJobs.Add(BackupJob);
+
+            // Serialize the BackupJobs list to a JSON string
+            string jsonString = JsonSerializer.Serialize(_saveProcessViewModel.BackupJobs, new JsonSerializerOptions { WriteIndented = true });
+
+            // Define the file name
+            string fileName = "backupJobs.json";
+
+            // Construct the full file path in the application's root directory
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+
+            // Write the JSON string to the file, overwriting any existing content
+            File.WriteAllText(filePath, jsonString);
+
+            // Optionally, send the BackupJobs list asynchronously over the server socket
             _ = App.ServerSocketService.SendAsync(_saveProcessViewModel.BackupJobs);
         }
 
         ResetCreateBackupJobForm();
+    }
+    
+    public void LoadBackupJobsFromFile()
+    {
+        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "backupJobs.json");
+        if (File.Exists(filePath))
+        {
+            string jsonString = File.ReadAllText(filePath);
+            var backupJobs = JsonSerializer.Deserialize<List<BackupJobModel>>(jsonString);
+            if (backupJobs != null)
+            {
+                foreach (var job in backupJobs)
+                {
+                    _saveProcessViewModel.BackupJobs.Add(job);
+                }
+            }
+        }
     }
 
     public bool CanCreate() => !string.IsNullOrWhiteSpace(BackupJob.Name) &&

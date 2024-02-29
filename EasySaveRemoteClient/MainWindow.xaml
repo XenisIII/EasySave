@@ -24,7 +24,7 @@
         <ListView Grid.Column="0" Grid.Row="1" ItemsSource="{Binding BackupJobs}" Margin="10">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="MainWindow">
+                    <GridViewColumn Header="Name">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>

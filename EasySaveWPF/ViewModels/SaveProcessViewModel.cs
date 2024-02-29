@@ -9,6 +9,7 @@ using EasySaveWPF.Common;
 using System.IO;
 using System.ComponentModel;
 using EasySaveWPF;
+using System.Text.Json;
 
 namespace EasySaveWPF.ViewModels;
 
@@ -287,8 +288,33 @@ public class SaveProcessViewModel : ObservableObject
 
         // Vider CheckedItems après la suppression des éléments de la liste principale
         CheckedItems.Clear();
+        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "backupJobs.json");
+        string jsonString = JsonSerializer.Serialize(BackupJobs, new JsonSerializerOptions { WriteIndented = true });
+        File.WriteAllText(filePath, jsonString);
+    }
+    
+    public void LoadBackupJobsFromFile()
+    {
+        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "backupJobs.json");
+        if (File.Exists(filePath))
+        {
+            string jsonString = File.ReadAllText(filePath);
+            var backupJobs = JsonSerializer.Deserialize<List<BackupJobModel>>(jsonString);
+            if (backupJobs != null)
+            {
+                foreach (var job in backupJobs)
+                {
+                    job.Progress = 0; // Initialise le progress à 0
+                    job.Status = LocalizationService.GetString("SaveCreatedStatus"); // Initialise le Status à "Prêt"
+                    BackupJobs.Add(job);
+                }
+                
+            }
+        }
     }
 
+
+    
     public void ApplySettingsChanges()
     {
         logStatsRTViewModel.Type = LogType;

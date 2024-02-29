@@ -1,5 +1,6 @@
 ﻿using EasySaveWPF.Views;
 using System.Windows;
+using EasySaveWPF.Models;
 using EasySaveWPF.ViewModels;
 using EasySaveWPF.Services;
 
@@ -13,11 +14,9 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        
+        SaveProcessVM.LoadBackupJobsFromFile(); // Charger les sauvegardes
         ContentFrame.Content = new HomeView(SaveProcessVM);
-
         LocalizationService.CultureChanged += OnCultureChanged;
-        //Task.Run(() => Server.Init());
     }
 
 
