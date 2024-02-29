@@ -1,122 +1,58 @@
-using EasySaveWPF.Common;
-using EasySaveWPF.Services;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
 
-namespace EasySaveWPF.Models;
-
-public class BackupJobModel : ObservableObject
+class Program
 {
-    private string _name = "";
-    public string Name
+    static void Main(string[] args)
     {
-        get => _name;
-        set
-        {
-            if (_name == value) return;
+        string tempFilePath = CreateTempFile();
+        Process process = LaunchProcess("notepad.exe", tempFilePath);
 
-            _name = value;
-            OnPropertyChanged(nameof(Name));
+        // Ajouter un EventHandler pour gérer l'événement de sortie du processus
+        process.EnableRaisingEvents = true; // Nécessaire pour que l'événement Exited soit déclenché
+        process.Exited += new EventHandler(Process_Exited);
+
+        // Attendre 2 secondes avant de continuer (simplement pour l'exemple)
+        Console.WriteLine("Attente de 2 secondes avant de vérifier l'état du processus...");
+        Thread.Sleep(2000);
+
+        // Vérifier si le processus est toujours actif
+        if (!process.HasExited)
+        {
+            Console.WriteLine("Le processus fils est toujours actif.");
         }
+        else
+        {
+            Console.WriteLine("Le processus fils a déjà quitté.");
+        }
+
+        // Attendre que l'utilisateur ferme Notepad (pour l'exemple)
+        Console.WriteLine("Appuyez sur une touche pour quitter une fois que Notepad est fermé...");
+        Console.ReadKey();
     }
 
-    private string _sourcePath = "";
-    public string SourcePath
+    static Process LaunchProcess(string fileName, string arguments)
     {
-        get => _sourcePath;
-        set
-        {
-            if (_sourcePath == value) return;
-
-            _sourcePath = value;
-            OnPropertyChanged(nameof(SourcePath));
-        }
+        Process process = new Process();
+        process.StartInfo.FileName = fileName;
+        process.StartInfo.Arguments = arguments;
+        process.Start();
+        Console.WriteLine($"Processus {fileName} avec arguments '{arguments}' n° {process.Id} est lancé.");
+        return process;
     }
 
-    private string _targetPath = "";
-    public string TargetPath
+    static string CreateTempFile()
     {
-        get => _targetPath;
-        set
-        {
-            if (_targetPath == value) return;
-
-            _targetPath = value;
-            OnPropertyChanged(nameof(TargetPath));
-        }
+        string tempFile = Path.GetTempFileName();
+        File.WriteAllText(tempFile, "Ceci est un fichier texte temporaire ouvert dans Notepad.");
+        return tempFile;
     }
 
-    private string _type = "Complete";
-    public string Type
+    // Gestionnaire d'événements pour la sortie du processus
+    private static void Process_Exited(object sender, EventArgs e)
     {
-        get => _type;
-        set
-        {
-            if (_type == value) return;
-
-            _type = value;
-            OnPropertyChanged(nameof(Type));
-        }
-    }
-
-    private string _extensions = "";
-    public string Extensions
-    {
-        get => _extensions;
-        set
-        {
-            if (_extensions == value) return;
-
-            _extensions = value;
-            OnPropertyChanged(nameof(Extensions));
-        }
-    }
-    private string _Status = LocalizationService.GetString("SaveCreatedStatus");
-    public string Status
-    {
-        get => _Status;
-        set
-        {
-            if (_Status == value) return;
-
-            _Status = value;
-            OnPropertyChanged(nameof(Status));
-        }
-    }
-
-    private bool _PauseResume = false;
-    public bool PauseResume
-    {
-        get => _PauseResume;
-        set
-        {
-            if (_PauseResume == value) return;
-
-            _PauseResume = value;
-            OnPropertyChanged(nameof(PauseResume));
-        }
-    }
-    private bool _Stop = false;
-    public bool Stop
-    {
-        get => _Stop;
-        set
-        {
-            if (_Stop == value) return;
-
-            _Stop = value;
-            OnPropertyChanged(nameof(Stop));
-        }
-    }
-    private int _Progress;
-    public int Progress
-    {
-        get => _Progress;
-        set
-        {
-            if (_Progress == value) return;
-
-            _Progress = value;
-            OnPropertyChanged(nameof(Progress));
-
-        }
+        Console.WriteLine("Le processus fils a terminé son exécution.");
     }
 }
