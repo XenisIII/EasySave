@@ -1,55 +1,53 @@
-﻿using EasySaveWPF.Views;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows;
-using EasySaveWPF.ViewModels;
-using EasySaveWPF.Services;
 
-namespace EasySaveWPF;
-
-public partial class MainWindow : Window
+namespace ProcessManager
 {
-    public SaveProcessViewModel SaveProcessVM { get; } = new SaveProcessViewModel();
-    //public RemoteServer Server { get; } = new RemoteServer();
-
-    public MainWindow()
+    public partial class MainWindow : Window
     {
-        InitializeComponent();
-        
-        ContentFrame.Content = new HomeView(SaveProcessVM);
+        public MainWindow()
+        {
+            InitializeComponent();
+            LoadProcesses();
+        }
 
-        LocalizationService.CultureChanged += OnCultureChanged;
-        //Task.Run(() => Server.Init());
-    }
+        private void LoadProcesses()
+        {
+            var processList = Process.GetProcesses().Select(p => new
+            {
+                Id = p.Id,
+                Name = p.ProcessName,
+                Priority = p.BasePriority.ToString(),
+                VirtualMemory = p.VirtualMemorySize64.ToString()
+            }).ToList();
 
+            lvProcessus.ItemsSource = processList;
+        }
 
-    public void Home_Click(object sender, RoutedEventArgs e)
+        private void btnStopProcess_Click(object sender, RoutedEventArgs e)
+        {
+            if (lvProcessus.SelectedItem != null)
+            {
+                var process = (dynamic)lvProcessus.SelectedItem;
+                try
+                {
+                    Process.GetProcessById(process.Id).Kill();
+                    MessageBox.Show($"Processus {process.Name} arrêté.");
+                    LoadProcesses(); // Recharger la liste après l'arrêt d'un processus
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Impossible d'arrêter le processus sélectionné : {ex.Message}");
+                }
+            }
+        }
 
-    {
-        // Load the Home view
-        ContentFrame.Navigate(new HomeView(SaveProcessVM));
-    }
-
-    private void Settings_Click(object sender, RoutedEventArgs e)
-    {
-        // Load the Settings view into the content frame
-        ContentFrame.Navigate(new SettingsView(SaveProcessVM));
-    }
-
-    private void About_Click(object sender, RoutedEventArgs e)
-    {
-        // Load the About view
-        ContentFrame.Navigate(new AboutView());
-    }
-    private void Help_Click(object sender, RoutedEventArgs e)
-    {
-        // Load the About view
-        ContentFrame.Navigate(new HelpView());
-    }
-
-    private void OnCultureChanged()
-    {
-        HomeButton.Content = LocalizationService.GetString("SideBarHome");
-        SettingsButton.Content = LocalizationService.GetString("SideBarSettings");
-        AboutButton.Content = LocalizationService.GetString("SideBarAbout");
-        HelpButton.Content = LocalizationService.GetString("SideBarHelp");
+        private void btnQuit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
