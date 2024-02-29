@@ -238,6 +238,118 @@
     <value>Auteurs :</value>
   </data>
   <data name="SettingsViewProcess" xml:space="preserve">
-    <value>Processus maître :</value>
+    <value>Processus métier :</value>
   </data>
+  <data name="HomeViewExtension" xml:space="preserve">
+    <value>Extensions à chiffrer</value>
+  </data>
+  <data name="SaveCreatedStatus" xml:space="preserve">
+    <value>Prête</value>
+  </data>
+  <data name="SaveStatus" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="SaveFinished" xml:space="preserve">
+    <value>Fini</value>
+  </data>
+  <data name="SaveInProgress" xml:space="preserve">
+    <value>En cours</value>
+  </data>
+  <data name="SaveProgress" xml:space="preserve">
+    <value>Progression</value>
+  </data>
+  <data name="ToolTipLogTypeSelection" xml:space="preserve">
+    <value>Choisissez le format de fichier pour les logs.</value>
+</data>
+  <data name="ToolTipLanguageSelection" xml:space="preserve">
+    <value>Sélectionnez la langue de l'application.</value>
+</data>
+  <data name="ToolTipMasterProcessPath" xml:space="preserve">
+    <value>Entrez le chemin complet du processus métier.</value>
+</data>
+  <data name="ToolTipMaxFileSize" xml:space="preserve">
+    <value>Définissez la taille maximale des fichiers à sauvegarder en parallèle (permet d'obtenir de meilleures performances de traitement).</value>
+</data>
+  <data name="ToolTipFileExtensions" xml:space="preserve">
+    <value>Sélectionnez les extensions de fichiers à prioriser dans la sauvegarde.</value>
+  </data>
+  <data name="ToolTipLogTypeSelection2" xml:space="preserve">
+    <value>Sélectionnez XML ou JSON pour le format de log.</value>
+  </data>
+  <data name="ToolTipLanguageSelection2" xml:space="preserve">
+    <value>Choisissez entre l'anglais et le français.</value>
+  </data>
+  <data name="ToolTipMaxFileSize2" xml:space="preserve">
+    <value>Cocher les types de fichiers à chiffrer.</value>
+  </data>
+  <data name="ToolTipMasterProcessPath2" xml:space="preserve">
+    <value>Entrez le chemin complet du processus métier.</value>
+  </data>
+  <data name="ToolTipFileExtensions2" xml:space="preserve">
+    <value>Cocher les types de fichiers à prioriser.</value>
+  </data>
+  <data name="SettingsViewMaxFileSizes" xml:space="preserve">
+    <value>Taille de fichier</value>
+  </data>
+  <data name="SettingsViewFileExtensions" xml:space="preserve">
+    <value>Extensions des fichiers à prioriser</value>
+  </data>
+  <data name="SPVMSaveFinished1" xml:space="preserve">
+    <value>La sauvegarde </value>
+  </data>
+  <data name="SVPMAllSaveFinished" xml:space="preserve">
+    <value>Toutes les sauvegardes sont terminées</value>
+  </data>
+  <data name="SPVMSaveFinished2" xml:space="preserve">
+    <value> est finie</value>
+  </data>
+  <data name="SVPMLangChang" xml:space="preserve">
+    <value>Changements appliqués avec succès!</value>
+  </data>
+  <data name="CBJVMUnknownPath" xml:space="preserve">
+    <value>Un ou plusieurs chemins spécifiés n'existent pas.</value>
+  </data>
+  <data name="CBJVMUnknownPathCapt" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="SVPMLangChangCapt" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="DiffSaveCipherFile" xml:space="preserve">
+    <value>Le fichier que vous souhaitez sauvegarder existe déjà en fichier chiffré. Voulez-vous le sauvegarder tel quel ou effectuer le processus de sauvegarde différentielle sur le fichier chiffré? Le fichier sera sauvegardé chiffré.</value>
+  </data>
+  <data name="DiffSaveCipherFileCaption" xml:space="preserve">
+    <value>Fichier chiffré existant</value>
+  </data>
+  <data name="CSCProcessRunning1" xml:space="preserve">
+    <value>Le processus </value>
+  </data>
+  <data name="CSCProcessRunning2" xml:space="preserve">
+    <value> est en cours d'exécution. Veuillez fermer toutes ses instances pour reprendre la sauvegarde.</value>
+  </data>
+  <data name="CSCProcessRunningCapt" xml:space="preserve">
+    <value>Processus en cours d'exécution</value>
+  </data>
+  <data name="CSCAllProcessClosed1" xml:space="preserve">
+    <value>Tous les processus de </value>
+  </data>
+  <data name="CSCAllProcessClosed2" xml:space="preserve">
+    <value> on été fermés, reprise de la sauvegarde</value>
+  </data>
+  <data name="CSCAllProcessClosedCapt" xml:space="preserve">
+  <value>Reprise sauvegarde</value>
+  </data>
+  <data name="ToolTipBackupJobName" xml:space="preserve">
+    <value>Entrez le nom de la sauvegarde.</value>
+</data>
+  <data name="ToolTipSourcePath" xml:space="preserve">
+    <value>Chemin d'accès au dossier source.</value>
+</data>
+  <data name="ToolTipDestinationPath" xml:space="preserve">
+    <value>Chemin d'accès au dossier de destination.</value>
+</data>
+  <data name="ToolTipExtensions" xml:space="preserve">
+    <value>Extensions de fichiers à crypter (séparées par une virgule).</value>
+</data>
+
 </root>
