@@ -42,7 +42,7 @@ public class DifferentialSave : CommonSaveCommand
             {
                 return;
             }
-            if (process is not null)
+            if (process is not null && process != "")
             {
                 CheckProcess(process, save);
                 Application.Current.Dispatcher.Invoke(() =>
@@ -79,23 +79,23 @@ public class DifferentialSave : CommonSaveCommand
 
         if (File.Exists(encryptedTargetFile))
         {
-            MessageBoxResult result = MessageBox.Show("Le fichier que vous souhaitez sauvegarder existe déjà en fichier chiffré. Voulez-vous le sauvegarder tel quel ou effectuer le processus de sauvegarde différentielle sur le fichier chiffré? Le fichier sera sauvegardé chiffré.", "Fichier chiffré existant", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("Le fichier que vous souhaitez sauvegarder existe dÃ©jÃ  en fichier chiffrÃ©. Voulez-vous le sauvegarder tel quel ou effectuer le processus de sauvegarde diffÃ©rentielle sur le fichier chiffrÃ©? Le fichier sera sauvegardÃ© chiffrÃ©.", "Fichier chiffrÃ© existant", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
-                // Déchiffrer le fichier cible pour comparaison
+                // DÃ©chiffrer le fichier cible pour comparaison
                 string tempDecryptedFile = Path.GetTempFileName();
                 CipherOrDecipher(encryptedTargetFile, tempDecryptedFile);
 
                 // Comparer les hashes
                 if (CalculateFileHash(element) != CalculateFileHash(tempDecryptedFile))
                 {
-                    // Les fichiers sont différents, chiffrer et remplacer le fichier cible
+                    // Les fichiers sont diffÃ©rents, chiffrer et remplacer le fichier cible
                     File.Copy(element, tempDecryptedFile, true);
                     CipherOrDecipher(tempDecryptedFile, encryptedTargetFile);
                 }
 
-                // Supprimer le fichier temporaire déchiffré
+                // Supprimer le fichier temporaire dÃ©chiffrÃ©
                 File.Delete(tempDecryptedFile);
             }
             else if (result == MessageBoxResult.No)
@@ -123,10 +123,10 @@ public class DifferentialSave : CommonSaveCommand
         string fileExtension = Path.GetExtension(element);
         string[] allowedExtensions = save.Extensions.Split(';');
 
-        // Si le fichier existe et que les hashs sont les mêmes
+        // Si le fichier existe et que les hashs sont les mÃªmes
         if (File.Exists(targetFile) && CalculateFileHash(element) == CalculateFileHash(targetFile))
         {
-            // Vérifie si l'extension du fichier fait partie des extensions à chiffrer, si oui : chiffrer
+            // VÃ©rifie si l'extension du fichier fait partie des extensions Ã  chiffrer, si oui : chiffrer
             if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)) || save.Extensions == ".*")
             {
                 string filename = Path.GetFileName(element);
@@ -136,7 +136,7 @@ public class DifferentialSave : CommonSaveCommand
                 File.Delete(targetFile);
             }
         }
-        // Si fichier n'exite pas ou que le hash est différent
+        // Si fichier n'exite pas ou que le hash est diffÃ©rent
         else
         {
             string filename = Path.GetFileName(element);
@@ -145,7 +145,7 @@ public class DifferentialSave : CommonSaveCommand
 
             if (File.Exists(encryptedTargetFile))
             {
-                // Déchiffrer le fichier cible pour comparaison
+                // DÃ©chiffrer le fichier cible pour comparaison
                 string tempDecryptedFile = Path.GetTempFileName();
 
                 CipherOrDecipher(encryptedTargetFile, tempDecryptedFile);
@@ -153,12 +153,12 @@ public class DifferentialSave : CommonSaveCommand
                 // Comparer les hashes
                 if (CalculateFileHash(element) != CalculateFileHash(tempDecryptedFile))
                 {
-                    // Les fichiers sont différents, chiffrer et remplacer le fichier cible
+                    // Les fichiers sont diffÃ©rents, chiffrer et remplacer le fichier cible
                     File.Copy(element, tempDecryptedFile, true);
                     CipherOrDecipher(tempDecryptedFile, encryptedTargetFile);
                 }
             }
-            // Vérifie si l'extension du fichier fait partie des extensions à chiffrer, si oui : copier et chiffrer
+            // VÃ©rifie si l'extension du fichier fait partie des extensions Ã  chiffrer, si oui : copier et chiffrer
             if (allowedExtensions.Any(ext => ext.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)) || save.Extensions == ".*")
             {
                 string filename1 = Path.GetFileName(targetFile);
@@ -169,7 +169,7 @@ public class DifferentialSave : CommonSaveCommand
 
                 CipherOrDecipher(element, targetFile);
 
-                /*MessageBoxResult result = MessageBox.Show($"Le fichier {element.Replace(save.SourcePath, save.TargetPath)} existait dans le dossier de destination mais non chiffré et dans une version différente. Voulez-vous supprimer ce fichier?", "Fichier existant : version différente non chiffrée", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                /*MessageBoxResult result = MessageBox.Show($"Le fichier {element.Replace(save.SourcePath, save.TargetPath)} existait dans le dossier de destination mais non chiffrÃ© et dans une version diffÃ©rente. Voulez-vous supprimer ce fichier?", "Fichier existant : version diffÃ©rente non chiffrÃ©e", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
                     File.Delete(element.Replace(save.SourcePath, save.TargetPath));
