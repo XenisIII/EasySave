@@ -46,7 +46,7 @@ public class CompleteSave : CommonSaveCommand
             {
                 return;
             }
-            if (process != null)
+            if (process != null && process != "")
             {
                 CheckProcess(process, save);
                 Application.Current.Dispatcher.Invoke(() =>
